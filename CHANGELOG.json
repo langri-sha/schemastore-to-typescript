@@ -2,6 +2,75 @@
   "name": "@langri-sha/schemastore-to-typescript",
   "entries": [
     {
+      "date": "Mon, 20 Jul 2026 10:17:52 GMT",
+      "version": "0.2.1",
+      "tag": "@langri-sha/schemastore-to-typescript_v0.2.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "email not defined",
+            "package": "@langri-sha/schemastore-to-typescript",
+            "commit": "04adc8ff4c0c712311f9328f89480fedf89bdb36",
+            "comment": "fix(schemastore-to-typescript): remove unused @ts-expect-error directive (TS2578)"
+          },
+          {
+            "author": "filip.dupanovic@gmail.com",
+            "package": "@langri-sha/schemastore-to-typescript",
+            "commit": "04adc8ff4c0c712311f9328f89480fedf89bdb36",
+            "comment": "Force CLI exit so a lingering handle cannot hang the runtime on nested re-runs"
+          },
+          {
+            "author": "filip.dupanovic@gmail.com",
+            "package": "@langri-sha/schemastore-to-typescript",
+            "commit": "04adc8ff4c0c712311f9328f89480fedf89bdb36",
+            "comment": "fix: attach { cause } to re-thrown errors (ESLint 10 preserve-caught-error)"
+          },
+          {
+            "author": "email not defined",
+            "package": "@langri-sha/schemastore-to-typescript",
+            "commit": "04adc8ff4c0c712311f9328f89480fedf89bdb36",
+            "comment": "fix(deps): update dependency es-main to v1.4.0"
+          },
+          {
+            "author": "email not defined",
+            "package": "@langri-sha/schemastore-to-typescript",
+            "commit": "04adc8ff4c0c712311f9328f89480fedf89bdb36",
+            "comment": "fix(deps): update dependency keyv-file to v5.3.3"
+          },
+          {
+            "author": "filip.dupanovic@gmail.com",
+            "package": "@langri-sha/schemastore-to-typescript",
+            "commit": "04adc8ff4c0c712311f9328f89480fedf89bdb36",
+            "comment": "chore: publish from langri-sha/projen, which now owns this package and its history"
+          },
+          {
+            "author": "filip.dupanovic@gmail.com",
+            "package": "@langri-sha/schemastore-to-typescript",
+            "commit": "04adc8ff4c0c712311f9328f89480fedf89bdb36",
+            "comment": "Drive the CLI through `.then`/`.catch` instead of a top-level await so a stalled cache request can no longer hang `prepare` as an unsettled top-level await (exit code 13)"
+          },
+          {
+            "author": "email not defined",
+            "package": "@langri-sha/schemastore-to-typescript",
+            "commit": "04adc8ff4c0c712311f9328f89480fedf89bdb36",
+            "comment": "fix(deps): update dependency debug to v4.4.3"
+          },
+          {
+            "author": "beachball",
+            "package": "@langri-sha/schemastore-to-typescript",
+            "comment": "Bump @langri-sha/tsconfig to v0.10.2",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@langri-sha/schemastore-to-typescript",
+            "comment": "Bump @langri-sha/vitest to v0.1.2",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Sun, 17 May 2026 20:22:40 GMT",
       "version": "0.2.0",
       "tag": "@langri-sha/schemastore-to-typescript_v0.2.0",

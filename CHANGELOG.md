@@ -1,8 +1,25 @@
 # Change Log - @langri-sha/schemastore-to-typescript
 
-This log was last generated on Sun, 17 May 2026 20:22:40 GMT and should not be manually modified.
+<!-- This log was last generated on Mon, 20 Jul 2026 10:17:52 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 0.2.1
+
+Mon, 20 Jul 2026 10:17:52 GMT
+
+### Patches
+
+- fix(schemastore-to-typescript): remove unused @ts-expect-error directive (TS2578) (email not defined)
+- Force CLI exit so a lingering handle cannot hang the runtime on nested re-runs (filip.dupanovic@gmail.com)
+- fix: attach { cause } to re-thrown errors (ESLint 10 preserve-caught-error) (filip.dupanovic@gmail.com)
+- fix(deps): update dependency es-main to v1.4.0 (email not defined)
+- fix(deps): update dependency keyv-file to v5.3.3 (email not defined)
+- chore: publish from langri-sha/projen, which now owns this package and its history (filip.dupanovic@gmail.com)
+- Drive the CLI through `.then`/`.catch` instead of a top-level await so a stalled cache request can no longer hang `prepare` as an unsettled top-level await (exit code 13) (filip.dupanovic@gmail.com)
+- fix(deps): update dependency debug to v4.4.3 (email not defined)
+- Bump @langri-sha/tsconfig to v0.10.2
+- Bump @langri-sha/vitest to v0.1.2
 
 ## 0.2.0
 
