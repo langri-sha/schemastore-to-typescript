@@ -1,8 +1,19 @@
 # Change Log - @langri-sha/schemastore-to-typescript
 
-<!-- This log was last generated on Mon, 20 Jul 2026 10:17:52 GMT and should not be manually modified. -->
+<!-- This log was last generated on Sat, 25 Jul 2026 15:41:25 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 0.2.2
+
+Sat, 25 Jul 2026 15:41:25 GMT
+
+### Patches
+
+- fix(deps): update dependency keyv-file to v5.3.5 (email not defined)
+- fix(deps): update dependency json-schema-to-typescript to v15.0.4 (email not defined)
+- Bump @langri-sha/tsconfig to v0.11.0
+- Bump @langri-sha/vitest to v0.1.3
 
 ## 0.2.1
 

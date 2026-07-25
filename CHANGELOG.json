@@ -2,6 +2,39 @@
   "name": "@langri-sha/schemastore-to-typescript",
   "entries": [
     {
+      "date": "Sat, 25 Jul 2026 15:41:25 GMT",
+      "version": "0.2.2",
+      "tag": "@langri-sha/schemastore-to-typescript_v0.2.2",
+      "comments": {
+        "patch": [
+          {
+            "author": "email not defined",
+            "package": "@langri-sha/schemastore-to-typescript",
+            "commit": "cc77bf3a23e5fcdd7c485421ab14b02ed061ce02",
+            "comment": "fix(deps): update dependency keyv-file to v5.3.5"
+          },
+          {
+            "author": "email not defined",
+            "package": "@langri-sha/schemastore-to-typescript",
+            "commit": "cc77bf3a23e5fcdd7c485421ab14b02ed061ce02",
+            "comment": "fix(deps): update dependency json-schema-to-typescript to v15.0.4"
+          },
+          {
+            "author": "beachball",
+            "package": "@langri-sha/schemastore-to-typescript",
+            "comment": "Bump @langri-sha/tsconfig to v0.11.0",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@langri-sha/schemastore-to-typescript",
+            "comment": "Bump @langri-sha/vitest to v0.1.3",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 20 Jul 2026 10:17:52 GMT",
       "version": "0.2.1",
       "tag": "@langri-sha/schemastore-to-typescript_v0.2.1",
