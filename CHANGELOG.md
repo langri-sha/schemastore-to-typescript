@@ -1,8 +1,18 @@
 # Change Log - @langri-sha/schemastore-to-typescript
 
-<!-- This log was last generated on Sat, 25 Jul 2026 15:41:25 GMT and should not be manually modified. -->
+<!-- This log was last generated on Sun, 26 Jul 2026 23:32:09 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 0.2.3
+
+Sun, 26 Jul 2026 23:32:09 GMT
+
+### Patches
+
+- fix(deps): update dependency env-paths to v4 (email not defined)
+- fix(deps): update dependency commander to v15 (email not defined)
+- Bump @langri-sha/vitest to v0.1.4
 
 ## 0.2.2
 
