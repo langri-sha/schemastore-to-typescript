@@ -33,6 +33,44 @@ interface Catalog {
   schemas: CatalogSchema[]
 }
 
+// Holds literal instance data rather than nested schemas, so it must not be
+// walked as if it were part of the schema shape.
+const nonSchemaKeys = new Set(['default', 'examples', 'const', 'enum'])
+
+/**
+ * Some published schemas (e.g. Renovate's `registryAliases`) combine a
+ * `$ref` with a concrete `additionalProperties` schema on the same node — a
+ * JSON Schema anti-pattern that `json-schema-to-typescript` compiles into an
+ * interface whose own properties conflict with its index signature,
+ * producing uncompilable TypeScript (TS2411). `additionalProperties` is the
+ * more specific, deliberate declaration, so drop the `$ref` in favor of it.
+ */
+const sanitizeSchema = <T>(node: T): T => {
+  if (Array.isArray(node)) {
+    return node.map(sanitizeSchema) as unknown as T
+  }
+
+  if (node === null || typeof node !== 'object') {
+    return node
+  }
+
+  const sanitized: Record<string, unknown> = {}
+
+  for (const [key, value] of Object.entries(node as Record<string, unknown>)) {
+    sanitized[key] = nonSchemaKeys.has(key) ? value : sanitizeSchema(value)
+  }
+
+  if (
+    typeof sanitized.$ref === 'string' &&
+    typeof sanitized.additionalProperties === 'object' &&
+    sanitized.additionalProperties !== null
+  ) {
+    delete sanitized.$ref
+  }
+
+  return sanitized as T
+}
+
 export const compile = async (
   name: string,
   cache: boolean = true,
@@ -143,5 +181,5 @@ export const compile = async (
     throw e
   }
 
-  return compileSource(schema, name)
+  return compileSource(sanitizeSchema(schema), name)
 }
