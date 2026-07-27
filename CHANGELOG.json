@@ -2,6 +2,27 @@
   "name": "@langri-sha/schemastore-to-typescript",
   "entries": [
     {
+      "date": "Mon, 27 Jul 2026 11:38:48 GMT",
+      "version": "0.2.6",
+      "tag": "@langri-sha/schemastore-to-typescript_v0.2.6",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@langri-sha/schemastore-to-typescript",
+            "comment": "Bump @langri-sha/tsconfig to v1.0.1",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@langri-sha/schemastore-to-typescript",
+            "comment": "Bump @langri-sha/vitest to v0.1.7",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 27 Jul 2026 11:17:23 GMT",
       "version": "0.2.5",
       "tag": "@langri-sha/schemastore-to-typescript_v0.2.5",
