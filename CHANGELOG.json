@@ -2,6 +2,33 @@
   "name": "@langri-sha/schemastore-to-typescript",
   "entries": [
     {
+      "date": "Mon, 27 Jul 2026 00:06:02 GMT",
+      "version": "0.2.4",
+      "tag": "@langri-sha/schemastore-to-typescript_v0.2.4",
+      "comments": {
+        "patch": [
+          {
+            "author": "filip.dupanovic@gmail.com",
+            "package": "@langri-sha/schemastore-to-typescript",
+            "commit": "06dbc4ef234068ef7afccface34e681640cf2c25",
+            "comment": "Update the synthesis command in generated file headers"
+          },
+          {
+            "author": "beachball",
+            "package": "@langri-sha/schemastore-to-typescript",
+            "comment": "Bump @langri-sha/tsconfig to v0.11.1",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@langri-sha/schemastore-to-typescript",
+            "comment": "Bump @langri-sha/vitest to v0.1.5",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Sun, 26 Jul 2026 23:32:09 GMT",
       "version": "0.2.3",
       "tag": "@langri-sha/schemastore-to-typescript_v0.2.3",
