@@ -1,8 +1,17 @@
 # Change Log - @langri-sha/schemastore-to-typescript
 
-<!-- This log was last generated on Mon, 27 Jul 2026 00:06:02 GMT and should not be manually modified. -->
+<!-- This log was last generated on Mon, 27 Jul 2026 11:17:23 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 0.2.5
+
+Mon, 27 Jul 2026 11:17:23 GMT
+
+### Patches
+
+- Bump @langri-sha/tsconfig to v1.0.0
+- Bump @langri-sha/vitest to v0.1.6
 
 ## 0.2.4
 
