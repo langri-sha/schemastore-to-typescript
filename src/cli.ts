@@ -18,7 +18,7 @@ export const program: Command = new Command()
   .option('-n, --no-cache', 'Skip caching requests')
   .showHelpAfterError()
   .action(async (schema, output, { cache }) => {
-    output ??= `${schema}.ts`
+    output ??= `${schema}.d.ts`
 
     const compiled = await compile(schema, cache)
     await fs.writeFile(
