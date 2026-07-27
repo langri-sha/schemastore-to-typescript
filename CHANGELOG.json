@@ -2,6 +2,27 @@
   "name": "@langri-sha/schemastore-to-typescript",
   "entries": [
     {
+      "date": "Mon, 27 Jul 2026 22:24:07 GMT",
+      "version": "0.2.7",
+      "tag": "@langri-sha/schemastore-to-typescript_v0.2.7",
+      "comments": {
+        "patch": [
+          {
+            "author": "filip.dupanovic@gmail.com",
+            "package": "@langri-sha/schemastore-to-typescript",
+            "commit": "b8065aa6948f97164ae7feb51dde66a37da01239",
+            "comment": "Emit generated schema modules as .ts so tsc compiles and publishes them"
+          },
+          {
+            "author": "beachball",
+            "package": "@langri-sha/schemastore-to-typescript",
+            "comment": "Bump @langri-sha/vitest to v0.1.8",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 27 Jul 2026 11:38:48 GMT",
       "version": "0.2.6",
       "tag": "@langri-sha/schemastore-to-typescript_v0.2.6",

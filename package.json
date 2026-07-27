@@ -1,6 +1,6 @@
 {
   "name": "@langri-sha/schemastore-to-typescript",
-  "version": "0.2.6",
+  "version": "0.2.7",
   "bugs": {
     "url": "https://github.com/langri-sha/projen/issues"
   },
