@@ -25,11 +25,11 @@ test('compiles schema to TypeScript', async () => {
   expect(compile).toHaveBeenCalledWith('swcrc', true)
 })
 
-test('saves output to default definition module path when not specified', async () => {
+test('saves output to default module path when not specified', async () => {
   await program.parseAsync(['node', 'cli.ts', 'swcrc'])
 
   await expect(
-    fs.stat(path.join(process.cwd(), 'swcrc.d.ts')),
+    fs.stat(path.join(process.cwd(), 'swcrc.ts')),
   ).resolves.toBeTruthy()
 })
 
@@ -37,12 +37,12 @@ test('saves compiled contents', async () => {
   await program.parseAsync(['node', 'cli.ts', 'swcrc'])
 
   expect(
-    (await fs.readFile(path.join(process.cwd(), 'swcrc.d.ts'))).toString(),
+    (await fs.readFile(path.join(process.cwd(), 'swcrc.ts'))).toString(),
   ).toMatchInlineSnapshot(`"export {}"`)
 })
 
-test('saves definition module to specified output path', async () => {
-  const output = path.join(temporaryDirectory(), 'swcrc.d.ts')
+test('saves module to specified output path', async () => {
+  const output = path.join(temporaryDirectory(), 'swcrc.ts')
   await program.parseAsync(['node', 'cli.ts', 'swcrc', output])
 
   await expect(fs.stat(output)).resolves.toBeTruthy()
