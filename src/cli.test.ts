@@ -1,7 +1,7 @@
 import * as fs from 'node:fs/promises'
 import * as path from 'node:path'
 
-import { beforeAll, tempy, test } from '@langri-sha/vitest'
+import { beforeAll, temporaryDirectory, test } from '@langri-sha/vitest'
 import { expect, vi } from 'vitest'
 
 import { program } from './cli.js'
@@ -11,7 +11,7 @@ import { compile } from './index.js'
 vi.mock('./index', () => ({ compile: vi.fn(() => 'export {}') }))
 
 beforeAll(async () => {
-  vi.spyOn(process, 'cwd').mockReturnValue(tempy.directory())
+  vi.spyOn(process, 'cwd').mockReturnValue(temporaryDirectory())
   await fs.mkdir(process.cwd(), { recursive: true })
 
   return () => {
@@ -42,7 +42,7 @@ test('saves compiled contents', async () => {
 })
 
 test('saves definition module to specified output path', async () => {
-  const output = path.join(tempy.directory(), 'swcrc.d.ts')
+  const output = path.join(temporaryDirectory(), 'swcrc.d.ts')
   await program.parseAsync(['node', 'cli.ts', 'swcrc', output])
 
   await expect(fs.stat(output)).resolves.toBeTruthy()

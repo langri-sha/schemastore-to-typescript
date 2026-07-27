@@ -1,14 +1,20 @@
 import * as fs from 'node:fs/promises'
 import * as path from 'node:path'
 
-import { afterEach, expect, nock, tempy, test } from '@langri-sha/vitest'
+import {
+  afterEach,
+  expect,
+  nock,
+  temporaryDirectory,
+  test,
+} from '@langri-sha/vitest'
 import envPaths from 'env-paths'
 import { vi } from 'vitest'
 
 import { compile } from './index.js'
 
 vi.mock('env-paths', () => {
-  const cache = tempy.directory()
+  const cache = temporaryDirectory()
 
   return {
     default: () => ({ cache }),
