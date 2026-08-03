@@ -1,4 +1,3 @@
-import * as fs from 'node:fs/promises'
 import * as path from 'node:path'
 
 import {
@@ -9,6 +8,9 @@ import {
   test,
 } from '@langri-sha/vitest'
 import envPaths from 'env-paths'
+import got from 'got'
+import Keyv from 'keyv'
+import { KeyvFile } from 'keyv-file'
 import { vi } from 'vitest'
 
 import { compile } from './index.js'
@@ -20,8 +22,6 @@ vi.mock('env-paths', () => {
     default: () => ({ cache }),
   }
 })
-
-const paths = envPaths('schemastore-to-typescript')
 
 afterEach(() => {
   nock.cleanAll()
@@ -152,9 +152,10 @@ test('drops a $ref sibling to a concrete additionalProperties schema', async () 
   `)
 })
 
-test('uses cache', async () => {
+test('reuses the schema cache within a process', async () => {
   nock('https://www.schemastore.org')
     .get('/api/json/catalog.json')
+    .times(2)
     .reply(200, {
       $schema: 'https://json.schemastore.org/schema-catalog.json',
       version: 1,
@@ -166,6 +167,34 @@ test('uses cache', async () => {
         },
       ],
     })
+
+  nock('https://example.com')
+    .get('/foobar.json')
+    .reply(
+      200,
+      {
+        $schema: 'http://json-schema.org/draft-07/schema#',
+        title: 'Foobar Schema',
+        type: 'object',
+        properties: {
+          id: {
+            type: 'string',
+            description: 'The unique identifier for a foobar item.',
+          },
+        },
+        required: ['id'],
+      },
+      { 'Cache-Control': 'public, max-age=3600' },
+    )
+
+  const first = await compile('foobar')
+  const second = await compile('foobar')
+
+  expect(second).toBe(first)
+})
+
+test('persists the schema cache to disk for a fresh instance to reuse', async () => {
+  nock('https://www.schemastore.org')
     .get('/api/json/catalog.json')
     .reply(200, {
       $schema: 'https://json.schemastore.org/schema-catalog.json',
@@ -195,54 +224,24 @@ test('uses cache', async () => {
         },
         required: ['id'],
       },
-      {
-        'Cache-Control': 'public, max-age=3600',
-      },
-    )
-    .get('/foobar.json')
-    .reply(
-      200,
-      {
-        $schema: 'http://json-schema.org/draft-07/schema#',
-        title: 'Barbaz Schema',
-        type: 'object',
-        properties: {
-          id: {
-            type: 'string',
-            description: 'The unique identifier for a barbaz item.',
-          },
-        },
-        required: ['id'],
-      },
-
-      {
-        'Cache-Control': 'public, max-age=3600',
-        ETag: 'etag123',
-      },
+      { 'Cache-Control': 'public, max-age=3600' },
     )
 
-  expect(await compile('foobar')).toBe(await compile('foobar'))
+  await compile('foobar')
 
-  await new Promise((resolve) => {
-    setTimeout(resolve, 500)
+  await new Promise((resolve) => setTimeout(resolve, 500))
+
+  const paths = envPaths('schemastore-to-typescript')
+  const freshCache = new Keyv({
+    store: new KeyvFile({ filename: path.join(paths.cache, 'requests.json') }),
   })
 
-  const cached = JSON.parse(
-    (await fs.readFile(path.join(paths.cache, 'requests.json'))).toString(
-      'utf8',
-    ),
-  )
+  const response = await got('https://example.com/foobar.json', {
+    cache: freshCache,
+    headers: { accept: 'application/json' },
+  })
 
-  const cacheKeys = cached.cache.map((item: [string, unknown]) => item[0])
-
-  const hasCatalogCache = cacheKeys.some((key: string) =>
-    key.includes('https://www.schemastore.org/api/json/catalog.json'),
-  )
-  const hasSchemaCache = cacheKeys.some((key: string) =>
-    key.includes('https://example.com/foobar.json'),
-  )
-
-  expect(hasCatalogCache || hasSchemaCache).toBe(true)
+  expect(response.isFromCache).toBe(true)
 })
 
 test('wide accept header', async () => {
