@@ -1,8 +1,18 @@
 # Change Log - @langri-sha/schemastore-to-typescript
 
-<!-- This log was last generated on Mon, 27 Jul 2026 22:24:07 GMT and should not be manually modified. -->
+<!-- This log was last generated on Tue, 04 Aug 2026 04:27:48 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 0.2.8
+
+Tue, 04 Aug 2026 04:27:48 GMT
+
+### Patches
+
+- Upgrade keyv to v5 and got to 14.6.6 (filip.dupanovic@gmail.com)
+- Update dependency got to v15 (email not defined)
+- Bump @langri-sha/vitest to v0.1.9
 
 ## 0.2.7
 
