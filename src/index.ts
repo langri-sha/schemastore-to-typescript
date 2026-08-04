@@ -44,6 +44,20 @@ const nonSchemaKeys = new Set(['default', 'examples', 'const', 'enum'])
  * interface whose own properties conflict with its index signature,
  * producing uncompilable TypeScript (TS2411). `additionalProperties` is the
  * more specific, deliberate declaration, so drop the `$ref` in favor of it.
+ *
+ * A node declaring `additionalProperties` at all compiles to an interface
+ * carrying a string index signature, and an optional member cannot sit beside
+ * one: its `undefined` is not assignable to the index type, which is TS2411
+ * again (Cargo's `[features]`, `[patch]` and `[lints]`). Where the index type
+ * is `unknown` the compiler does allow it, but the named members are then
+ * advisory — the same index signature accepts them either way, and following
+ * one is how Cargo's `package.metadata` reaches `quikrun`, a mutually
+ * recursive schema that overflows the compiler's stack and takes the whole
+ * manifest down with it.
+ *
+ * So optional members are dropped in favour of `additionalProperties`, which
+ * is the general contract they were there to narrow. Required ones stay: they
+ * are a promise the type has to keep.
  */
 const sanitizeSchema = <T>(node: T): T => {
   if (Array.isArray(node)) {
@@ -66,6 +80,29 @@ const sanitizeSchema = <T>(node: T): T => {
     sanitized.additionalProperties !== null
   ) {
     delete sanitized.$ref
+  }
+
+  if (
+    sanitized.additionalProperties !== undefined &&
+    sanitized.additionalProperties !== false &&
+    typeof sanitized.properties === 'object' &&
+    sanitized.properties !== null
+  ) {
+    const required = new Set(
+      Array.isArray(sanitized.required) ? sanitized.required : [],
+    )
+
+    const properties = Object.fromEntries(
+      Object.entries(sanitized.properties).filter(([property]) =>
+        required.has(property),
+      ),
+    )
+
+    if (Object.keys(properties).length > 0) {
+      sanitized.properties = properties
+    } else {
+      delete sanitized.properties
+    }
   }
 
   return sanitized as T
