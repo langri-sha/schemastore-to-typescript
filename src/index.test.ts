@@ -25,6 +25,7 @@ vi.mock('env-paths', () => {
 
 afterEach(() => {
   nock.cleanAll()
+  vi.restoreAllMocks()
 })
 
 test('compiles to TypeScript', async () => {
@@ -327,14 +328,82 @@ test('persists the schema cache to disk for a fresh instance to reuse', async ()
 
   await compile('foobar')
 
-  await new Promise((resolve) => setTimeout(resolve, 500))
-
   const paths = envPaths('schemastore-to-typescript')
   const freshCache = new Keyv({
     store: new KeyvFile({ filename: path.join(paths.cache, 'requests.json') }),
   })
 
   const response = await got('https://example.com/foobar.json', {
+    cache: freshCache,
+    headers: { accept: 'application/json' },
+  })
+
+  expect(response.isFromCache).toBe(true)
+})
+
+test('persists a response cached while an earlier write is in flight', async () => {
+  nock('https://www.schemastore.org')
+    .get('/api/json/catalog.json')
+    .reply(
+      200,
+      {
+        $schema: 'https://json.schemastore.org/schema-catalog.json',
+        version: 1,
+        schemas: [
+          {
+            name: 'Slow',
+            description: 'Slow schema description',
+            url: 'https://example.com/slow.json',
+          },
+        ],
+      },
+      { 'Cache-Control': 'public, max-age=0' },
+    )
+
+  nock('https://example.com')
+    .get('/slow.json')
+    .reply(
+      200,
+      {
+        $schema: 'http://json-schema.org/draft-07/schema#',
+        title: 'Slow Schema',
+        type: 'object',
+        properties: {
+          id: {
+            type: 'string',
+            description: 'The unique identifier for a slow item.',
+          },
+        },
+        required: ['id'],
+      },
+      { 'Cache-Control': 'public, max-age=3600' },
+    )
+
+  const prototype = KeyvFile.prototype as unknown as {
+    saveToDisk(): Promise<unknown>
+  }
+  const saveToDisk = prototype.saveToDisk
+
+  vi.spyOn(prototype, 'saveToDisk').mockImplementation(function (
+    this: typeof prototype,
+  ) {
+    const written = saveToDisk.call(this)
+
+    return new Promise((resolve, reject) => {
+      setTimeout(() => written.then(resolve, reject), 100)
+    })
+  })
+
+  await compile('slow')
+
+  vi.restoreAllMocks()
+
+  const paths = envPaths('schemastore-to-typescript')
+  const freshCache = new Keyv({
+    store: new KeyvFile({ filename: path.join(paths.cache, 'requests.json') }),
+  })
+
+  const response = await got('https://example.com/slow.json', {
     cache: freshCache,
     headers: { accept: 'application/json' },
   })

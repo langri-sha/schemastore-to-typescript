@@ -13,12 +13,40 @@ import { KeyvFile } from 'keyv-file'
 const debug = createDebug('schema-store-to-typescript')
 const paths = envPaths('schemastore-to-typescript')
 
-const keyv = new Keyv({
-  store: new KeyvFile({
-    filename: path.join(paths.cache, 'requests.json'),
-    writeDelay: 0,
-  }),
+const store = new KeyvFile({
+  filename: path.join(paths.cache, 'requests.json'),
+  writeDelay: 0,
 })
+
+const keyv = new Keyv({ store })
+
+// Both are declared private in keyv-file's typings, but flushing the cache
+// needs them — see `flushCache`.
+const flushable = store as unknown as {
+  save(): Promise<unknown>
+  saveToDisk(): Promise<unknown>
+}
+
+/**
+ * `keyv-file@5.3.5` coalesces a `set` onto an in-flight save: `saveToDisk`
+ * snapshots the store synchronously at entry, then awaits `mkdir` and
+ * `writeFile`, and only clears the in-flight promise afterwards. A `set`
+ * landing in that window gets that promise back — it resolves, but the value
+ * was never in the snapshot and no further save is scheduled, so it stays in
+ * memory for the rest of the process.
+ *
+ * `compile` writes the catalog and then the schema straight into that window,
+ * which loses the schema. `writeDelay` is no help: the window is the write
+ * itself, not the timer.
+ *
+ * So settle whatever is in flight first — its `writeFile` would otherwise race
+ * ours and could land last with the older snapshot — and then write the
+ * current one unconditionally.
+ */
+const flushCache = async () => {
+  await flushable.save()
+  await flushable.saveToDisk()
+}
 
 interface CatalogSchema {
   name: string
@@ -216,6 +244,10 @@ export const compile = async (
     }
 
     throw e
+  }
+
+  if (cache) {
+    await flushCache()
   }
 
   return compileSource(sanitizeSchema(schema), name)
