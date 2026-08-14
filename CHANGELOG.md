@@ -1,8 +1,17 @@
 # Change Log - @langri-sha/schemastore-to-typescript
 
-<!-- This log was last generated on Tue, 04 Aug 2026 04:27:48 GMT and should not be manually modified. -->
+<!-- This log was last generated on Fri, 14 Aug 2026 21:44:42 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 0.2.9
+
+Fri, 14 Aug 2026 21:44:42 GMT
+
+### Patches
+
+- Drop optional members named beside an index signature (filip.dupanovic@gmail.com)
+- Flush the request cache to disk so a response cached during an in-flight write is not silently dropped (filip.dupanovic@gmail.com)
 
 ## 0.2.8
 

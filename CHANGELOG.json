@@ -2,6 +2,27 @@
   "name": "@langri-sha/schemastore-to-typescript",
   "entries": [
     {
+      "date": "Fri, 14 Aug 2026 21:44:42 GMT",
+      "version": "0.2.9",
+      "tag": "@langri-sha/schemastore-to-typescript_v0.2.9",
+      "comments": {
+        "patch": [
+          {
+            "author": "filip.dupanovic@gmail.com",
+            "package": "@langri-sha/schemastore-to-typescript",
+            "commit": "989def9db328952b5ad9fa0f77108d9f98c601fd",
+            "comment": "Drop optional members named beside an index signature"
+          },
+          {
+            "author": "filip.dupanovic@gmail.com",
+            "package": "@langri-sha/schemastore-to-typescript",
+            "commit": "989def9db328952b5ad9fa0f77108d9f98c601fd",
+            "comment": "Flush the request cache to disk so a response cached during an in-flight write is not silently dropped"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 04 Aug 2026 04:27:48 GMT",
       "version": "0.2.8",
       "tag": "@langri-sha/schemastore-to-typescript_v0.2.8",
