@@ -10,6 +10,8 @@ import {
 import Keyv from 'keyv'
 import { KeyvFile } from 'keyv-file'
 
+import { normalizeSchema } from './normalize.js'
+
 const debug = createDebug('schema-store-to-typescript')
 const paths = envPaths('schemastore-to-typescript')
 
@@ -250,5 +252,5 @@ export const compile = async (
     await flushCache()
   }
 
-  return compileSource(sanitizeSchema(schema), name)
+  return compileSource(sanitizeSchema(normalizeSchema(schema)), name)
 }
