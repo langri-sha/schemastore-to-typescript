@@ -2,6 +2,21 @@
   "name": "@langri-sha/schemastore-to-typescript",
   "entries": [
     {
+      "date": "Mon, 31 Aug 2026 21:36:20 GMT",
+      "version": "0.2.10",
+      "tag": "@langri-sha/schemastore-to-typescript_v0.2.10",
+      "comments": {
+        "patch": [
+          {
+            "author": "email not defined",
+            "package": "@langri-sha/schemastore-to-typescript",
+            "commit": "210a6d38c579cf9613a6e8574116c1bffc62cd6b",
+            "comment": "Update dependency json-schema-to-typescript to v16"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 14 Aug 2026 21:44:42 GMT",
       "version": "0.2.9",
       "tag": "@langri-sha/schemastore-to-typescript_v0.2.9",

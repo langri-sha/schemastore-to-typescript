@@ -1,8 +1,16 @@
 # Change Log - @langri-sha/schemastore-to-typescript
 
-<!-- This log was last generated on Fri, 14 Aug 2026 21:44:42 GMT and should not be manually modified. -->
+<!-- This log was last generated on Mon, 31 Aug 2026 21:36:20 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 0.2.10
+
+Mon, 31 Aug 2026 21:36:20 GMT
+
+### Patches
+
+- Update dependency json-schema-to-typescript to v16
 
 ## 0.2.9
 
