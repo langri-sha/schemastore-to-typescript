@@ -2,6 +2,27 @@
   "name": "@langri-sha/schemastore-to-typescript",
   "entries": [
     {
+      "date": "Thu, 10 Sep 2026 07:59:13 GMT",
+      "version": "0.2.11",
+      "tag": "@langri-sha/schemastore-to-typescript_v0.2.11",
+      "comments": {
+        "patch": [
+          {
+            "author": "filip.dupanovic@gmail.com",
+            "package": "@langri-sha/schemastore-to-typescript",
+            "commit": "54d9956e10e4517164cc2234d4041c472930a259",
+            "comment": "Compile draft 2020-12 schemas with $defs and a root $ref"
+          },
+          {
+            "author": "email not defined",
+            "package": "@langri-sha/schemastore-to-typescript",
+            "commit": "54d9956e10e4517164cc2234d4041c472930a259",
+            "comment": "Update dependency got to v16"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 31 Aug 2026 21:36:20 GMT",
       "version": "0.2.10",
       "tag": "@langri-sha/schemastore-to-typescript_v0.2.10",
