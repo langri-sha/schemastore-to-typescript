@@ -550,7 +550,7 @@ test('handles missing schemas', async () => {
       ],
     })
 
-  expect(compile('unknown')).rejects.toThrow(
+  await expect(compile('unknown')).rejects.toThrow(
     /Couldn't find schema unknown in the catalog/,
   )
 })
@@ -560,7 +560,7 @@ test('handles catalog fetch errors', async () => {
     .get('/api/json/catalog.json')
     .replyWithError('Something went wrong')
 
-  expect(compile('err')).rejects.toThrow(/Something went wrong/)
+  await expect(compile('err')).rejects.toThrow(/Something went wrong/)
 })
 
 test('handles schema fetch errors', async () => {
@@ -582,7 +582,9 @@ test('handles schema fetch errors', async () => {
     .get('/err.json')
     .replyWithError('Something went wrong fetching schema')
 
-  expect(compile('err')).rejects.toThrow(/Something went wrong fetching schema/)
+  await expect(compile('err')).rejects.toThrow(
+    /Something went wrong fetching schema/,
+  )
 })
 
 test('handles schema 404 errors', async () => {
@@ -602,7 +604,7 @@ test('handles schema 404 errors', async () => {
 
   nock('https://example.com').get('/notfound.json').reply(404)
 
-  expect(compile('notfound')).rejects.toThrow(
+  await expect(compile('notfound')).rejects.toThrow(
     /Couldn't find schema notfound at https:\/\/example.com\/notfound.json/,
   )
 })
