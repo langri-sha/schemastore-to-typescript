@@ -1,0 +1,25 @@
+name: Workspace
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  check:
+    # The called workflow's Renovate post-upgrade job declares `contents:
+    # write`, and a called job may not exceed the caller's ceiling. Without
+    # this the run fails at startup before any job is created.
+    permissions:
+      contents: write
+    uses: langri-sha/github/.github/workflows/check.yml@v0.15.1
+    with:
+      beachball: true
+      eslint: true
+      packages: true
+      prettier: true
+      projen: true
+      typescript: true
+      vitest: true
+    secrets: inherit
