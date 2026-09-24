@@ -1,13 +1,20 @@
 {
   "name": "@langri-sha/schemastore-to-typescript",
   "version": "0.2.12",
+  "description": "Fetch JSON schemas from the JSON Schema Store catalog and compile them to TypeScript typings",
+  "keywords": [
+    "cli",
+    "json-schema",
+    "schemastore",
+    "typescript"
+  ],
+  "homepage": "https://github.com/langri-sha/schemastore-to-typescript#readme",
   "bugs": {
-    "url": "https://github.com/langri-sha/projen/issues"
+    "url": "https://github.com/langri-sha/schemastore-to-typescript/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/langri-sha/projen.git",
-    "directory": "packages/schemastore-to-typescript"
+    "url": "git+https://github.com/langri-sha/schemastore-to-typescript.git"
   },
   "license": "MIT",
   "author": {
@@ -22,7 +29,12 @@
     "schemastore-to-typescript": "src/cli.ts"
   },
   "scripts": {
-    "prepublishOnly": "rm -rf dist; tsc --project tsconfig.build.json"
+    "change": "pnpm exec projen change",
+    "default": "pnpm exec projen default",
+    "prepare": "husky",
+    "prepublishOnly": "rm -rf dist; tsc --project tsconfig.build.json",
+    "renovate": "pnpm exec projen renovate",
+    "test": "vitest"
   },
   "dependencies": {
     "commander": "15.0.0",
@@ -35,12 +47,30 @@
     "keyv-file": "5.3.5"
   },
   "devDependencies": {
-    "@langri-sha/tsconfig": "workspace:*",
-    "@langri-sha/vitest": "workspace:*",
-    "@types/debug": "4.1.13"
+    "@langri-sha/eslint-config": "0.9.15",
+    "@langri-sha/lint-staged": "0.9.7",
+    "@langri-sha/prettier": "0.4.7",
+    "@langri-sha/projen-project": "0.31.0",
+    "@langri-sha/tsconfig": "1.0.1",
+    "@langri-sha/vitest": "0.2.0",
+    "@types/debug": "4.1.13",
+    "@types/node": "24.13.6",
+    "beachball": "2.66.0",
+    "eslint": "10.11.0",
+    "husky": "9.1.7",
+    "lint-staged": "17.5.1",
+    "prettier": "3.9.8",
+    "projen": "0.86.5",
+    "tsx": "4.23.13",
+    "typescript": "5.9.3",
+    "vitest": "5.0.1"
   },
-  "peerDependencies": {
-    "projen": "^0.86.0"
+  "packageManager": "pnpm@12.5.1",
+  "devEngines": {
+    "runtime": {
+      "name": "node",
+      "version": ">= 24.16.0"
+    }
   },
   "publishConfig": {
     "access": "public",

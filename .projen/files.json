@@ -1,11 +1,22 @@
 {
   "files": [
+    ".editorconfig",
+    ".gitattributes",
     ".gitignore",
+    ".husky/pre-commit",
     ".npmignore",
+    ".prettierignore",
     ".projen/deps.json",
     ".projen/files.json",
     ".projen/tasks.json",
+    "beachball.config.cjs",
+    "CODEOWNERS",
+    "eslint.config.js",
     "license",
+    "lint-staged.config.js",
+    "pnpm-workspace.yaml",
+    "prettier.config.js",
+    "renovate.json5",
     "tsconfig.build.json",
     "tsconfig.json"
   ],

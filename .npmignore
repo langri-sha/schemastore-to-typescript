@@ -3,3 +3,9 @@
 tsconfig*.json
 *.test.*
 __snapshots__/
+/*.config.*
+/*.json5
+/*.yaml
+/AGENTS.md
+/CODEOWNERS
+/change/

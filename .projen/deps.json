@@ -1,13 +1,33 @@
 {
   "dependencies": [
     {
-      "name": "@langri-sha/tsconfig",
+      "name": "@langri-sha/eslint-config",
+      "version": "0.9.15",
+      "type": "build"
+    },
+    {
+      "name": "@langri-sha/lint-staged",
+      "version": "0.9.7",
+      "type": "build"
+    },
+    {
+      "name": "@langri-sha/prettier",
+      "version": "0.4.7",
+      "type": "build"
+    },
+    {
+      "name": "@langri-sha/projen-project",
       "version": "*",
       "type": "build"
     },
     {
+      "name": "@langri-sha/tsconfig",
+      "version": "1.0.1",
+      "type": "build"
+    },
+    {
       "name": "@langri-sha/vitest",
-      "version": "workspace:*",
+      "version": "0.2.0",
       "type": "build"
     },
     {
@@ -16,9 +36,54 @@
       "type": "build"
     },
     {
+      "name": "@types/node",
+      "version": "24.13.6",
+      "type": "build"
+    },
+    {
+      "name": "beachball",
+      "version": "2.66.0",
+      "type": "build"
+    },
+    {
+      "name": "eslint",
+      "version": "10.11.0",
+      "type": "build"
+    },
+    {
+      "name": "husky",
+      "version": "9.1.7",
+      "type": "build"
+    },
+    {
+      "name": "lint-staged",
+      "version": "17.5.1",
+      "type": "build"
+    },
+    {
+      "name": "prettier",
+      "version": "3.9.8",
+      "type": "build"
+    },
+    {
       "name": "projen",
-      "version": "^0.86.0",
-      "type": "peer"
+      "version": "0.86.5",
+      "type": "build"
+    },
+    {
+      "name": "tsx",
+      "version": "4.23.13",
+      "type": "build"
+    },
+    {
+      "name": "typescript",
+      "version": "5.9.3",
+      "type": "build"
+    },
+    {
+      "name": "vitest",
+      "version": "5.0.1",
+      "type": "build"
     },
     {
       "name": "commander",

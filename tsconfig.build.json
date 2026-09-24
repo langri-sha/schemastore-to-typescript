@@ -2,5 +2,6 @@
 {
   "$schema": "https://json.schemastore.org/tsconfig",
   "extends": "@langri-sha/tsconfig/build",
+  "include": ["src"],
   "exclude": ["**/*.test.*"]
 }
