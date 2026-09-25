@@ -12,5 +12,4 @@ jobs:
     uses: langri-sha/github/.github/workflows/packages.yml@v0.15.1
     with:
       environment: release
-      scope: '@langri-sha'
     secrets: inherit
