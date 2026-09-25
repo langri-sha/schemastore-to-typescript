@@ -1,4 +1,4 @@
-# @langri-sha/schemastore-to-typescript
+# schemastore-to-typescript
 
 Fetch [JSON Schema] from the [JSON Schema Store] catalog and compile [TypeScript
 typings].
@@ -17,7 +17,7 @@ and compiles the schema to TypeScript definitions.
 ## Usage
 
 ```sh
-npm install -D @langri-sha/schemastore-to-typescript
+npm install -D schemastore-to-typescript
 ```
 
 Name a schema as it appears in the catalog, and optionally where to write its
@@ -36,7 +36,7 @@ The same is available as a function, which resolves to the compiled module and
 takes `false` as its second argument to skip the cache:
 
 ```ts
-import { compile } from '@langri-sha/schemastore-to-typescript'
+import { compile } from 'schemastore-to-typescript'
 
 const typings = await compile('swcrc')
 ```

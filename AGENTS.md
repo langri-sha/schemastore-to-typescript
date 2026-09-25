@@ -1,8 +1,7 @@
 # Agents orientation — `langri-sha/schemastore-to-typescript`
 
-`@langri-sha/schemastore-to-typescript` compiles a JSON Schema Store schema to
-TypeScript, as a CLI and as a `compile` function. The package is the repository
-root.
+`schemastore-to-typescript` compiles a JSON Schema Store schema to TypeScript,
+as a CLI and as a `compile` function. The package is the repository root.
 
 ## Who owns which file
 
@@ -61,3 +60,6 @@ messages. The history reaches back to 2024-06-24, when the package started in
 `langri-sha/langri-sha.com`, which handed it to projen on 2026-07-20. Issue and
 pull request numbers in those older messages refer to the two source
 repositories.
+
+Up to 0.2.12 it was published as `@langri-sha/schemastore-to-typescript`, which
+is deprecated in favour of this name.

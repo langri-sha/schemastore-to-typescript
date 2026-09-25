@@ -1,7 +1,7 @@
 import { Project, TypeScriptConfig } from '@langri-sha/projen-project'
 
 const project = new Project({
-  name: '@langri-sha/schemastore-to-typescript',
+  name: 'schemastore-to-typescript',
   package: {
     authorEmail: 'filip.dupanovic@gmail.com',
     authorName: 'Filip Dupanović',
