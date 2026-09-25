@@ -1,6 +1,6 @@
 {
   "name": "schemastore-to-typescript",
-  "version": "0.2.12",
+  "version": "0.2.13",
   "description": "Fetch JSON schemas from the JSON Schema Store catalog and compile them to TypeScript typings",
   "keywords": [
     "cli",

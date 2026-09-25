@@ -1,6 +1,33 @@
 {
-  "name": "@langri-sha/schemastore-to-typescript",
+  "name": "schemastore-to-typescript",
   "entries": [
+    {
+      "date": "Fri, 25 Sep 2026 18:32:05 GMT",
+      "version": "0.2.13",
+      "tag": "schemastore-to-typescript_v0.2.13",
+      "comments": {
+        "patch": [
+          {
+            "author": "filip.dupanovic@gmail.com",
+            "package": "schemastore-to-typescript",
+            "commit": "0a7b63cb57eea122fcd3c65168abf5ac445edf76",
+            "comment": "Publish from langri-sha/schemastore-to-typescript, which now owns this package and its history"
+          },
+          {
+            "author": "filip.dupanovic@gmail.com",
+            "package": "schemastore-to-typescript",
+            "commit": "0a7b63cb57eea122fcd3c65168abf5ac445edf76",
+            "comment": "Drop the projen peer dependency, which nothing in the package uses"
+          },
+          {
+            "author": "filip.dupanovic@gmail.com",
+            "package": "schemastore-to-typescript",
+            "commit": "0a7b63cb57eea122fcd3c65168abf5ac445edf76",
+            "comment": "Rename from @langri-sha/schemastore-to-typescript"
+          }
+        ]
+      }
+    },
     {
       "date": "Mon, 21 Sep 2026 10:53:40 GMT",
       "version": "0.2.12",

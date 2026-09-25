@@ -1,8 +1,18 @@
-# Change Log - @langri-sha/schemastore-to-typescript
+# Change Log - schemastore-to-typescript
 
-<!-- This log was last generated on Mon, 21 Sep 2026 10:53:40 GMT and should not be manually modified. -->
+<!-- This log was last generated on Fri, 25 Sep 2026 18:32:05 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 0.2.13
+
+Fri, 25 Sep 2026 18:32:05 GMT
+
+### Patches
+
+- Publish from langri-sha/schemastore-to-typescript, which now owns this package and its history (filip.dupanovic@gmail.com)
+- Drop the projen peer dependency, which nothing in the package uses (filip.dupanovic@gmail.com)
+- Rename from @langri-sha/schemastore-to-typescript (filip.dupanovic@gmail.com)
 
 ## 0.2.12
 
