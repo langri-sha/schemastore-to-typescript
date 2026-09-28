@@ -35,9 +35,9 @@ same pull request. Root tooling does not: `beachball.config.cjs` lists what is
 exempt, so lock file maintenance never cuts a release.
 
 `main`, `types` and `bin` point at `src/` in the repository, and `publishConfig`
-swaps them for `dist/`, which `prepublishOnly` builds. The tarball still ships
-`src/`: the langri-sha/projen packages run `src/cli.ts` through `tsx` in their
-`prepare` scripts.
+swaps them for `dist/`, which `prepublishOnly` builds. The tarball leaves `src/`
+out, but a local `npm pack` still lists it: `main` and `bin` pull it in until
+beachball applies `publishConfig` at publish time.
 
 There is deliberately no `engines` field. Published from the root, it would bind
 consumers to the Node.js release this repository is developed on, so that lives

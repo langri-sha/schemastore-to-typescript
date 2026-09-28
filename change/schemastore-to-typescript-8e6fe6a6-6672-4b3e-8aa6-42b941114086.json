@@ -1,0 +1,7 @@
+{
+  "type": "major",
+  "comment": "Stop shipping the TypeScript sources in `src/`",
+  "packageName": "schemastore-to-typescript",
+  "email": "filip.dupanovic@gmail.com",
+  "dependentChangeType": "patch"
+}
