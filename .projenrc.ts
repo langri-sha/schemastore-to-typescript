@@ -84,6 +84,7 @@ const project = new Project({
       '/AGENTS.md',
       '/CODEOWNERS',
       '/change/',
+      '/src/',
     ],
   },
   pnpmWorkspace: {
@@ -162,6 +163,9 @@ new TypeScriptConfig(project, {
   fileName: 'tsconfig.build.json',
   config: {
     extends: '@langri-sha/tsconfig/build',
+    compilerOptions: {
+      declarationMap: false,
+    },
     include: ['src'],
     exclude: ['**/*.test.*'],
   },
