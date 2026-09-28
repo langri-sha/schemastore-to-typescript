@@ -42,7 +42,7 @@ const project = new Project({
       '@langri-sha/vitest@0.2.0',
       '@types/debug@4.1.13',
       '@types/node@24.13.6',
-      'vitest@5.0.1',
+      'vitest@5.0.2',
     ],
   },
   beachball: {
