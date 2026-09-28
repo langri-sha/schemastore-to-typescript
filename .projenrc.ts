@@ -47,6 +47,7 @@ const project = new Project({
   },
   beachball: {
     config: {
+      gitTags: true,
       // The package is the repository root, so these would otherwise demand a
       // release for changes that never reach the tarball.
       ignorePatterns: [
