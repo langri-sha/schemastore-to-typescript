@@ -1,7 +1,7 @@
 /** @type {import('beachball').BeachballConfig} */
 module.exports = {
   branch: 'origin/main',
-  gitTags: false,
+  gitTags: true,
   ignorePatterns: [
     '*.test.*',
     '.*/**',
