@@ -41,7 +41,7 @@ const project = new Project({
       '@langri-sha/tsconfig@1.0.1',
       '@langri-sha/vitest@0.2.0',
       '@types/debug@4.1.13',
-      '@types/node@24.13.6',
+      '@types/node@24.19.0',
       'vitest@5.0.2',
     ],
   },
