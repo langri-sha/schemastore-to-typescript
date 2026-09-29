@@ -34,10 +34,11 @@ trusted publishing. Anything that reaches the tarball or builds it — `src/`,
 same pull request. Root tooling does not: `beachball.config.cjs` lists what is
 exempt, so lock file maintenance never cuts a release.
 
-Beachball tags each version it publishes, e.g.
-`schemastore-to-typescript_v1.0.0`, and the Release workflow calls the shared
-Packages workflow with `github-releases: true`, which creates a GitHub release
-with generated notes for each tag. A tag that already has a release is skipped,
+The Release workflow calls the shared Packages workflow with
+`tag-template: v{version}`, which tags each published version, e.g. `v1.0.0`,
+and `github-releases: true`, which creates a GitHub release with generated notes
+for it. Beachball's own `gitTags` stays off, since it would name the tags
+`schemastore-to-typescript_v1.0.0`. A tag that already has a release is skipped,
 so the workflow is safe to rerun.
 
 `main`, `types` and `bin` point at `src/` in the repository, and `publishConfig`
