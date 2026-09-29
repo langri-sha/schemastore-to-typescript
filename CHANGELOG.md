@@ -1,8 +1,24 @@
 # Change Log - schemastore-to-typescript
 
-<!-- This log was last generated on Fri, 25 Sep 2026 18:32:05 GMT and should not be manually modified. -->
+<!-- This log was last generated on Tue, 29 Sep 2026 09:48:21 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 1.0.0
+
+Tue, 29 Sep 2026 09:48:21 GMT
+
+### Major changes
+
+- Declare the CLI and the `compile` API stable (filip.dupanovic@gmail.com)
+- Stop shipping the TypeScript sources in `src/` (filip.dupanovic@gmail.com)
+
+### Patches
+
+- Update dependency @types/node to v24.19.0
+- Update dependency pnpm to v12.6.0
+- Update dependency vitest to v5.0.2
+- Update dependency @langri-sha/projen-project to v0.31.1
 
 ## 0.2.13
 

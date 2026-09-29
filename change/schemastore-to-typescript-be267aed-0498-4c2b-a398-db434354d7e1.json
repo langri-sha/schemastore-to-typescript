@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Update dependency vitest to v5.0.2",
-  "packageName": "schemastore-to-typescript",
-  "email": "email not defined",
-  "dependentChangeType": "patch"
-}

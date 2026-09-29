@@ -2,6 +2,53 @@
   "name": "schemastore-to-typescript",
   "entries": [
     {
+      "date": "Tue, 29 Sep 2026 09:48:21 GMT",
+      "version": "1.0.0",
+      "tag": "schemastore-to-typescript_v1.0.0",
+      "comments": {
+        "major": [
+          {
+            "author": "filip.dupanovic@gmail.com",
+            "package": "schemastore-to-typescript",
+            "commit": "f34d42f1417d56b566685f900836c145841bec69",
+            "comment": "Declare the CLI and the `compile` API stable"
+          },
+          {
+            "author": "filip.dupanovic@gmail.com",
+            "package": "schemastore-to-typescript",
+            "commit": "f34d42f1417d56b566685f900836c145841bec69",
+            "comment": "Stop shipping the TypeScript sources in `src/`"
+          }
+        ],
+        "patch": [
+          {
+            "author": "email not defined",
+            "package": "schemastore-to-typescript",
+            "commit": "f34d42f1417d56b566685f900836c145841bec69",
+            "comment": "Update dependency @types/node to v24.19.0"
+          },
+          {
+            "author": "email not defined",
+            "package": "schemastore-to-typescript",
+            "commit": "f34d42f1417d56b566685f900836c145841bec69",
+            "comment": "Update dependency pnpm to v12.6.0"
+          },
+          {
+            "author": "email not defined",
+            "package": "schemastore-to-typescript",
+            "commit": "f34d42f1417d56b566685f900836c145841bec69",
+            "comment": "Update dependency vitest to v5.0.2"
+          },
+          {
+            "author": "email not defined",
+            "package": "schemastore-to-typescript",
+            "commit": "f34d42f1417d56b566685f900836c145841bec69",
+            "comment": "Update dependency @langri-sha/projen-project to v0.31.1"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 25 Sep 2026 18:32:05 GMT",
       "version": "0.2.13",
       "tag": "schemastore-to-typescript_v0.2.13",

@@ -1,7 +1,0 @@
-{
-  "type": "major",
-  "comment": "Declare the CLI and the `compile` API stable",
-  "packageName": "schemastore-to-typescript",
-  "email": "filip.dupanovic@gmail.com",
-  "dependentChangeType": "patch"
-}
