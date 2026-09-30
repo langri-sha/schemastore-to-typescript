@@ -2,6 +2,21 @@
   "name": "schemastore-to-typescript",
   "entries": [
     {
+      "date": "Wed, 30 Sep 2026 09:36:36 GMT",
+      "version": "1.0.1",
+      "tag": "schemastore-to-typescript_v1.0.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "email not defined",
+            "package": "schemastore-to-typescript",
+            "commit": "e13cd4a2352a6b74e6e72eae3dce65577d092c96",
+            "comment": "Update dependency pnpm to v12.7.0"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 29 Sep 2026 09:48:21 GMT",
       "version": "1.0.0",
       "tag": "schemastore-to-typescript_v1.0.0",
