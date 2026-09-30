@@ -193,22 +193,22 @@ importers:
     devDependencies:
       '@langri-sha/eslint-config':
         specifier: 0.9.16
-        version: 0.9.16(@typescript-eslint/utils@8.70.1(eslint@10.11.0)(typescript@5.9.3))(eslint@10.11.0)(prettier@3.9.8)(typescript@5.9.3)
+        version: 0.9.16(@typescript-eslint/utils@8.70.1(eslint@10.11.0)(typescript@5.9.3))(eslint@10.11.0)(prettier@3.9.9)(typescript@5.9.3)
       '@langri-sha/lint-staged':
         specifier: 0.9.7
-        version: 0.9.7(eslint@10.11.0)(lint-staged@17.5.1)(prettier@3.9.8)
+        version: 0.9.7(eslint@10.11.0)(lint-staged@17.6.0)(prettier@3.9.9)
       '@langri-sha/prettier':
         specifier: 0.4.8
-        version: 0.4.8(prettier@3.9.8)
+        version: 0.4.8(prettier@3.9.9)
       '@langri-sha/projen-project':
         specifier: 0.31.2
-        version: 0.31.2(@babel/core@7.29.7)(beachball@2.66.0(typescript@5.9.3))(eslint@10.11.0)(husky@9.1.7)(lint-staged@17.5.1)(prettier@3.9.8)(projen@0.86.5(constructs@10.8.1))(tsx@4.23.13)(typescript@5.9.3)
+        version: 0.31.2(@babel/core@7.29.7)(beachball@2.66.0(typescript@5.9.3))(eslint@10.11.0)(husky@9.1.7)(lint-staged@17.6.0)(prettier@3.9.9)(projen@0.86.5(constructs@10.8.1))(tsx@4.23.15)(typescript@5.9.3)
       '@langri-sha/tsconfig':
         specifier: 1.0.1
         version: 1.0.1(typescript@5.9.3)
       '@langri-sha/vitest':
         specifier: 0.2.0
-        version: 0.2.0(vitest@5.0.2(@types/node@24.19.0)(vite@8.3.0(@types/node@24.19.0)(esbuild@0.28.2)(tsx@4.23.13)(yaml@2.9.1)))
+        version: 0.2.0(vitest@5.0.2(@types/node@24.19.0)(vite@8.3.0(@types/node@24.19.0)(esbuild@0.28.2)(tsx@4.23.15)(yaml@2.9.1)))
       '@types/debug':
         specifier: 4.1.13
         version: 4.1.13
@@ -225,23 +225,23 @@ importers:
         specifier: 9.1.7
         version: 9.1.7
       lint-staged:
-        specifier: 17.5.1
-        version: 17.5.1
+        specifier: 17.6.0
+        version: 17.6.0
       prettier:
-        specifier: 3.9.8
-        version: 3.9.8
+        specifier: 3.9.9
+        version: 3.9.9
       projen:
         specifier: 0.86.5
         version: 0.86.5(constructs@10.8.1)
       tsx:
-        specifier: 4.23.13
-        version: 4.23.13
+        specifier: 4.23.15
+        version: 4.23.15
       typescript:
         specifier: 5.9.3
         version: 5.9.3
       vitest:
         specifier: 5.0.2
-        version: 5.0.2(@types/node@24.19.0)(vite@8.3.0(@types/node@24.19.0)(esbuild@0.28.2)(tsx@4.23.13)(yaml@2.9.1))
+        version: 5.0.2(@types/node@24.19.0)(vite@8.3.0(@types/node@24.19.0)(esbuild@0.28.2)(tsx@4.23.15)(yaml@2.9.1))
 
 packages:
 
@@ -2147,8 +2147,8 @@ packages:
   lines-and-columns@1.2.4:
     resolution: {integrity: sha512-7ylylesZQ/PV29jhEDl3Ufjo6ZX7gCqJr5F7PKrqc93v7fzSymt1BpwEU8nAUXs8qzzvqhbjhK5QZg6Mt/HkBg==}
 
-  lint-staged@17.5.1:
-    resolution: {integrity: sha512-7EDuco1xnBMeVpvAbeMq1U5KXwJGLmY8q6l+Ye78r36C4mPc+Vg1Z2SK8gHyRTyvPro90A0q5/FAZ+Au23d6QQ==}
+  lint-staged@17.6.0:
+    resolution: {integrity: sha512-nOhBfYkZEwkFtNzD5pK9s9LkcWoxJ+whLzEnhqi9nl7zTB5n7tg8+9iYgMGx2Wm3VlLu8cbNj0RACzY+nWi5iQ==}
     engines: {node: '>=22.22.1'}
     hasBin: true
 
@@ -2388,8 +2388,8 @@ packages:
   prettier-plugin-ini@1.3.0:
     resolution: {integrity: sha512-kX1KnPwITCTtYV0MTBZQKuFLxcNcbHOS9r7Ta1jHLLvRvZRTzHHqX0MEZMrCkedjLuxpQSgzr4aC5IRd+R3FPw==}
 
-  prettier@3.9.8:
-    resolution: {integrity: sha512-WRFq3Wn3WId7LLROfMLdH7xaFr2jR62wU8nLO6rQUOLOxNZUviyJQs1M0iIhLexSFy+L+w0ch66wtoO2jRjG0A==}
+  prettier@3.9.9:
+    resolution: {integrity: sha512-Z/CJHIkdujO/OtN7nXUii0Rf3VT5SRuhjBA82Xvu2XhBUgX3nhP67T0LHceBdQLex7OOFGTox+Q5Yg8Jk2Qivg==}
     engines: {node: '>=14'}
     hasBin: true
 
@@ -2686,8 +2686,8 @@ packages:
   tslib@2.8.1:
     resolution: {integrity: sha512-oJFu94HQb+KVduSUQL7wnpmqnfmLsOA/nAh6b6EH0wCEoK0/mPeXU6c3wKDV83MkOuHPRHtSXKKU99IBazS/2w==}
 
-  tsx@4.23.13:
-    resolution: {integrity: sha512-BL5MGkRln6aDYhb0xbQlEAGw743BaZYWdbWtdJOBriYJboKgUUYCadFp2/FpBBZquBC/ezNBn7wMMPx7FDZUDw==}
+  tsx@4.23.15:
+    resolution: {integrity: sha512-Yiex1Ovn8z2xPpOWckIiysV1SSyRMY9BkLF++q0yKiDxCqRhosKfMg3janKkiLBwZ5c/YryloKwGZcrEmtwxKw==}
     engines: {node: '>=18.0.0'}
     hasBin: true
 
@@ -3234,7 +3234,7 @@ snapshots:
 
   '@keyv/serialize@1.1.1': {}
 
-  '@langri-sha/eslint-config@0.9.16(@typescript-eslint/utils@8.70.1(eslint@10.11.0)(typescript@5.9.3))(eslint@10.11.0)(prettier@3.9.8)(typescript@5.9.3)':
+  '@langri-sha/eslint-config@0.9.16(@typescript-eslint/utils@8.70.1(eslint@10.11.0)(typescript@5.9.3))(eslint@10.11.0)(prettier@3.9.9)(typescript@5.9.3)':
     dependencies:
       '@eslint/compat': 2.1.1(eslint@10.11.0)
       '@eslint/js': 10.0.1(eslint@10.11.0)
@@ -3242,7 +3242,7 @@ snapshots:
       eslint-config-prettier: 10.1.8(eslint@10.11.0)
       eslint-plugin-import-x: 4.17.1(@typescript-eslint/utils@8.70.1(eslint@10.11.0)(typescript@5.9.3))(eslint@10.11.0)
       eslint-plugin-jsdoc: 64.5.4(eslint@10.11.0)(typescript@5.9.3)
-      eslint-plugin-prettier: 5.5.6(eslint-config-prettier@10.1.8(eslint@10.11.0))(eslint@10.11.0)(prettier@3.9.8)
+      eslint-plugin-prettier: 5.5.6(eslint-config-prettier@10.1.8(eslint@10.11.0))(eslint@10.11.0)(prettier@3.9.9)
       eslint-plugin-react: 7.37.5(eslint@10.11.0)
       eslint-plugin-react-hooks: 7.1.1(eslint@10.11.0)
       eslint-plugin-unicorn: 76.0.0(eslint@10.11.0)
@@ -3256,16 +3256,16 @@ snapshots:
       - supports-color
       - typescript
 
-  '@langri-sha/lint-staged@0.9.7(eslint@10.11.0)(lint-staged@17.5.1)(prettier@3.9.8)':
+  '@langri-sha/lint-staged@0.9.7(eslint@10.11.0)(lint-staged@17.6.0)(prettier@3.9.9)':
     dependencies:
-      lint-staged: 17.5.1
+      lint-staged: 17.6.0
     optionalDependencies:
       eslint: 10.11.0
-      prettier: 3.9.8
+      prettier: 3.9.9
 
-  '@langri-sha/prettier@0.4.8(prettier@3.9.8)':
+  '@langri-sha/prettier@0.4.8(prettier@3.9.9)':
     dependencies:
-      prettier: 3.9.8
+      prettier: 3.9.9
       prettier-plugin-ini: 1.3.0
 
   '@langri-sha/projen-babel@0.5.13(@babel/core@7.29.7)(projen@0.86.5(constructs@10.8.1))':
@@ -3320,12 +3320,12 @@ snapshots:
       license-o-matic: 1.2.0
       projen: 0.86.5(constructs@10.8.1)
 
-  '@langri-sha/projen-lint-staged@0.3.15(lint-staged@17.5.1)(projen@0.86.5(constructs@10.8.1))':
+  '@langri-sha/projen-lint-staged@0.3.15(lint-staged@17.6.0)(projen@0.86.5(constructs@10.8.1))':
     dependencies:
       projen: 0.86.5(constructs@10.8.1)
       serialize-javascript: 7.1.2
     optionalDependencies:
-      lint-staged: 17.5.1
+      lint-staged: 17.6.0
 
   '@langri-sha/projen-lint-synthesized@0.5.14(projen@0.86.5(constructs@10.8.1))':
     dependencies:
@@ -3341,14 +3341,14 @@ snapshots:
       projen: 0.86.5(constructs@10.8.1)
       yaml: 2.9.1
 
-  '@langri-sha/projen-prettier@0.4.15(prettier@3.9.8)(projen@0.86.5(constructs@10.8.1))':
+  '@langri-sha/projen-prettier@0.4.15(prettier@3.9.9)(projen@0.86.5(constructs@10.8.1))':
     dependencies:
       projen: 0.86.5(constructs@10.8.1)
       serialize-javascript: 7.1.2
     optionalDependencies:
-      prettier: 3.9.8
+      prettier: 3.9.9
 
-  '@langri-sha/projen-project@0.31.2(@babel/core@7.29.7)(beachball@2.66.0(typescript@5.9.3))(eslint@10.11.0)(husky@9.1.7)(lint-staged@17.5.1)(prettier@3.9.8)(projen@0.86.5(constructs@10.8.1))(tsx@4.23.13)(typescript@5.9.3)':
+  '@langri-sha/projen-project@0.31.2(@babel/core@7.29.7)(beachball@2.66.0(typescript@5.9.3))(eslint@10.11.0)(husky@9.1.7)(lint-staged@17.6.0)(prettier@3.9.9)(projen@0.86.5(constructs@10.8.1))(tsx@4.23.15)(typescript@5.9.3)':
     dependencies:
       '@langri-sha/projen-babel': 0.5.13(@babel/core@7.29.7)(projen@0.86.5(constructs@10.8.1))
       '@langri-sha/projen-beachball': 0.5.10(beachball@2.66.0(typescript@5.9.3))(projen@0.86.5(constructs@10.8.1))
@@ -3360,10 +3360,10 @@ snapshots:
       '@langri-sha/projen-husky': 0.3.20(husky@9.1.7)(projen@0.86.5(constructs@10.8.1))
       '@langri-sha/projen-jest-config': 0.4.15(projen@0.86.5(constructs@10.8.1))
       '@langri-sha/projen-license': 0.3.13(projen@0.86.5(constructs@10.8.1))
-      '@langri-sha/projen-lint-staged': 0.3.15(lint-staged@17.5.1)(projen@0.86.5(constructs@10.8.1))
+      '@langri-sha/projen-lint-staged': 0.3.15(lint-staged@17.6.0)(projen@0.86.5(constructs@10.8.1))
       '@langri-sha/projen-lint-synthesized': 0.5.14(projen@0.86.5(constructs@10.8.1))
       '@langri-sha/projen-pnpm-workspace': 0.4.10(projen@0.86.5(constructs@10.8.1))
-      '@langri-sha/projen-prettier': 0.4.15(prettier@3.9.8)(projen@0.86.5(constructs@10.8.1))
+      '@langri-sha/projen-prettier': 0.4.15(prettier@3.9.9)(projen@0.86.5(constructs@10.8.1))
       '@langri-sha/projen-readme': 0.1.10(projen@0.86.5(constructs@10.8.1))
       '@langri-sha/projen-renovate': 0.4.22(projen@0.86.5(constructs@10.8.1))
       '@langri-sha/projen-swcrc': 0.1.22(projen@0.86.5(constructs@10.8.1))
@@ -3378,9 +3378,9 @@ snapshots:
       beachball: 2.66.0(typescript@5.9.3)
       eslint: 10.11.0
       husky: 9.1.7
-      lint-staged: 17.5.1
-      prettier: 3.9.8
-      tsx: 4.23.13
+      lint-staged: 17.6.0
+      prettier: 3.9.9
+      tsx: 4.23.15
       typescript: 5.9.3
     transitivePeerDependencies:
       - supports-color
@@ -3415,11 +3415,11 @@ snapshots:
     dependencies:
       typescript: 5.9.3
 
-  '@langri-sha/vitest@0.2.0(vitest@5.0.2(@types/node@24.19.0)(vite@8.3.0(@types/node@24.19.0)(esbuild@0.28.2)(tsx@4.23.13)(yaml@2.9.1)))':
+  '@langri-sha/vitest@0.2.0(vitest@5.0.2(@types/node@24.19.0)(vite@8.3.0(@types/node@24.19.0)(esbuild@0.28.2)(tsx@4.23.15)(yaml@2.9.1)))':
     dependencies:
       nock: 14.0.17
       tempy: 3.2.0
-      vitest: 5.0.2(@types/node@24.19.0)(vite@8.3.0(@types/node@24.19.0)(esbuild@0.28.2)(tsx@4.23.13)(yaml@2.9.1))
+      vitest: 5.0.2(@types/node@24.19.0)(vite@8.3.0(@types/node@24.19.0)(esbuild@0.28.2)(tsx@4.23.15)(yaml@2.9.1))
 
   '@mswjs/interceptors@0.41.9':
     dependencies:
@@ -3722,14 +3722,14 @@ snapshots:
 
   '@vercel/detect-agent@1.2.5': {}
 
-  '@vitest/mocker@5.0.2(vite@8.3.0(@types/node@24.19.0)(esbuild@0.28.2)(tsx@4.23.13)(yaml@2.9.1))':
+  '@vitest/mocker@5.0.2(vite@8.3.0(@types/node@24.19.0)(esbuild@0.28.2)(tsx@4.23.15)(yaml@2.9.1))':
     dependencies:
       '@jridgewell/trace-mapping': 0.3.31
       '@vitest/spy': 5.0.2
       estree-walker: 3.0.3
       magic-string: 1.4.1
     optionalDependencies:
-      vite: 8.3.0(@types/node@24.19.0)(esbuild@0.28.2)(tsx@4.23.13)(yaml@2.9.1)
+      vite: 8.3.0(@types/node@24.19.0)(esbuild@0.28.2)(tsx@4.23.15)(yaml@2.9.1)
 
   '@vitest/spy@5.0.2': {}
 
@@ -4212,10 +4212,10 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  eslint-plugin-prettier@5.5.6(eslint-config-prettier@10.1.8(eslint@10.11.0))(eslint@10.11.0)(prettier@3.9.8):
+  eslint-plugin-prettier@5.5.6(eslint-config-prettier@10.1.8(eslint@10.11.0))(eslint@10.11.0)(prettier@3.9.9):
     dependencies:
       eslint: 10.11.0
-      prettier: 3.9.8
+      prettier: 3.9.9
       prettier-linter-helpers: 1.0.1
       synckit: 0.11.13
     optionalDependencies:
@@ -4774,7 +4774,7 @@ snapshots:
       js-yaml: 5.4.2
       lodash: 4.18.1
       minimist: 1.2.8
-      prettier: 3.9.8
+      prettier: 3.9.9
       tinyglobby: 0.2.17
 
   json-schema-traverse@0.4.1: {}
@@ -4863,7 +4863,7 @@ snapshots:
 
   lines-and-columns@1.2.4: {}
 
-  lint-staged@17.5.1:
+  lint-staged@17.6.0:
     dependencies:
       picomatch: 4.0.7
       string-argv: 0.3.2
@@ -5086,9 +5086,9 @@ snapshots:
 
   prettier-plugin-ini@1.3.0:
     dependencies:
-      prettier: 3.9.8
+      prettier: 3.9.9
 
-  prettier@3.9.8: {}
+  prettier@3.9.9: {}
 
   pretty-ms@9.3.1:
     dependencies:
@@ -5405,7 +5405,7 @@ snapshots:
   tslib@2.8.1:
     optional: true
 
-  tsx@4.23.13:
+  tsx@4.23.15:
     dependencies:
       esbuild: 0.28.2
     optionalDependencies:
@@ -5524,7 +5524,7 @@ snapshots:
     dependencies:
       punycode: 2.3.1
 
-  vite@8.3.0(@types/node@24.19.0)(esbuild@0.28.2)(tsx@4.23.13)(yaml@2.9.1):
+  vite@8.3.0(@types/node@24.19.0)(esbuild@0.28.2)(tsx@4.23.15)(yaml@2.9.1):
     dependencies:
       lightningcss: 1.33.0
       picomatch: 4.0.7
@@ -5535,13 +5535,13 @@ snapshots:
       '@types/node': 24.19.0
       esbuild: 0.28.2
       fsevents: 2.3.3
-      tsx: 4.23.13
+      tsx: 4.23.15
       yaml: 2.9.1
 
-  vitest@5.0.2(@types/node@24.19.0)(vite@8.3.0(@types/node@24.19.0)(esbuild@0.28.2)(tsx@4.23.13)(yaml@2.9.1)):
+  vitest@5.0.2(@types/node@24.19.0)(vite@8.3.0(@types/node@24.19.0)(esbuild@0.28.2)(tsx@4.23.15)(yaml@2.9.1)):
     dependencies:
       '@types/chai': 5.2.3
-      '@vitest/mocker': 5.0.2(vite@8.3.0(@types/node@24.19.0)(esbuild@0.28.2)(tsx@4.23.13)(yaml@2.9.1))
+      '@vitest/mocker': 5.0.2(vite@8.3.0(@types/node@24.19.0)(esbuild@0.28.2)(tsx@4.23.15)(yaml@2.9.1))
       chai: 6.2.2
       es-module-lexer: 2.3.2
       expect-type: 1.4.0
@@ -5552,7 +5552,7 @@ snapshots:
       tinybench: 6.1.4
       tinyexec: 1.3.1
       tinyglobby: 0.2.17
-      vite: 8.3.0(@types/node@24.19.0)(esbuild@0.28.2)(tsx@4.23.13)(yaml@2.9.1)
+      vite: 8.3.0(@types/node@24.19.0)(esbuild@0.28.2)(tsx@4.23.15)(yaml@2.9.1)
       why-is-node-running: 3.2.2
     optionalDependencies:
       '@types/node': 24.19.0
