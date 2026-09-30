@@ -58,10 +58,10 @@
     "beachball": "2.66.0",
     "eslint": "10.11.0",
     "husky": "9.1.7",
-    "lint-staged": "17.5.1",
-    "prettier": "3.9.8",
+    "lint-staged": "17.6.0",
+    "prettier": "3.9.9",
     "projen": "0.86.5",
-    "tsx": "4.23.13",
+    "tsx": "4.23.15",
     "typescript": "5.9.3",
     "vitest": "5.0.2"
   },

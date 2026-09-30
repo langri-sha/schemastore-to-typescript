@@ -2,7 +2,7 @@
   "dependencies": [
     {
       "name": "@langri-sha/eslint-config",
-      "version": "0.9.15",
+      "version": "0.9.16",
       "type": "build"
     },
     {
@@ -12,7 +12,7 @@
     },
     {
       "name": "@langri-sha/prettier",
-      "version": "0.4.7",
+      "version": "0.4.8",
       "type": "build"
     },
     {
@@ -57,12 +57,12 @@
     },
     {
       "name": "lint-staged",
-      "version": "17.5.1",
+      "version": "17.6.0",
       "type": "build"
     },
     {
       "name": "prettier",
-      "version": "3.9.8",
+      "version": "3.9.9",
       "type": "build"
     },
     {
@@ -72,7 +72,7 @@
     },
     {
       "name": "tsx",
-      "version": "4.23.13",
+      "version": "4.23.15",
       "type": "build"
     },
     {
