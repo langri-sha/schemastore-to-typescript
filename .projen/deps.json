@@ -22,12 +22,12 @@
     },
     {
       "name": "@langri-sha/tsconfig",
-      "version": "1.0.1",
+      "version": "1.0.2",
       "type": "build"
     },
     {
       "name": "@langri-sha/vitest",
-      "version": "0.2.0",
+      "version": "0.2.1",
       "type": "build"
     },
     {
