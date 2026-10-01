@@ -47,9 +47,9 @@
     "keyv-file": "5.3.5"
   },
   "devDependencies": {
-    "@langri-sha/eslint-config": "0.9.16",
-    "@langri-sha/lint-staged": "0.9.7",
-    "@langri-sha/prettier": "0.4.8",
+    "@langri-sha/eslint-config": "0.9.17",
+    "@langri-sha/lint-staged": "0.9.8",
+    "@langri-sha/prettier": "0.4.9",
     "@langri-sha/projen-project": "0.31.2",
     "@langri-sha/tsconfig": "1.0.1",
     "@langri-sha/vitest": "0.2.0",
