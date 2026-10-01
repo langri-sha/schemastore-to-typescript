@@ -132,7 +132,7 @@ const project = new Project({
   },
 })
 
-project.package?.addField('packageManager', 'pnpm@12.8.0')
+project.package?.addField('packageManager', 'pnpm@12.8.1')
 project.package?.addField('publishConfig', {
   access: 'public',
   bin: {
