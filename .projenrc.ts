@@ -38,7 +38,7 @@ const project = new Project({
       '@langri-sha/lint-staged@0.9.8',
       '@langri-sha/prettier@0.4.9',
       '@langri-sha/projen-project@*',
-      '@langri-sha/tsconfig@1.0.2',
+      '@langri-sha/tsconfig@1.1.0',
       '@langri-sha/vitest@0.2.1',
       '@types/debug@4.1.13',
       '@types/node@24.19.0',
