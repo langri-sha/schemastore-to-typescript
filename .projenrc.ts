@@ -50,6 +50,10 @@ const project = new Project({
       // The package is the repository root, so these would otherwise demand a
       // release for changes that never reach the tarball.
       ignorePatterns: [
+        '.editorconfig',
+        '.gitattributes',
+        '.gitignore',
+        '.prettierignore',
         '.projenrc.ts',
         'AGENTS.md',
         'CODEOWNERS',
