@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Update dependency pnpm to v12.8.0",
-  "packageName": "schemastore-to-typescript",
-  "email": "email not defined",
-  "dependentChangeType": "patch"
-}

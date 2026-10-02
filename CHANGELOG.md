@@ -1,8 +1,21 @@
 # Change Log - schemastore-to-typescript
 
-<!-- This log was last generated on Wed, 30 Sep 2026 09:36:36 GMT and should not be manually modified. -->
+<!-- This log was last generated on Fri, 02 Oct 2026 20:06:12 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 1.0.2
+
+Fri, 02 Oct 2026 20:06:12 GMT
+
+### Patches
+
+- Update langri-sha projen toolchain
+- Update dependency pnpm to v12.8.0
+- Update dependency @langri-sha/tsconfig to v1.1.0
+- Update langri-sha projen toolchain
+- Update dependency pnpm to v12.8.1
+- Update langri-sha projen toolchain
 
 ## 1.0.1
 

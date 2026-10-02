@@ -2,6 +2,51 @@
   "name": "schemastore-to-typescript",
   "entries": [
     {
+      "date": "Fri, 02 Oct 2026 20:06:12 GMT",
+      "version": "1.0.2",
+      "tag": "schemastore-to-typescript_v1.0.2",
+      "comments": {
+        "patch": [
+          {
+            "author": "email not defined",
+            "package": "schemastore-to-typescript",
+            "commit": "102df9ec0e5959e333310007dded4a66eb5871ff",
+            "comment": "Update langri-sha projen toolchain"
+          },
+          {
+            "author": "email not defined",
+            "package": "schemastore-to-typescript",
+            "commit": "102df9ec0e5959e333310007dded4a66eb5871ff",
+            "comment": "Update dependency pnpm to v12.8.0"
+          },
+          {
+            "author": "email not defined",
+            "package": "schemastore-to-typescript",
+            "commit": "102df9ec0e5959e333310007dded4a66eb5871ff",
+            "comment": "Update dependency @langri-sha/tsconfig to v1.1.0"
+          },
+          {
+            "author": "email not defined",
+            "package": "schemastore-to-typescript",
+            "commit": "102df9ec0e5959e333310007dded4a66eb5871ff",
+            "comment": "Update langri-sha projen toolchain"
+          },
+          {
+            "author": "email not defined",
+            "package": "schemastore-to-typescript",
+            "commit": "102df9ec0e5959e333310007dded4a66eb5871ff",
+            "comment": "Update dependency pnpm to v12.8.1"
+          },
+          {
+            "author": "email not defined",
+            "package": "schemastore-to-typescript",
+            "commit": "102df9ec0e5959e333310007dded4a66eb5871ff",
+            "comment": "Update langri-sha projen toolchain"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 30 Sep 2026 09:36:36 GMT",
       "version": "1.0.1",
       "tag": "schemastore-to-typescript_v1.0.1",
