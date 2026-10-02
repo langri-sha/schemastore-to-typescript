@@ -2,17 +2,17 @@
   "dependencies": [
     {
       "name": "@langri-sha/eslint-config",
-      "version": "0.9.17",
+      "version": "0.9.18",
       "type": "build"
     },
     {
       "name": "@langri-sha/lint-staged",
-      "version": "0.9.8",
+      "version": "0.9.9",
       "type": "build"
     },
     {
       "name": "@langri-sha/prettier",
-      "version": "0.4.9",
+      "version": "0.4.10",
       "type": "build"
     },
     {
@@ -27,7 +27,7 @@
     },
     {
       "name": "@langri-sha/vitest",
-      "version": "0.2.1",
+      "version": "0.2.2",
       "type": "build"
     },
     {
