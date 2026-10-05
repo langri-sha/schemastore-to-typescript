@@ -13,7 +13,7 @@ jobs:
     # this the run fails at startup before any job is created.
     permissions:
       contents: write
-    uses: langri-sha/github/.github/workflows/check.yml@v0.23.0
+    uses: langri-sha/github/.github/workflows/check.yml@v0.24.0
     with:
       beachball: true
       eslint: true
