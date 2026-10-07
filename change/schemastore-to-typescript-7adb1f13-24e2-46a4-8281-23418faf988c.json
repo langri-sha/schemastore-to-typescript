@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Update dependency @types/node to v24.19.1",
-  "packageName": "schemastore-to-typescript",
-  "email": "email not defined",
-  "dependentChangeType": "patch"
-}

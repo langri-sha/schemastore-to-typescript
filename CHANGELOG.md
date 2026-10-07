@@ -1,8 +1,22 @@
 # Change Log - schemastore-to-typescript
 
-<!-- This log was last generated on Fri, 02 Oct 2026 20:06:12 GMT and should not be manually modified. -->
+<!-- This log was last generated on Wed, 07 Oct 2026 10:15:46 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 1.0.3
+
+Wed, 07 Oct 2026 10:15:46 GMT
+
+### Patches
+
+- Update dependency vitest to v5.0.3
+- Update dependency pnpm to v12.9.1
+- Update dependency @langri-sha/projen-project to v0.32.0
+- Update dependency pnpm to v12.9.0
+- Update dependency @types/node to v24.19.1
+- Update dependency pnpm to v12.8.2
+- Update langri-sha projen toolchain
 
 ## 1.0.2
 

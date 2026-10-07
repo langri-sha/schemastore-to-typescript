@@ -2,6 +2,57 @@
   "name": "schemastore-to-typescript",
   "entries": [
     {
+      "date": "Wed, 07 Oct 2026 10:15:46 GMT",
+      "version": "1.0.3",
+      "tag": "schemastore-to-typescript_v1.0.3",
+      "comments": {
+        "patch": [
+          {
+            "author": "email not defined",
+            "package": "schemastore-to-typescript",
+            "commit": "fbb978d98918c4880dce51e63a38895eb1a8c837",
+            "comment": "Update dependency vitest to v5.0.3"
+          },
+          {
+            "author": "email not defined",
+            "package": "schemastore-to-typescript",
+            "commit": "fbb978d98918c4880dce51e63a38895eb1a8c837",
+            "comment": "Update dependency pnpm to v12.9.1"
+          },
+          {
+            "author": "email not defined",
+            "package": "schemastore-to-typescript",
+            "commit": "fbb978d98918c4880dce51e63a38895eb1a8c837",
+            "comment": "Update dependency @langri-sha/projen-project to v0.32.0"
+          },
+          {
+            "author": "email not defined",
+            "package": "schemastore-to-typescript",
+            "commit": "fbb978d98918c4880dce51e63a38895eb1a8c837",
+            "comment": "Update dependency pnpm to v12.9.0"
+          },
+          {
+            "author": "email not defined",
+            "package": "schemastore-to-typescript",
+            "commit": "fbb978d98918c4880dce51e63a38895eb1a8c837",
+            "comment": "Update dependency @types/node to v24.19.1"
+          },
+          {
+            "author": "email not defined",
+            "package": "schemastore-to-typescript",
+            "commit": "fbb978d98918c4880dce51e63a38895eb1a8c837",
+            "comment": "Update dependency pnpm to v12.8.2"
+          },
+          {
+            "author": "email not defined",
+            "package": "schemastore-to-typescript",
+            "commit": "fbb978d98918c4880dce51e63a38895eb1a8c837",
+            "comment": "Update langri-sha projen toolchain"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 02 Oct 2026 20:06:12 GMT",
       "version": "1.0.2",
       "tag": "schemastore-to-typescript_v1.0.2",
