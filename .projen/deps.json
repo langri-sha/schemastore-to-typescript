@@ -2,17 +2,17 @@
   "dependencies": [
     {
       "name": "@langri-sha/eslint-config",
-      "version": "0.9.18",
+      "version": "0.9.19",
       "type": "build"
     },
     {
       "name": "@langri-sha/lint-staged",
-      "version": "0.9.9",
+      "version": "0.9.10",
       "type": "build"
     },
     {
       "name": "@langri-sha/prettier",
-      "version": "0.4.10",
+      "version": "0.4.11",
       "type": "build"
     },
     {
@@ -22,12 +22,12 @@
     },
     {
       "name": "@langri-sha/tsconfig",
-      "version": "1.1.0",
+      "version": "1.1.1",
       "type": "build"
     },
     {
       "name": "@langri-sha/vitest",
-      "version": "0.2.2",
+      "version": "0.2.3",
       "type": "build"
     },
     {
@@ -47,7 +47,7 @@
     },
     {
       "name": "eslint",
-      "version": "10.11.0",
+      "version": "10.12.0",
       "type": "build"
     },
     {
