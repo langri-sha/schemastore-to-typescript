@@ -3,6 +3,13 @@
 Generate [TypeScript typings] for any schema in the [JSON Schema Store] catalog,
 by name.
 
+## Features
+
+- uses [`json-schema-to-typescript`] for TypeScript generation
+- fetches schemas from the [JSON Schema Store catalog API]
+- case-insensitive schema name matching
+- offline cache using [`got`] for both catalog and schema requests
+
 ## Usage
 
 ```sh
@@ -28,10 +35,11 @@ import { compile } from 'schemastore-to-typescript'
 const typings = await compile('swcrc')
 ```
 
-Typings are generated with [`json-schema-to-typescript`].
-
+[`got`]: https://www.npmjs.com/package/got
 [`json-schema-to-typescript`]:
   https://www.npmjs.com/package/json-schema-to-typescript
 [json schema store]: https://www.schemastore.org/
+[json schema store catalog api]:
+  https://www.schemastore.org/api/json/catalog.json
 [typescript typings]:
   https://www.typescriptlang.org/docs/handbook/declaration-files/templates/module-d-ts.html
