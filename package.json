@@ -50,7 +50,7 @@
     "@langri-sha/eslint-config": "0.9.19",
     "@langri-sha/lint-staged": "0.9.10",
     "@langri-sha/prettier": "0.4.11",
-    "@langri-sha/projen-project": "0.32.1",
+    "@langri-sha/projen-project": "0.33.0",
     "@langri-sha/tsconfig": "1.1.1",
     "@langri-sha/vitest": "0.2.3",
     "@types/debug": "4.1.13",
