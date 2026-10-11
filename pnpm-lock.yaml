@@ -185,8 +185,8 @@ importers:
         specifier: 16.0.0
         version: 16.0.0
       keyv:
-        specifier: 5.6.0
-        version: 5.6.0
+        specifier: 6.1.0
+        version: 6.1.0
       keyv-file:
         specifier: 5.3.5
         version: 5.3.5
@@ -1815,6 +1815,10 @@ packages:
   hookified@2.2.0:
     resolution: {integrity: sha512-p/LgFzRN5FeoD3DLS6bkUapeye6E4SI6yJs6KetENd18S+FBthqYq2amJUWpt5z0EQwwHemidjY5OqJGEKm5uA==}
 
+  hookified@3.0.4:
+    resolution: {integrity: sha512-Uos6DSO6BKv4DeR1C22UosRpeUaaoQgEQ+eDCyoJRll2OGzGpZc708vL7orIvqrYLo6zhVV+pkwO9zKVCsq3PQ==}
+    engines: {node: '>=22.18.0'}
+
   html-entities@2.6.0:
     resolution: {integrity: sha512-kig+rMn/QOVRvr7c86gQ8lWXq+Hkv6CbAH1hLu+RG338StTpE8Z0b44SDVaqVu7HGKf27frdmUYEs9hTUX/cLQ==}
 
@@ -2067,6 +2071,10 @@ packages:
 
   keyv@5.6.0:
     resolution: {integrity: sha512-CYDD3SOtsHtyXeEORYRx2qBtpDJFjRTGXUtmNEMGyzYOKj1TE3tycdlho7kA1Ufx9OYWZzg52QFBGALTirzDSw==}
+
+  keyv@6.1.0:
+    resolution: {integrity: sha512-0OO64DxKOITdyQljNCcO+vc+iyaPmm3OV5eKOWRxWCp3V0QnXenpqcKfjGjycNILUJNV+erm1ose6Hsgr1fNFA==}
+    engines: {node: '>= 22.19.0'}
 
   kleur@3.0.3:
     resolution: {integrity: sha512-eTIzlVOSUR+JxdDFepEYcBMtZ9Qqdef+rnzWdRZuMbOywu5tO2w2N7rqjoANZ5k9vywhL6Br1VRjUIgTQx4E8w==}
@@ -4583,6 +4591,8 @@ snapshots:
 
   hookified@2.2.0: {}
 
+  hookified@3.0.4: {}
+
   html-entities@2.6.0: {}
 
   http-cache-semantics@4.2.0: {}
@@ -4820,6 +4830,10 @@ snapshots:
   keyv@5.6.0:
     dependencies:
       '@keyv/serialize': 1.1.1
+
+  keyv@6.1.0:
+    dependencies:
+      hookified: 3.0.4
 
   kleur@3.0.3: {}
 
