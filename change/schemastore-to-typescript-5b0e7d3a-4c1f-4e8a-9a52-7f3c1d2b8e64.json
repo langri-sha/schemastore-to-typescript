@@ -1,0 +1,7 @@
+{
+  "type": "none",
+  "comment": "Opt into the default Worktrunk hooks",
+  "packageName": "schemastore-to-typescript",
+  "email": "filip.dupanovic@gmail.com",
+  "dependentChangeType": "none"
+}
