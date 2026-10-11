@@ -34,7 +34,9 @@
     "prepare": "husky",
     "prepublishOnly": "rm -rf dist; tsc --project tsconfig.build.json",
     "renovate": "pnpm exec projen renovate",
-    "test": "vitest"
+    "test": "vitest",
+    "worktrunk:dry-run": "pnpm exec projen worktrunk:dry-run",
+    "worktrunk:show": "pnpm exec projen worktrunk:show"
   },
   "dependencies": {
     "commander": "15.0.0",
