@@ -99,30 +99,14 @@ const project = new Project({
     filename: 'readme.md',
   },
   renovate: {
+    extends: ['github>langri-sha/renovate-config'],
     packageRules: [
-      {
-        description: 'Update our own packages together',
-        groupName: 'langri-sha projen toolchain',
-        groupSlug: 'langri-sha-projen',
-        matchPackageNames: ['@langri-sha/**'],
-      },
       {
         description:
           'got caches through its bundled cacheable-request, which only accepts a Keyv of its own major, so move them together',
         groupName: 'got and keyv',
         groupSlug: 'got-keyv',
         matchPackageNames: ['got', 'keyv', 'keyv-file'],
-      },
-      {
-        description: 'Install our own packages without waiting them out',
-        matchPackageNames: ['@langri-sha/**'],
-        minimumReleaseAge: null,
-      },
-      {
-        description:
-          'Install our own GitHub Actions and Terraform modules without waiting them out',
-        matchPackageNames: ['langri-sha/**'],
-        minimumReleaseAge: null,
       },
     ],
   },
