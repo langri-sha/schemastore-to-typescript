@@ -40,10 +40,10 @@ notes; a tag that already has a release is skipped, so the workflow is safe to
 rerun. Beachball's own `gitTags` stays off, since it would name the tags
 `schemastore-to-typescript_v<version>`.
 
-`main`, `types` and `bin` point at `src/` in the repository, and `publishConfig`
-swaps them for `dist/`, which `prepublishOnly` builds. The tarball leaves `src/`
-out, but a local `npm pack` still lists it: `main` and `bin` pull it in until
-beachball applies `publishConfig` at publish time.
+`main` and `bin` point at `src/` in the repository, and `publishConfig` points
+them and `types` at `dist/`, which `prepublishOnly` builds. The tarball leaves
+`src/` out, but a local `npm pack` still lists it: `main` and `bin` pull it in
+until beachball applies `publishConfig` at publish time.
 
 There is deliberately no `engines` field. Published from the root, it would bind
 consumers to the Node.js release this repository is developed on, so that lives
