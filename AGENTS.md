@@ -57,16 +57,3 @@ in `devEngines`, where `actions/setup-node` reads it.
 `keyv-file` together; Renovate groups them. `keyv-file` drops a write that
 coalesces onto an in-flight save, which `flushCache` in `src/index.ts` works
 around.
-
-## Provenance
-
-Extracted from `langri-sha/projen` at `39587c9d` on 2026-09-24 with
-`git filter-repo --subdirectory-filter packages/schemastore-to-typescript`. All
-102 commits that touched the package keep their trees, authorship, dates and
-messages. The history reaches back to 2024-06-24, when the package started in
-`langri-sha/langri-sha.com`, which handed it to projen on 2026-07-20. Issue and
-pull request numbers in those older messages refer to the two source
-repositories.
-
-Up to 0.2.12 it was published as `@langri-sha/schemastore-to-typescript`, which
-is deprecated in favour of this name.
