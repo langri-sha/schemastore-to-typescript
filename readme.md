@@ -35,6 +35,12 @@ import { compile } from 'schemastore-to-typescript'
 const typings = await compile('swcrc')
 ```
 
+## Contributing
+
+See [CONTRIBUTING.md] in `langri-sha/github`.
+
+[contributing.md]:
+  https://github.com/langri-sha/github/blob/main/CONTRIBUTING.md
 [`got`]: https://www.npmjs.com/package/got
 [`json-schema-to-typescript`]:
   https://www.npmjs.com/package/json-schema-to-typescript
