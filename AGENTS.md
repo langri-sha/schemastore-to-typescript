@@ -25,18 +25,20 @@ pnpm change                             # write a change file
 
 ## Release
 
-Beachball versions the package and the Release workflow publishes it through npm
-trusted publishing. Anything that reaches the tarball or builds it — `src/`,
-`readme.md`, `package.json`, `tsconfig.build.json` — needs a change file in the
-same pull request. Root tooling does not: `beachball.config.cjs` lists what is
-exempt, so lock file maintenance never cuts a release.
+Beachball versions the package. Anything that reaches the tarball or builds it —
+`src/`, `readme.md`, `package.json`, `tsconfig.build.json` — needs a change file
+in the same pull request: run `pnpm change`. Use `none` for edits that shouldn't
+cut a release on their own, such as readme-only changes. Root tooling is exempt;
+`beachball.config.cjs` lists it, so lock file maintenance never cuts a release.
+On Renovate pull requests that touch the package, CI writes a `patch` change
+file itself.
 
-The Release workflow calls the shared Packages workflow with
-`tag-template: v{version}`, which tags each published version, e.g. `v1.0.0`,
-and `github-releases: true`, which creates a GitHub release with generated notes
-for it. Beachball's own `gitTags` stays off, since it would name the tags
-`schemastore-to-typescript_v1.0.0`. A tag that already has a release is skipped,
-so the workflow is safe to rerun.
+Nothing publishes on merge. Run the Release workflow (`publish.yml`) from the
+Actions tab to publish the pending change files through npm trusted publishing.
+It tags the version `v<version>` and creates a GitHub release with generated
+notes; a tag that already has a release is skipped, so the workflow is safe to
+rerun. Beachball's own `gitTags` stays off, since it would name the tags
+`schemastore-to-typescript_v<version>`.
 
 `main`, `types` and `bin` point at `src/` in the repository, and `publishConfig`
 swaps them for `dist/`, which `prepublishOnly` builds. The tarball leaves `src/`
