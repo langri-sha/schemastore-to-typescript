@@ -1,0 +1,7 @@
+{
+  "type": "none",
+  "comment": "Link the contributing guide from the readme",
+  "packageName": "schemastore-to-typescript",
+  "email": "filip.dupanovic@gmail.com",
+  "dependentChangeType": "none"
+}
