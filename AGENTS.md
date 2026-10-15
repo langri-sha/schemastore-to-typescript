@@ -10,7 +10,8 @@ are read-only. Change them in `.projenrc.ts`, then run `pnpm exec projen`.
 Beachball owns `CHANGELOG.md`, `CHANGELOG.json` and the `version` field.
 Everything else — `src/`, `readme.md`, `.github/workflows/`, this file — is
 edited by hand. Repository settings, branch protection and the Actions secrets
-are managed by `langri-sha/github-repos`.
+are managed by Terraform outside this repository; don't change them in the
+GitHub UI.
 
 ## Common tasks
 
