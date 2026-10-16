@@ -121,7 +121,7 @@ const project = new Project({
   worktrunk: {},
 })
 
-project.package?.addField('packageManager', 'pnpm@12.11.2')
+project.package?.addField('packageManager', 'pnpm@12.13.0')
 project.package?.addField('publishConfig', {
   access: 'public',
   bin: {
