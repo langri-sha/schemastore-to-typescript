@@ -1,0 +1,7 @@
+{
+  "type": "patch",
+  "comment": "Update dependency got to v16.1.0",
+  "packageName": "schemastore-to-typescript",
+  "email": "email not defined",
+  "dependentChangeType": "patch"
+}
