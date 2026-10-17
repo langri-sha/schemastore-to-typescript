@@ -16,6 +16,8 @@ module.exports = {
     'AGENTS.md',
     'CODEOWNERS',
     'beachball.config.cjs',
+    'dagger.lock',
+    'dagger.toml',
     'eslint.config.js',
     'lint-staged.config.js',
     'pnpm-lock.yaml',
