@@ -31,7 +31,7 @@ const project = new Project({
       'got@16.1.0',
       'json-schema-to-typescript@16.0.0',
       'keyv-file@5.3.5',
-      'keyv@6.1.0',
+      'keyv@5.6.0',
     ],
     devDeps: [
       '@langri-sha/eslint-config@0.10.0',
