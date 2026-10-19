@@ -88,6 +88,13 @@ const nonSchemaKeys = new Set(['default', 'examples', 'const', 'enum'])
  * So optional members are dropped in favour of `additionalProperties`, which
  * is the general contract they were there to narrow. Required ones stay: they
  * are a promise the type has to keep.
+ *
+ * Renovate 44.168.4 began listing the per-manager overrides (`lockFileMaintenance`,
+ * `minor`, `group`, …) among the members of every manager, while each of them
+ * still declares `$ref: '#'` beside an `allOf` that spells out the same
+ * members. `json-schema-to-typescript` cannot resolve that cycle and throws
+ * on an intersection with no parameters. The `allOf` already carries what the
+ * self-reference would inherit, so the `$ref` goes.
  */
 const sanitizeSchema = <T>(node: T): T => {
   if (Array.isArray(node)) {
@@ -109,6 +116,10 @@ const sanitizeSchema = <T>(node: T): T => {
     typeof sanitized.additionalProperties === 'object' &&
     sanitized.additionalProperties !== null
   ) {
+    delete sanitized.$ref
+  }
+
+  if (sanitized.$ref === '#' && Array.isArray(sanitized.allOf)) {
     delete sanitized.$ref
   }
 
