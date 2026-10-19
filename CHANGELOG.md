@@ -1,8 +1,36 @@
 # Change Log - schemastore-to-typescript
 
-<!-- This log was last generated on Wed, 07 Oct 2026 10:15:46 GMT and should not be manually modified. -->
+<!-- This log was last generated on Mon, 19 Oct 2026 17:11:45 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 1.0.4
+
+Mon, 19 Oct 2026 17:11:45 GMT
+
+### Patches
+
+- Update dependency pnpm to v12.10.0
+- Update dependency pnpm to v12.10.1
+- Update @langri-sha/projen-project to 0.37.0
+- Update dependency got to v16.1.0
+- Update dependency pnpm to v12.14.0
+- Compile Renovate 44.168.4 and later schemas (filip.dupanovic@gmail.com)
+- Update dependency @langri-sha/projen-project to v0.36.0
+- Update dependency @types/node to v24.19.2
+- Update dependency keyv to v6
+- Update dependency pnpm to v12.11.2
+- Update dependency vitest to v5.0.5
+- Update langri-sha projen toolchain
+- Update dependency @langri-sha/projen-project to v0.33.0
+- Update dependency pnpm to v12.11.1
+- Update langri-sha projen toolchain
+- Update dependency pnpm to v12.13.0
+- Update langri-sha projen toolchain
+- Update dependency pnpm to v12.11.0
+- Restore the Keyv version supported by got caching (filip.dupanovic@gmail.com)
+- Update dependency vitest to v5.0.4
+- Update dependency @langri-sha/projen-project to v0.39.0
 
 ## 1.0.3
 

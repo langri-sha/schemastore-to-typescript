@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Update @langri-sha/projen-project to 0.37.0",
-  "packageName": "schemastore-to-typescript",
-  "email": "email not defined",
-  "dependentChangeType": "patch"
-}

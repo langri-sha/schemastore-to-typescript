@@ -2,6 +2,167 @@
   "name": "schemastore-to-typescript",
   "entries": [
     {
+      "date": "Mon, 19 Oct 2026 17:11:45 GMT",
+      "version": "1.0.4",
+      "tag": "schemastore-to-typescript_v1.0.4",
+      "comments": {
+        "patch": [
+          {
+            "author": "email not defined",
+            "package": "schemastore-to-typescript",
+            "commit": "50260cd9b6fc9520f5c7e9a6d55720e90b329d4e",
+            "comment": "Update dependency pnpm to v12.10.0"
+          },
+          {
+            "author": "email not defined",
+            "package": "schemastore-to-typescript",
+            "commit": "50260cd9b6fc9520f5c7e9a6d55720e90b329d4e",
+            "comment": "Update dependency pnpm to v12.10.1"
+          },
+          {
+            "author": "email not defined",
+            "package": "schemastore-to-typescript",
+            "commit": "50260cd9b6fc9520f5c7e9a6d55720e90b329d4e",
+            "comment": "Update @langri-sha/projen-project to 0.37.0"
+          },
+          {
+            "author": "email not defined",
+            "package": "schemastore-to-typescript",
+            "commit": "50260cd9b6fc9520f5c7e9a6d55720e90b329d4e",
+            "comment": "Update dependency got to v16.1.0"
+          },
+          {
+            "author": "email not defined",
+            "package": "schemastore-to-typescript",
+            "commit": "50260cd9b6fc9520f5c7e9a6d55720e90b329d4e",
+            "comment": "Update dependency pnpm to v12.14.0"
+          },
+          {
+            "author": "filip.dupanovic@gmail.com",
+            "package": "schemastore-to-typescript",
+            "commit": "50260cd9b6fc9520f5c7e9a6d55720e90b329d4e",
+            "comment": "Compile Renovate 44.168.4 and later schemas"
+          },
+          {
+            "author": "email not defined",
+            "package": "schemastore-to-typescript",
+            "commit": "50260cd9b6fc9520f5c7e9a6d55720e90b329d4e",
+            "comment": "Update dependency @langri-sha/projen-project to v0.36.0"
+          },
+          {
+            "author": "email not defined",
+            "package": "schemastore-to-typescript",
+            "commit": "50260cd9b6fc9520f5c7e9a6d55720e90b329d4e",
+            "comment": "Update dependency @types/node to v24.19.2"
+          },
+          {
+            "author": "email not defined",
+            "package": "schemastore-to-typescript",
+            "commit": "50260cd9b6fc9520f5c7e9a6d55720e90b329d4e",
+            "comment": "Update dependency keyv to v6"
+          },
+          {
+            "author": "email not defined",
+            "package": "schemastore-to-typescript",
+            "commit": "50260cd9b6fc9520f5c7e9a6d55720e90b329d4e",
+            "comment": "Update dependency pnpm to v12.11.2"
+          },
+          {
+            "author": "email not defined",
+            "package": "schemastore-to-typescript",
+            "commit": "50260cd9b6fc9520f5c7e9a6d55720e90b329d4e",
+            "comment": "Update dependency vitest to v5.0.5"
+          },
+          {
+            "author": "email not defined",
+            "package": "schemastore-to-typescript",
+            "commit": "50260cd9b6fc9520f5c7e9a6d55720e90b329d4e",
+            "comment": "Update langri-sha projen toolchain"
+          },
+          {
+            "author": "email not defined",
+            "package": "schemastore-to-typescript",
+            "commit": "50260cd9b6fc9520f5c7e9a6d55720e90b329d4e",
+            "comment": "Update dependency @langri-sha/projen-project to v0.33.0"
+          },
+          {
+            "author": "email not defined",
+            "package": "schemastore-to-typescript",
+            "commit": "50260cd9b6fc9520f5c7e9a6d55720e90b329d4e",
+            "comment": "Update dependency pnpm to v12.11.1"
+          },
+          {
+            "author": "email not defined",
+            "package": "schemastore-to-typescript",
+            "commit": "50260cd9b6fc9520f5c7e9a6d55720e90b329d4e",
+            "comment": "Update langri-sha projen toolchain"
+          },
+          {
+            "author": "email not defined",
+            "package": "schemastore-to-typescript",
+            "commit": "50260cd9b6fc9520f5c7e9a6d55720e90b329d4e",
+            "comment": "Update dependency pnpm to v12.13.0"
+          },
+          {
+            "author": "email not defined",
+            "package": "schemastore-to-typescript",
+            "commit": "50260cd9b6fc9520f5c7e9a6d55720e90b329d4e",
+            "comment": "Update langri-sha projen toolchain"
+          },
+          {
+            "author": "email not defined",
+            "package": "schemastore-to-typescript",
+            "commit": "50260cd9b6fc9520f5c7e9a6d55720e90b329d4e",
+            "comment": "Update dependency pnpm to v12.11.0"
+          },
+          {
+            "author": "filip.dupanovic@gmail.com",
+            "package": "schemastore-to-typescript",
+            "commit": "50260cd9b6fc9520f5c7e9a6d55720e90b329d4e",
+            "comment": "Restore the Keyv version supported by got caching"
+          },
+          {
+            "author": "email not defined",
+            "package": "schemastore-to-typescript",
+            "commit": "50260cd9b6fc9520f5c7e9a6d55720e90b329d4e",
+            "comment": "Update dependency vitest to v5.0.4"
+          },
+          {
+            "author": "email not defined",
+            "package": "schemastore-to-typescript",
+            "commit": "50260cd9b6fc9520f5c7e9a6d55720e90b329d4e",
+            "comment": "Update dependency @langri-sha/projen-project to v0.39.0"
+          }
+        ],
+        "none": [
+          {
+            "author": "filip.dupanovic@gmail.com",
+            "package": "schemastore-to-typescript",
+            "commit": "50260cd9b6fc9520f5c7e9a6d55720e90b329d4e",
+            "comment": "Opt into the default Worktrunk hooks"
+          },
+          {
+            "author": "filip.dupanovic@gmail.com",
+            "package": "schemastore-to-typescript",
+            "commit": "50260cd9b6fc9520f5c7e9a6d55720e90b329d4e",
+            "comment": "Simplify the README"
+          },
+          {
+            "author": "filip.dupanovic@gmail.com",
+            "package": "schemastore-to-typescript",
+            "commit": "50260cd9b6fc9520f5c7e9a6d55720e90b329d4e",
+            "comment": "Keep the Dagger files out of the package"
+          },
+          {
+            "author": "filip.dupanovic@gmail.com",
+            "package": "schemastore-to-typescript",
+            "commit": "50260cd9b6fc9520f5c7e9a6d55720e90b329d4e",
+            "comment": "Link the contributing guide from the readme"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 07 Oct 2026 10:15:46 GMT",
       "version": "1.0.3",
       "tag": "schemastore-to-typescript_v1.0.3",
