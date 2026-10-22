@@ -1,8 +1,17 @@
 # Change Log - schemastore-to-typescript
 
-<!-- This log was last generated on Mon, 19 Oct 2026 17:11:45 GMT and should not be manually modified. -->
+<!-- This log was last generated on Thu, 22 Oct 2026 22:27:20 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 1.0.5
+
+Thu, 22 Oct 2026 22:27:20 GMT
+
+### Patches
+
+- Keep the optional members of a root that allows additional properties (filip.dupanovic@gmail.com)
+- Update dependency @langri-sha/projen-project to v0.40.0
 
 ## 1.0.4
 

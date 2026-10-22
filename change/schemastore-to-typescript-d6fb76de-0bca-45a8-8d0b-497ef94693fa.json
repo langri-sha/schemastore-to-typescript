@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Keep the optional members of a root that allows additional properties",
-  "packageName": "schemastore-to-typescript",
-  "email": "filip.dupanovic@gmail.com",
-  "dependentChangeType": "patch"
-}

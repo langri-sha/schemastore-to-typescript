@@ -2,6 +2,27 @@
   "name": "schemastore-to-typescript",
   "entries": [
     {
+      "date": "Thu, 22 Oct 2026 22:27:20 GMT",
+      "version": "1.0.5",
+      "tag": "schemastore-to-typescript_v1.0.5",
+      "comments": {
+        "patch": [
+          {
+            "author": "filip.dupanovic@gmail.com",
+            "package": "schemastore-to-typescript",
+            "commit": "a5e55015e4e296164838792f7e182c7e8f71b75f",
+            "comment": "Keep the optional members of a root that allows additional properties"
+          },
+          {
+            "author": "email not defined",
+            "package": "schemastore-to-typescript",
+            "commit": "a5e55015e4e296164838792f7e182c7e8f71b75f",
+            "comment": "Update dependency @langri-sha/projen-project to v0.40.0"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 19 Oct 2026 17:11:45 GMT",
       "version": "1.0.4",
       "tag": "schemastore-to-typescript_v1.0.4",
