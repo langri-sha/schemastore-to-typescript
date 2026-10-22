@@ -89,6 +89,13 @@ const nonSchemaKeys = new Set(['default', 'examples', 'const', 'enum'])
  * is the general contract they were there to narrow. Required ones stay: they
  * are a promise the type has to keep.
  *
+ * The root is the exception when it declares `additionalProperties: true`: the
+ * document lists its known keys and merely tolerates others, so the members
+ * are the contract and dropping them leaves `{ [k: string]: unknown }` (Claude
+ * Code's settings). The index type is `unknown`, so there is no TS2411. Only
+ * the root qualifies; open nested nodes remain extension points whose members
+ * are advisory, such as Cargo's `package.metadata`.
+ *
  * Renovate 44.168.4 began listing the per-manager overrides (`lockFileMaintenance`,
  * `minor`, `group`, …) among the members of every manager, while each of them
  * still declares `$ref: '#'` beside an `allOf` that spells out the same
@@ -96,9 +103,9 @@ const nonSchemaKeys = new Set(['default', 'examples', 'const', 'enum'])
  * on an intersection with no parameters. The `allOf` already carries what the
  * self-reference would inherit, so the `$ref` goes.
  */
-const sanitizeSchema = <T>(node: T): T => {
+const sanitizeSchema = <T>(node: T, isRoot: boolean = true): T => {
   if (Array.isArray(node)) {
-    return node.map(sanitizeSchema) as unknown as T
+    return node.map((item) => sanitizeSchema(item, false)) as unknown as T
   }
 
   if (node === null || typeof node !== 'object') {
@@ -108,7 +115,9 @@ const sanitizeSchema = <T>(node: T): T => {
   const sanitized: Record<string, unknown> = {}
 
   for (const [key, value] of Object.entries(node as Record<string, unknown>)) {
-    sanitized[key] = nonSchemaKeys.has(key) ? value : sanitizeSchema(value)
+    sanitized[key] = nonSchemaKeys.has(key)
+      ? value
+      : sanitizeSchema(value, false)
   }
 
   if (
@@ -126,6 +135,7 @@ const sanitizeSchema = <T>(node: T): T => {
   if (
     sanitized.additionalProperties !== undefined &&
     sanitized.additionalProperties !== false &&
+    !(isRoot && sanitized.additionalProperties === true) &&
     typeof sanitized.properties === 'object' &&
     sanitized.properties !== null
   ) {
