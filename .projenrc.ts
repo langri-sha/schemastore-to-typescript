@@ -15,7 +15,7 @@ const project = new Project({
     keywords: ['cli', 'json-schema', 'schemastore', 'typescript'],
     license: 'MIT',
     licensed: true,
-    minNodeVersion: '24.16.0',
+    minNodeVersion: '24.22.1',
     repository:
       'git+https://github.com/langri-sha/schemastore-to-typescript.git',
     type: 'module',
