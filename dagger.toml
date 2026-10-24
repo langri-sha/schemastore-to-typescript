@@ -19,19 +19,19 @@ packageManager = "pnpm"
 baseImageAddress = "node:24-slim"
 
 [modules.ci]
-source = "github.com/langri-sha/dagger/ci@v1.8.0"
+source = "github.com/langri-sha/dagger/ci@v1.9.0"
 
 [modules.ci.generate]
 skip = ["projen"]
 
 [modules.projen]
-source = "github.com/langri-sha/dagger/projen@v1.8.0"
+source = "github.com/langri-sha/dagger/projen@v1.9.0"
 
 [modules.typescript]
-source = "github.com/langri-sha/dagger/typescript@v1.8.0"
+source = "github.com/langri-sha/dagger/typescript@v1.9.0"
 
 [modules.vitest]
-source = "github.com/langri-sha/dagger/vitest@v1.8.0"
+source = "github.com/langri-sha/dagger/vitest@v1.9.0"
 
 [modules.beachball]
-source = "github.com/langri-sha/dagger/beachball@v1.8.0"
+source = "github.com/langri-sha/dagger/beachball@v1.9.0"
