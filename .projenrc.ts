@@ -130,6 +130,15 @@ const project = new Project({
     },
   },
   worktrunk: {},
+  skills: {
+    skills: [
+      {
+        source: 'langri-sha/skills',
+        ref: '21a148e364532f626e6586e2a65a0305cff6a911',
+        skills: ['create-commit', 'create-pr'],
+      },
+    ],
+  },
 })
 
 project.package?.addField('packageManager', 'pnpm@12.15.0')
