@@ -135,7 +135,7 @@ const project = new Project({
     skills: [
       {
         source: 'langri-sha/skills',
-        ref: '14548e6c6fe235cda48d3270b2d44cb340fed3ff',
+        ref: 'e860a9b3cb4ca318c4dcd50d7286bb421f59b052',
         skills: ['create-commit', 'create-pr'],
       },
     ],
