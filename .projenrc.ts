@@ -34,9 +34,6 @@ const project = new Project({
       'keyv@5.6.0',
     ],
     devDeps: [
-      '@langri-sha/eslint-config@0.10.0',
-      '@langri-sha/lint-staged@0.9.11',
-      '@langri-sha/prettier@0.4.11',
       '@langri-sha/projen-project@*',
       '@langri-sha/tsconfig@1.1.1',
       '@langri-sha/vitest@0.2.3',
