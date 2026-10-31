@@ -39,7 +39,6 @@ const project = new Project({
       '@langri-sha/vitest@0.2.3',
       '@types/debug@4.1.13',
       '@types/node@24.19.2',
-      'vitest@5.0.5',
     ],
   },
   beachball: {
@@ -86,8 +85,6 @@ const project = new Project({
   lintSynthesized: {},
   npmIgnore: {
     ignorePatterns: [
-      '*.test.*',
-      '__snapshots__/',
       '/*.config.*',
       '/*.json5',
       '/*.yaml',
@@ -126,6 +123,7 @@ const project = new Project({
       include: ['src'],
     },
   },
+  vitest: true,
   worktrunk: {},
   skills: {
     ignore: false,
@@ -164,7 +162,6 @@ project.package?.setScript(
   'prepublishOnly',
   'rm -rf dist; tsc --project tsconfig.build.json',
 )
-project.package?.setScript('test', 'vitest')
 
 new TypeScriptConfig(project, {
   fileName: 'tsconfig.build.json',
