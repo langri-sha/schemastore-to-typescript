@@ -1,7 +1,0 @@
-{
-  "type": "none",
-  "comment": "Stop Claude Code adding attribution to commits and pull requests",
-  "packageName": "schemastore-to-typescript",
-  "email": "filip.dupanovic@gmail.com",
-  "dependentChangeType": "none"
-}

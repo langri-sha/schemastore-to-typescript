@@ -2,6 +2,109 @@
   "name": "schemastore-to-typescript",
   "entries": [
     {
+      "date": "Sat, 31 Oct 2026 17:00:44 GMT",
+      "version": "1.1.0",
+      "tag": "schemastore-to-typescript_v1.1.0",
+      "comments": {
+        "patch": [
+          {
+            "author": "email not defined",
+            "package": "schemastore-to-typescript",
+            "commit": "06041dc03953eef82529ebbbf1d6d463d0887086",
+            "comment": "Update dependency @langri-sha/projen-project to v0.42.4"
+          },
+          {
+            "author": "email not defined",
+            "package": "schemastore-to-typescript",
+            "commit": "06041dc03953eef82529ebbbf1d6d463d0887086",
+            "comment": "Update dependency langri-sha/skills to v1.1.0"
+          },
+          {
+            "author": "email not defined",
+            "package": "schemastore-to-typescript",
+            "commit": "06041dc03953eef82529ebbbf1d6d463d0887086",
+            "comment": "Update dependency pnpm to v12.16.0"
+          },
+          {
+            "author": "email not defined",
+            "package": "schemastore-to-typescript",
+            "commit": "06041dc03953eef82529ebbbf1d6d463d0887086",
+            "comment": "Update dependency @langri-sha/projen-project to v0.42.0"
+          },
+          {
+            "author": "email not defined",
+            "package": "schemastore-to-typescript",
+            "commit": "06041dc03953eef82529ebbbf1d6d463d0887086",
+            "comment": "Update langri-sha/skills digest to 14548e6"
+          },
+          {
+            "author": "email not defined",
+            "package": "schemastore-to-typescript",
+            "commit": "06041dc03953eef82529ebbbf1d6d463d0887086",
+            "comment": "Update dependency pnpm to v12.16.1"
+          },
+          {
+            "author": "email not defined",
+            "package": "schemastore-to-typescript",
+            "commit": "06041dc03953eef82529ebbbf1d6d463d0887086",
+            "comment": "Update dependency @langri-sha/projen-project to v0.43.0"
+          },
+          {
+            "author": "email not defined",
+            "package": "schemastore-to-typescript",
+            "commit": "06041dc03953eef82529ebbbf1d6d463d0887086",
+            "comment": "Update dependency pnpm to v12.15.0"
+          },
+          {
+            "author": "email not defined",
+            "package": "schemastore-to-typescript",
+            "commit": "06041dc03953eef82529ebbbf1d6d463d0887086",
+            "comment": "Update langri-sha/skills digest to c0cb19c"
+          }
+        ],
+        "none": [
+          {
+            "author": "filip.dupanovic@gmail.com",
+            "package": "schemastore-to-typescript",
+            "commit": "06041dc03953eef82529ebbbf1d6d463d0887086",
+            "comment": "Let the preset supply the config packages"
+          },
+          {
+            "author": "filip.dupanovic@gmail.com",
+            "package": "schemastore-to-typescript",
+            "commit": "06041dc03953eef82529ebbbf1d6d463d0887086",
+            "comment": "Declare the create-commit and create-pr skills"
+          },
+          {
+            "author": "filip.dupanovic@gmail.com",
+            "package": "schemastore-to-typescript",
+            "commit": "06041dc03953eef82529ebbbf1d6d463d0887086",
+            "comment": "Let the preset supply Vitest"
+          },
+          {
+            "author": "filip.dupanovic@gmail.com",
+            "package": "schemastore-to-typescript",
+            "commit": "06041dc03953eef82529ebbbf1d6d463d0887086",
+            "comment": "Pin skills to v1.0.0"
+          },
+          {
+            "author": "filip.dupanovic@gmail.com",
+            "package": "schemastore-to-typescript",
+            "commit": "06041dc03953eef82529ebbbf1d6d463d0887086",
+            "comment": "Stop Claude Code adding attribution to commits and pull requests"
+          }
+        ],
+        "minor": [
+          {
+            "author": "filip.dupanovic@gmail.com",
+            "package": "schemastore-to-typescript",
+            "commit": "06041dc03953eef82529ebbbf1d6d463d0887086",
+            "comment": "Require Node.js 24.22.1, which fixes CVE-2026-111497"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 22 Oct 2026 22:27:20 GMT",
       "version": "1.0.5",
       "tag": "schemastore-to-typescript_v1.0.5",

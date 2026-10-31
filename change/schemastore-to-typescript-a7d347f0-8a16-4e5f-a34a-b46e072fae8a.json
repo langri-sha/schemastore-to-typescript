@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Update langri-sha/skills digest to 14548e6",
-  "packageName": "schemastore-to-typescript",
-  "email": "email not defined",
-  "dependentChangeType": "patch"
-}

@@ -1,8 +1,28 @@
 # Change Log - schemastore-to-typescript
 
-<!-- This log was last generated on Thu, 22 Oct 2026 22:27:20 GMT and should not be manually modified. -->
+<!-- This log was last generated on Sat, 31 Oct 2026 17:00:44 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 1.1.0
+
+Sat, 31 Oct 2026 17:00:44 GMT
+
+### Minor changes
+
+- Require Node.js 24.22.1, which fixes CVE-2026-111497 (filip.dupanovic@gmail.com)
+
+### Patches
+
+- Update dependency @langri-sha/projen-project to v0.42.4
+- Update dependency langri-sha/skills to v1.1.0
+- Update dependency pnpm to v12.16.0
+- Update dependency @langri-sha/projen-project to v0.42.0
+- Update langri-sha/skills digest to 14548e6
+- Update dependency pnpm to v12.16.1
+- Update dependency @langri-sha/projen-project to v0.43.0
+- Update dependency pnpm to v12.15.0
+- Update langri-sha/skills digest to c0cb19c
 
 ## 1.0.5
 
