@@ -469,6 +469,7 @@ const isJsiiName = (name: string) =>
   !prohibited.has(name.toLowerCase())
 
 const property = /^ {2}(?:readonly )?("[^"]+"|'[^']+'|[A-Za-z_$][\w$]*)(\?)?:/
+const indexSignature = /^ {2}(?:readonly )?\[[^\]]+\]:/
 
 const ignore = (lines: string[]) => {
   const last = lines.length - 1
@@ -498,6 +499,12 @@ export const jsiiTypings = (source: string): string => {
 
     if (line === '}') {
       inInterface = false
+      output.push(line)
+      continue
+    }
+
+    if (indexSignature.test(line)) {
+      ignore(output)
       output.push(line)
       continue
     }
