@@ -169,12 +169,17 @@ export interface CompileOptions {
    * Emit typings that jsii compiles when they are part of a package's API.
    */
   jsii?: boolean
+
+  /**
+   * Name the root interface, instead of the catalog's name for the schema.
+   */
+  typeName?: string
 }
 
 export const compile = async (
   name: string,
   cache: boolean = true,
-  { jsii = false }: CompileOptions = {},
+  { jsii = false, typeName }: CompileOptions = {},
 ): Promise<string> => {
   const catalogUrl = 'https://www.schemastore.org/api/json/catalog.json'
 
@@ -253,7 +258,7 @@ export const compile = async (
     schema = await fetchWithRetry<JSONSchema>(catalogSchema.url)
 
     if (typeof schema === 'object' && schema !== null) {
-      schema.title = catalogSchema.name
+      schema.title = typeName ?? catalogSchema.name
     }
   } catch (e) {
     debug(e)

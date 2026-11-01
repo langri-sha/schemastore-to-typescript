@@ -24,6 +24,7 @@ test('compiles schema to TypeScript', async () => {
 
   expect(compile).toHaveBeenCalledWith('swcrc', true, {
     jsii: undefined,
+    typeName: undefined,
   })
 })
 
@@ -55,6 +56,7 @@ test('disables cache with `--no-cache`', async () => {
 
   expect(compile).toHaveBeenCalledWith('swcrc', false, {
     jsii: undefined,
+    typeName: undefined,
   })
 })
 
@@ -63,5 +65,21 @@ test('compiles for jsii with `--jsii`', async () => {
 
   expect(compile).toHaveBeenCalledWith('swcrc', true, {
     jsii: true,
+    typeName: undefined,
+  })
+})
+
+test('names the root interface with `--type-name`', async () => {
+  await program.parseAsync([
+    'node',
+    'cli.ts',
+    'swcrc',
+    '--type-name',
+    'SwcrcSchema',
+  ])
+
+  expect(compile).toHaveBeenCalledWith('swcrc', true, {
+    jsii: undefined,
+    typeName: 'SwcrcSchema',
   })
 })
