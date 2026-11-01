@@ -2,6 +2,7 @@ import type { JSONSchema, Options } from 'json-schema-to-typescript'
 
 import {
   type Node,
+  escapeToken,
   isObject,
   literalKeys,
   namedSchemaKeys,
@@ -322,9 +323,6 @@ const mapify: Visit = (node) => {
           : { anyOf: values },
   }
 }
-
-const escapeToken = (name: string) =>
-  name.replaceAll('~', '~0').replaceAll('/', '~1')
 
 /**
  * A map that reaches itself keeps its `$ref` where it does, so that it stays
