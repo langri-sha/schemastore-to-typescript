@@ -5,12 +5,171 @@ import {
   isObject,
   literalKeys,
   namedSchemaKeys,
+  resolvePointer,
 } from './normalize.js'
+
+type Visit = (node: Node) => Node
+
+const mapSchema = (
+  node: unknown,
+  visit: Visit,
+  inSchema: boolean = true,
+): unknown => {
+  if (Array.isArray(node)) {
+    return node.map((item) => mapSchema(item, visit, inSchema))
+  }
+
+  if (!isObject(node)) {
+    return node
+  }
+
+  if (!inSchema) {
+    return Object.fromEntries(
+      Object.entries(node).map(([name, value]) => [
+        name,
+        mapSchema(value, visit, true),
+      ]),
+    )
+  }
+
+  const mapped: Node = {}
+
+  for (const [key, value] of Object.entries(node)) {
+    mapped[key] = literalKeys.has(key)
+      ? value
+      : mapSchema(value, visit, !namedSchemaKeys.has(key))
+  }
+
+  return visit(mapped)
+}
 
 const hasMembers = (node: unknown): node is Node & { properties: Node } =>
   isObject(node) &&
   isObject(node.properties) &&
   Object.keys(node.properties).length > 0
+
+const isMap = (node: unknown): node is Node =>
+  isObject(node) &&
+  !hasMembers(node) &&
+  (node.type === 'object' ||
+    (node.type === undefined &&
+      (node.additionalProperties !== undefined ||
+        isObject(node.patternProperties)))) &&
+  (node.additionalProperties !== false || isObject(node.patternProperties))
+
+/**
+ * A named interface cannot be a map (JSII1999), but a map type can stand in
+ * a member's type. Restate every member-less object as one, without the name
+ * that would hoist it back into an interface.
+ */
+const mapify: Visit = (node) => {
+  if (!isMap(node)) {
+    return node
+  }
+
+  const patterns = isObject(node.patternProperties)
+    ? Object.values(node.patternProperties)
+    : []
+
+  const values = isObject(node.additionalProperties)
+    ? [node.additionalProperties, ...patterns]
+    : patterns
+
+  const {
+    $id: _id,
+    title: _title,
+    required: _required,
+    patternProperties: _patterns,
+    ...rest
+  } = node
+
+  return {
+    ...rest,
+    type: 'object',
+    additionalProperties:
+      values.length === 0 || node.additionalProperties === true
+        ? true
+        : values.length === 1
+          ? values[0]
+          : { anyOf: values },
+  }
+}
+
+const escapeToken = (name: string) =>
+  name.replaceAll('~', '~0').replaceAll('/', '~1')
+
+/**
+ * A map that reaches itself keeps its `$ref` where it does, so that it stays
+ * a named interface rather than expanding without end.
+ */
+const inlineMaps = (document: Node): Node => {
+  const walk = (
+    node: unknown,
+    expanding: string[],
+    inSchema: boolean,
+  ): unknown => {
+    if (Array.isArray(node)) {
+      return node.map((item) => walk(item, expanding, inSchema))
+    }
+
+    if (!isObject(node)) {
+      return node
+    }
+
+    if (!inSchema) {
+      return Object.fromEntries(
+        Object.entries(node).map(([name, value]) => [
+          name,
+          walk(value, expanding, true),
+        ]),
+      )
+    }
+
+    const target =
+      typeof node.$ref === 'string'
+        ? resolvePointer(document, node.$ref)
+        : undefined
+
+    if (
+      typeof node.$ref === 'string' &&
+      isMap(target) &&
+      target !== document &&
+      !expanding.includes(node.$ref)
+    ) {
+      const { $ref, title: _, ...siblings } = node
+
+      return {
+        ...(walk(structuredClone(target), [...expanding, $ref], true) as Node),
+        ...siblings,
+      }
+    }
+
+    const walked: Node = {}
+
+    for (const [key, value] of Object.entries(node)) {
+      if (literalKeys.has(key)) {
+        walked[key] = value
+      } else if (key === 'definitions' && isObject(value)) {
+        walked[key] = Object.fromEntries(
+          Object.entries(value).map(([name, definition]) => [
+            name,
+            walk(
+              definition,
+              [...expanding, `#/definitions/${escapeToken(name)}`],
+              true,
+            ),
+          ]),
+        )
+      } else {
+        walked[key] = walk(value, expanding, !namedSchemaKeys.has(key))
+      }
+    }
+
+    return walked
+  }
+
+  return walk(document, [], true) as Node
+}
 
 const pascal = (text: string) =>
   text
@@ -120,14 +279,17 @@ const nameInlineObjects = (document: Node): Node => {
 
 /**
  * Reshapes a schema so the typings `json-schema-to-typescript` writes for it
- * stay within what jsii accepts: no inline objects.
+ * stay within what jsii accepts: no named maps and no inline objects.
  */
 export const jsiiSchema = (schema: JSONSchema): JSONSchema => {
   if (!isObject(schema)) {
     return schema
   }
 
-  const document = structuredClone(schema) as Node
+  let document = structuredClone(schema) as Node
+
+  document = mapSchema(document, mapify) as Node
+  document = inlineMaps(document)
 
   return nameInlineObjects(document) as JSONSchema
 }
