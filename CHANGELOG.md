@@ -1,8 +1,22 @@
 # Change Log - schemastore-to-typescript
 
-<!-- This log was last generated on Sat, 31 Oct 2026 17:00:44 GMT and should not be manually modified. -->
+<!-- This log was last generated on Sun, 01 Nov 2026 02:29:00 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 1.2.0
+
+Sun, 01 Nov 2026 02:29:00 GMT
+
+### Minor changes
+
+- Add a jsii mode that emits typings jsii can compile (filip.dupanovic@gmail.com)
+
+### Patches
+
+- Update dependency @langri-sha/projen-project to v0.47.1
+- Update dependency @langri-sha/projen-project to v0.47.0
+- Update dependency @langri-sha/projen-project to v0.48.0
 
 ## 1.1.0
 

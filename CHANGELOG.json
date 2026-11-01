@@ -2,6 +2,41 @@
   "name": "schemastore-to-typescript",
   "entries": [
     {
+      "date": "Sun, 01 Nov 2026 02:29:00 GMT",
+      "version": "1.2.0",
+      "tag": "schemastore-to-typescript_v1.2.0",
+      "comments": {
+        "patch": [
+          {
+            "author": "email not defined",
+            "package": "schemastore-to-typescript",
+            "commit": "516e3b8eb4d7537b8db4f93eb14808e8ae49b3d5",
+            "comment": "Update dependency @langri-sha/projen-project to v0.47.1"
+          },
+          {
+            "author": "email not defined",
+            "package": "schemastore-to-typescript",
+            "commit": "516e3b8eb4d7537b8db4f93eb14808e8ae49b3d5",
+            "comment": "Update dependency @langri-sha/projen-project to v0.47.0"
+          },
+          {
+            "author": "email not defined",
+            "package": "schemastore-to-typescript",
+            "commit": "516e3b8eb4d7537b8db4f93eb14808e8ae49b3d5",
+            "comment": "Update dependency @langri-sha/projen-project to v0.48.0"
+          }
+        ],
+        "minor": [
+          {
+            "author": "filip.dupanovic@gmail.com",
+            "package": "schemastore-to-typescript",
+            "commit": "516e3b8eb4d7537b8db4f93eb14808e8ae49b3d5",
+            "comment": "Add a jsii mode that emits typings jsii can compile"
+          }
+        ]
+      }
+    },
+    {
       "date": "Sat, 31 Oct 2026 17:00:44 GMT",
       "version": "1.1.0",
       "tag": "schemastore-to-typescript_v1.1.0",
