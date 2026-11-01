@@ -25,7 +25,7 @@ export const namedSchemaKeys = new Set([
   'properties',
 ])
 
-const escapeToken = (name: string) =>
+export const escapeToken = (name: string) =>
   name.replaceAll('~', '~0').replaceAll('/', '~1')
 
 const unescapeToken = (token: string) =>
