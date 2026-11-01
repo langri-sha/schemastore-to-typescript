@@ -281,3 +281,177 @@ test('keeps a map that reaches itself as a named interface', async () => {
     "
   `)
 })
+
+test('replaces a single-member allOf with its reference', async () => {
+  const ts = await compileForJsii({
+    type: 'object',
+    properties: {
+      policy: {
+        description: 'How to authenticate.',
+        type: 'string',
+        allOf: [{ $ref: '#/definitions/policy' }],
+      },
+    },
+    additionalProperties: false,
+    definitions: {
+      policy: { type: 'string', enum: ['auto', 'always', 'never'] },
+    },
+  })
+
+  expect(ts).toMatchInlineSnapshot(`
+    "export interface Some {
+      /**
+       * How to authenticate.
+       */
+      readonly policy?: "auto" | "always" | "never";
+    }
+    "
+  `)
+})
+
+test('merges the object members of an allOf into one interface', async () => {
+  const ts = await compileForJsii({
+    type: 'object',
+    properties: {
+      dependency: {
+        allOf: [
+          { $ref: '#/definitions/source' },
+          {
+            type: 'object',
+            properties: { optional: { type: 'boolean' } },
+            required: ['optional'],
+          },
+        ],
+      },
+    },
+    additionalProperties: false,
+    definitions: {
+      source: {
+        type: 'object',
+        properties: { path: { type: 'string' } },
+        required: ['path'],
+        additionalProperties: false,
+      },
+    },
+  })
+
+  expect(ts).toMatchInlineSnapshot(`
+    "export interface Some {
+      readonly dependency?: SomeDependency;
+    }
+    export interface SomeDependency {
+      readonly optional: boolean;
+      readonly path: string;
+      [k: string]: unknown;
+    }
+    "
+  `)
+})
+
+test('drops allOf members that only constrain', async () => {
+  const ts = await compileForJsii({
+    type: 'object',
+    properties: {
+      dependency: {
+        type: 'object',
+        properties: {
+          git: { type: 'string' },
+          path: { type: 'string' },
+        },
+        allOf: [
+          { not: { required: ['git', 'path'] } },
+          { anyOf: [{ required: ['git'] }, { required: ['path'] }] },
+        ],
+        additionalProperties: false,
+      },
+    },
+    additionalProperties: false,
+  })
+
+  expect(ts).toMatchInlineSnapshot(`
+    "export interface Some {
+      readonly dependency?: SomeDependency;
+    }
+    export interface SomeDependency {
+      readonly git?: string;
+      readonly path?: string;
+    }
+    "
+  `)
+})
+
+test('merges alternatives written beside members into the interface', async () => {
+  const ts = await compileForJsii({
+    type: 'object',
+    properties: {
+      project: {
+        type: 'object',
+        properties: { name: { type: 'string' } },
+        required: ['name'],
+        anyOf: [
+          {
+            properties: {
+              dynamic: { type: 'array', items: { type: 'string' } },
+            },
+            required: ['dynamic'],
+          },
+          {
+            properties: { version: { type: 'string' } },
+            required: ['version'],
+          },
+        ],
+        additionalProperties: false,
+      },
+    },
+    additionalProperties: false,
+  })
+
+  expect(ts).toMatchInlineSnapshot(`
+    "export interface Some {
+      readonly project?: SomeProject;
+    }
+    export interface SomeProject {
+      readonly name: string;
+      readonly dynamic?: string[];
+      readonly version?: string;
+    }
+    "
+  `)
+})
+
+test('unions what several alternatives say about a member', async () => {
+  const ts = await compileForJsii({
+    type: 'object',
+    properties: {
+      source: {
+        type: 'object',
+        properties: { name: { type: 'string' } },
+        anyOf: [
+          {
+            properties: { kind: { const: 'git' }, url: { type: 'string' } },
+            required: ['kind'],
+          },
+          {
+            properties: { kind: { const: 'path' }, path: { type: 'string' } },
+            required: ['kind'],
+          },
+        ],
+        additionalProperties: false,
+      },
+    },
+    additionalProperties: false,
+  })
+
+  expect(ts).toMatchInlineSnapshot(`
+    "export interface Some {
+      readonly source?: SomeSource;
+    }
+    export interface SomeSource {
+      readonly name?: string;
+      readonly kind?: "git" | "path";
+      readonly url?: string;
+      readonly path?: string;
+    }
+    "
+  `)
+})
