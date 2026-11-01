@@ -1,0 +1,7 @@
+{
+  "type": "minor",
+  "comment": "Name the only object among the alternatives without its position in jsii mode",
+  "packageName": "schemastore-to-typescript",
+  "email": "filip.dupanovic@gmail.com",
+  "dependentChangeType": "patch"
+}
