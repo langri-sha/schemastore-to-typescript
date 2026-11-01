@@ -276,6 +276,7 @@ test('keeps a map that reaches itself as a named interface', async () => {
       };
     }
     export interface Tree {
+      /** @jsii ignore */
       [k: string]: string | Tree;
     }
     "
@@ -342,6 +343,7 @@ test('merges the object members of an allOf into one interface', async () => {
     export interface SomeDependency {
       readonly optional: boolean;
       readonly path: string;
+      /** @jsii ignore */
       [k: string]: unknown;
     }
     "
@@ -565,6 +567,25 @@ test('hides members named like methods generated for other languages from jsii',
       readonly equals?: string;
       /** @jsii ignore */
       readonly hashCode?: string;
+    }
+    "
+  `)
+})
+
+test('hides an index signature from jsii and keeps it in the typings', async () => {
+  const ts = await compileForJsii({
+    type: 'object',
+    properties: {
+      model: { type: 'string' },
+    },
+    additionalProperties: true,
+  })
+
+  expect(ts).toMatchInlineSnapshot(`
+    "export interface Some {
+      readonly model?: string;
+      /** @jsii ignore */
+      [k: string]: unknown;
     }
     "
   `)
