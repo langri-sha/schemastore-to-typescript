@@ -2,6 +2,35 @@
   "name": "schemastore-to-typescript",
   "entries": [
     {
+      "date": "Sun, 01 Nov 2026 16:59:00 GMT",
+      "version": "1.3.0",
+      "tag": "schemastore-to-typescript_v1.3.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "filip.dupanovic@gmail.com",
+            "package": "schemastore-to-typescript",
+            "commit": "afaf67fe0c1f1c826292bed5a8c6f85d06d544db",
+            "comment": "Add an option to keep null in jsii mode"
+          },
+          {
+            "author": "filip.dupanovic@gmail.com",
+            "package": "schemastore-to-typescript",
+            "commit": "afaf67fe0c1f1c826292bed5a8c6f85d06d544db",
+            "comment": "Name the only object among the alternatives without its position in jsii mode"
+          }
+        ],
+        "patch": [
+          {
+            "author": "filip.dupanovic@gmail.com",
+            "package": "schemastore-to-typescript",
+            "commit": "afaf67fe0c1f1c826292bed5a8c6f85d06d544db",
+            "comment": "Keep the value type of a map that refers to a definition in jsii mode"
+          }
+        ]
+      }
+    },
+    {
       "date": "Sun, 01 Nov 2026 09:09:47 GMT",
       "version": "1.2.2",
       "tag": "schemastore-to-typescript_v1.2.2",

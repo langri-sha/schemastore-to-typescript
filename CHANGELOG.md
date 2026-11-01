@@ -1,8 +1,21 @@
 # Change Log - schemastore-to-typescript
 
-<!-- This log was last generated on Sun, 01 Nov 2026 09:09:47 GMT and should not be manually modified. -->
+<!-- This log was last generated on Sun, 01 Nov 2026 16:59:00 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 1.3.0
+
+Sun, 01 Nov 2026 16:59:00 GMT
+
+### Minor changes
+
+- Add an option to keep null in jsii mode (filip.dupanovic@gmail.com)
+- Name the only object among the alternatives without its position in jsii mode (filip.dupanovic@gmail.com)
+
+### Patches
+
+- Keep the value type of a map that refers to a definition in jsii mode (filip.dupanovic@gmail.com)
 
 ## 1.2.2
 
