@@ -2,6 +2,21 @@
   "name": "schemastore-to-typescript",
   "entries": [
     {
+      "date": "Sun, 01 Nov 2026 02:53:26 GMT",
+      "version": "1.2.1",
+      "tag": "schemastore-to-typescript_v1.2.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "filip.dupanovic@gmail.com",
+            "package": "schemastore-to-typescript",
+            "commit": "be1eaaac2eccb026829b2ff78a4e9deddc9f2c46",
+            "comment": "Name closed objects without members and all-caps type names in jsii mode"
+          }
+        ]
+      }
+    },
+    {
       "date": "Sun, 01 Nov 2026 02:29:00 GMT",
       "version": "1.2.0",
       "tag": "schemastore-to-typescript_v1.2.0",

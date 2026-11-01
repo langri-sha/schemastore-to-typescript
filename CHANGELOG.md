@@ -1,8 +1,16 @@
 # Change Log - schemastore-to-typescript
 
-<!-- This log was last generated on Sun, 01 Nov 2026 02:29:00 GMT and should not be manually modified. -->
+<!-- This log was last generated on Sun, 01 Nov 2026 02:53:26 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 1.2.1
+
+Sun, 01 Nov 2026 02:53:26 GMT
+
+### Patches
+
+- Name closed objects without members and all-caps type names in jsii mode (filip.dupanovic@gmail.com)
 
 ## 1.2.0
 
