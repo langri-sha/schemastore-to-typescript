@@ -35,6 +35,33 @@ import { compile } from 'schemastore-to-typescript'
 const typings = await compile('swcrc')
 ```
 
+## Usage with jsii
+
+Typings exported from the API of a [jsii] package have to fit what jsii can
+represent. Pass `--jsii` for typings that do, and `--type-name` when the root
+interface would share its name with the class that wraps it:
+
+```sh
+schemastore-to-typescript --jsii --type-name RuffSchema ruff src/ruff.ts
+```
+
+```ts
+const typings = await compile('ruff', true, {
+  jsii: true,
+  typeName: 'RuffSchema',
+})
+```
+
+The mode changes the shape of types only as far as jsii requires:
+
+- members are `readonly`
+- objects written inline become named interfaces, and named maps are written
+  inline as `{ [k: string]: T }`
+- intersections become a single interface, and tuples become arrays
+- names that aren't camelCase, names jsii reserves and index signatures stay in
+  the typings as they are, tagged `@jsii ignore`, so the assembly leaves them
+  out
+
 ## Contributing
 
 See [CONTRIBUTING.md] in `langri-sha/github`.
@@ -44,6 +71,7 @@ See [CONTRIBUTING.md] in `langri-sha/github`.
 [`got`]: https://www.npmjs.com/package/got
 [`json-schema-to-typescript`]:
   https://www.npmjs.com/package/json-schema-to-typescript
+[jsii]: https://aws.github.io/jsii/
 [json schema store]: https://www.schemastore.org/
 [json schema store catalog api]:
   https://www.schemastore.org/api/json/catalog.json
