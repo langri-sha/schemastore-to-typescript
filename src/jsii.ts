@@ -48,6 +48,138 @@ const hasMembers = (node: unknown): node is Node & { properties: Node } =>
   isObject(node.properties) &&
   Object.keys(node.properties).length > 0
 
+const mergeMembers = (target: Node, source: Node): Node => {
+  const targetRequired = Array.isArray(target.required) ? target.required : []
+  const sourceRequired = Array.isArray(source.required) ? source.required : []
+
+  return {
+    ...target,
+    type: 'object',
+    properties: {
+      ...(source.properties as Node),
+      ...(target.properties as Node),
+    },
+    ...(targetRequired.length + sourceRequired.length > 0 && {
+      required: [...new Set([...targetRequired, ...sourceRequired])],
+    }),
+  }
+}
+
+/**
+ * Members of alternatives are any of them, so a member that several
+ * alternatives describe takes all of their schemas. The node's own members
+ * stay as they are: they hold in every alternative.
+ */
+const mergeAlternative = (
+  node: Node,
+  alternative: Node,
+  own: Set<string>,
+): Node => {
+  const properties = { ...(node.properties as Node) }
+
+  for (const [name, schema] of Object.entries(alternative.properties as Node)) {
+    const earlier = properties[name]
+
+    if (own.has(name) || JSON.stringify(earlier) === JSON.stringify(schema)) {
+      continue
+    }
+
+    properties[name] =
+      earlier === undefined
+        ? schema
+        : {
+            anyOf: [
+              ...(isObject(earlier) && Array.isArray(earlier.anyOf)
+                ? earlier.anyOf
+                : [earlier]),
+              schema,
+            ],
+          }
+  }
+
+  return { ...node, type: 'object', properties }
+}
+
+/**
+ * jsii only accepts an intersection of interfaces (JSII1008), and a union
+ * beside members compiles to one. The schemas use `allOf`, and `anyOf` beside
+ * `properties`, to attach constraints: this restates what they say about
+ * members in one object, and drops what only constrains.
+ */
+const flatten =
+  (document: Node): Visit =>
+  (node) => {
+    let flattened = node
+
+    if (Array.isArray(flattened.allOf)) {
+      const { allOf, ...rest } = flattened
+      const references: Node[] = []
+
+      flattened = rest
+
+      for (const member of allOf) {
+        if (!isObject(member)) {
+          continue
+        }
+
+        const target =
+          typeof member.$ref === 'string'
+            ? resolvePointer(document, member.$ref)
+            : member
+
+        if (hasMembers(target)) {
+          flattened = mergeMembers(flattened, target)
+        } else if (typeof member.$ref === 'string') {
+          references.push(member)
+        }
+      }
+
+      if (references.length === 1 && !hasMembers(flattened)) {
+        const { type: _, ...siblings } = flattened
+        flattened = { ...references[0], ...siblings }
+      }
+    }
+
+    if (hasMembers(flattened)) {
+      for (const keyword of ['anyOf', 'oneOf'] as const) {
+        const alternatives = flattened[keyword]
+
+        if (!Array.isArray(alternatives)) {
+          continue
+        }
+
+        const targets = alternatives.map((member) =>
+          isObject(member) && typeof member.$ref === 'string'
+            ? resolvePointer(document, member.$ref)
+            : member,
+        )
+
+        if (
+          !targets.every(
+            (target) =>
+              hasMembers(target) ||
+              (isObject(target) && Array.isArray(target.required)),
+          )
+        ) {
+          continue
+        }
+
+        const { [keyword]: _, ...rest } = flattened
+        const own = new Set(Object.keys(rest.properties as Node))
+
+        flattened = rest
+
+        for (const target of targets) {
+          if (hasMembers(target)) {
+            flattened = mergeAlternative(flattened, target, own)
+          }
+        }
+      }
+    }
+
+    return flattened
+  }
+
 const isMap = (node: unknown): node is Node =>
   isObject(node) &&
   !hasMembers(node) &&
@@ -279,7 +411,8 @@ const nameInlineObjects = (document: Node): Node => {
 
 /**
  * Reshapes a schema so the typings `json-schema-to-typescript` writes for it
- * stay within what jsii accepts: no named maps and no inline objects.
+ * stay within what jsii accepts: no intersections, no named maps and no inline
+ * objects.
  */
 export const jsiiSchema = (schema: JSONSchema): JSONSchema => {
   if (!isObject(schema)) {
@@ -288,6 +421,7 @@ export const jsiiSchema = (schema: JSONSchema): JSONSchema => {
 
   let document = structuredClone(schema) as Node
 
+  document = mapSchema(document, flatten(document)) as Node
   document = mapSchema(document, mapify) as Node
   document = inlineMaps(document)
 
