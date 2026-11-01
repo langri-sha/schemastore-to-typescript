@@ -67,3 +67,100 @@ test('marks interface members readonly', async () => {
     "
   `)
 })
+
+test('names objects written inline so they become interfaces', async () => {
+  const ts = await compileForJsii({
+    type: 'object',
+    properties: {
+      permissions: {
+        type: 'object',
+        properties: {
+          allow: { type: 'array', items: { type: 'string' } },
+          limits: {
+            type: 'object',
+            properties: { depth: { type: 'number' } },
+            additionalProperties: false,
+          },
+        },
+        additionalProperties: false,
+      },
+      hooks: {
+        type: 'array',
+        items: {
+          type: 'object',
+          properties: { command: { type: 'string' } },
+          additionalProperties: false,
+        },
+      },
+      source: {
+        anyOf: [
+          { type: 'string' },
+          {
+            type: 'object',
+            properties: { url: { type: 'string' } },
+            additionalProperties: false,
+          },
+        ],
+      },
+    },
+    additionalProperties: false,
+  })
+
+  expect(ts).toMatchInlineSnapshot(`
+    "export interface Some {
+      readonly permissions?: SomePermissions;
+      readonly hooks?: SomeHooksItem[];
+      readonly source?: string | SomeSourceOption2;
+    }
+    export interface SomePermissions {
+      readonly allow?: string[];
+      readonly limits?: SomePermissionsLimits;
+    }
+    export interface SomePermissionsLimits {
+      readonly depth?: number;
+    }
+    export interface SomeHooksItem {
+      readonly command?: string;
+    }
+    export interface SomeSourceOption2 {
+      readonly url?: string;
+    }
+    "
+  `)
+})
+
+test('keeps a name already taken by a definition free', async () => {
+  const ts = await compileForJsii({
+    type: 'object',
+    properties: {
+      permissions: {
+        type: 'object',
+        properties: { allow: { type: 'string' } },
+        additionalProperties: false,
+      },
+      overrides: { $ref: '#/definitions/SomePermissions' },
+    },
+    additionalProperties: false,
+    definitions: {
+      SomePermissions: {
+        type: 'object',
+        properties: { deny: { type: 'string' } },
+        additionalProperties: false,
+      },
+    },
+  })
+
+  expect(ts).toMatchInlineSnapshot(`
+    "export interface Some {
+      readonly permissions?: SomePermissions2;
+      readonly overrides?: SomePermissions;
+    }
+    export interface SomePermissions2 {
+      readonly allow?: string;
+    }
+    export interface SomePermissions {
+      readonly deny?: string;
+    }
+    "
+  `)
+})
