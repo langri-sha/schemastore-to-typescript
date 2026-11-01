@@ -22,7 +22,9 @@ beforeAll(async () => {
 test('compiles schema to TypeScript', async () => {
   await program.parseAsync(['node', 'cli.ts', 'swcrc'])
 
-  expect(compile).toHaveBeenCalledWith('swcrc', true)
+  expect(compile).toHaveBeenCalledWith('swcrc', true, {
+    jsii: undefined,
+  })
 })
 
 test('saves output to default definition module path when not specified', async () => {
@@ -51,5 +53,15 @@ test('saves module to specified output path', async () => {
 test('disables cache with `--no-cache`', async () => {
   await program.parseAsync(['node', 'cli.ts', 'swcrc', '--no-cache'])
 
-  expect(compile).toHaveBeenCalledWith('swcrc', false)
+  expect(compile).toHaveBeenCalledWith('swcrc', false, {
+    jsii: undefined,
+  })
+})
+
+test('compiles for jsii with `--jsii`', async () => {
+  await program.parseAsync(['node', 'cli.ts', 'swcrc', '--jsii'])
+
+  expect(compile).toHaveBeenCalledWith('swcrc', true, {
+    jsii: true,
+  })
 })
