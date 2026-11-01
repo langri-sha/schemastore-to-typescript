@@ -7,7 +7,7 @@ import {
 } from '@langri-sha/vitest'
 import { vi } from 'vitest'
 
-import { compile } from './index.js'
+import { type CompileOptions, compile } from './index.js'
 
 vi.mock('env-paths', () => {
   const cache = temporaryDirectory()
@@ -21,7 +21,10 @@ afterEach(() => {
   nock.cleanAll()
 })
 
-const compileForJsii = async (schema: object): Promise<string> => {
+const compileForJsii = async (
+  schema: object,
+  options: CompileOptions = {},
+): Promise<string> => {
   nock('https://www.schemastore.org')
     .get('/api/json/catalog.json')
     .reply(200, {
@@ -43,7 +46,7 @@ const compileForJsii = async (schema: object): Promise<string> => {
       ...schema,
     })
 
-  const ts = await compile('some', false, { jsii: true })
+  const ts = await compile('some', false, { jsii: true, ...options })
 
   return ts.replace(/^[\s\S]*?\*\/\n\n/, '')
 }
@@ -624,6 +627,24 @@ test('gives a deprecation a reason', async () => {
      */
     export interface SomeLicenseOption2 {
       readonly file?: string;
+    }
+    "
+  `)
+})
+
+test('names the root interface with the type name', async () => {
+  const ts = await compileForJsii(
+    {
+      type: 'object',
+      properties: { select: { type: 'array', items: { type: 'string' } } },
+      additionalProperties: false,
+    },
+    { typeName: 'SomeSchema' },
+  )
+
+  expect(ts).toMatchInlineSnapshot(`
+    "export interface SomeSchema {
+      readonly select?: string[];
     }
     "
   `)

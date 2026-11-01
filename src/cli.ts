@@ -17,11 +17,12 @@ export const program: Command = new Command()
   .argument('[output]', 'Path to output the TypeScript definition')
   .option('-n, --no-cache', 'Skip caching requests')
   .option('--jsii', 'Emit typings that jsii can compile')
+  .option('--type-name <name>', 'Name the root interface')
   .showHelpAfterError()
-  .action(async (schema, output, { cache, jsii }) => {
+  .action(async (schema, output, { cache, jsii, typeName }) => {
     output ??= `${schema}.d.ts`
 
-    const compiled = await compile(schema, cache, { jsii })
+    const compiled = await compile(schema, cache, { jsii, typeName })
     await fs.writeFile(
       // Using `process.cwd()` as escape hatch for `process.chdir()` not being
       // available in workers. See: https://github.com/vitest-dev/vitest/issues/1436.
