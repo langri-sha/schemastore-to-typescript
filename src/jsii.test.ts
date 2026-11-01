@@ -409,6 +409,41 @@ test('writes a map-only definition inline where it is referenced', async () => {
   `)
 })
 
+test('keeps the values of a map that refers to a definition beside its type', async () => {
+  const ts = await compileForJsii({
+    type: 'object',
+    properties: {
+      catalog: { $ref: '#/definitions/dependency', type: 'object' },
+      catalogs: {
+        type: 'object',
+        additionalProperties: { $ref: '#/definitions/catalog' },
+      },
+    },
+    additionalProperties: false,
+    definitions: {
+      dependency: {
+        type: 'object',
+        additionalProperties: { type: 'string', minLength: 1 },
+      },
+      catalog: { $ref: '#/definitions/dependency', type: 'object' },
+    },
+  })
+
+  expect(ts).toMatchInlineSnapshot(`
+    "export interface Some {
+      readonly catalog?: {
+        [k: string]: string;
+      };
+      readonly catalogs?: {
+        [k: string]: {
+          [k: string]: string;
+        };
+      };
+    }
+    "
+  `)
+})
+
 test('writes nested map-only definitions inline', async () => {
   const ts = await compileForJsii({
     type: 'object',
