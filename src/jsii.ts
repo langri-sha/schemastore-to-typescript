@@ -96,7 +96,11 @@ const stripNull: Visit = (node) => {
       return rest
     }
 
-    if (remaining.length === 1 && isObject(remaining[0])) {
+    if (
+      remaining.length === 1 &&
+      isObject(remaining[0]) &&
+      remaining[0].$ref === undefined
+    ) {
       return { ...remaining[0], ...rest }
     }
 
