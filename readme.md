@@ -64,6 +64,17 @@ The mode changes the shape of types only as far as jsii requires:
   the typings as they are, tagged `@jsii ignore`, so the assembly leaves them
   out
 
+Pass `--keep-null` (`keepNull: true`), which implies `--jsii`, when `null` means
+something in the schema, such as Renovate's use of it to clear an inherited
+value. Types keep their `| null`, as in the default output, and `unknown` is
+written `any`. jsii rejects such a type unless the jsii build sets
+`strictNullChecks: false` in its own tsconfig (`jsii.tsconfig`), with
+`jsii.validateTsconfig` set to `minimal`, since jsii's generated tsconfig and
+its stricter checks require `true`. jsii then reads `T | null` as `T`, and would
+read `unknown` as a JSON object, which is why the option writes `any`. A member
+that can only be `null`, and `type: ['object', 'null']` with members, still fail
+jsii.
+
 ## Contributing
 
 See [CONTRIBUTING.md] in `langri-sha/github`.
