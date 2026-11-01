@@ -52,6 +52,74 @@ const hasMembers = (node: unknown): node is Node & { properties: Node } =>
   isObject(node.properties) &&
   Object.keys(node.properties).length > 0
 
+const isNull = (node: unknown) =>
+  isObject(node) && (node.type === 'null' || node.const === null)
+
+/**
+ * jsii rejects a union with `null` (JSII1001). Every member it applies to is
+ * optional, so leaving `null` out loses nothing the schema's own optionality
+ * doesn't already say.
+ */
+const stripNull: Visit = (node) => {
+  if (Array.isArray(node.type) && node.type.includes('null')) {
+    const types = node.type.filter((type) => type !== 'null')
+
+    if (types.length === 0) {
+      delete node.type
+    } else {
+      node.type = types.length === 1 ? types[0] : types
+    }
+  }
+
+  if (Array.isArray(node.enum) && node.enum.includes(null)) {
+    const values = node.enum.filter((value) => value !== null)
+
+    if (values.length === 0) {
+      delete node.enum
+    } else {
+      node.enum = values
+    }
+  }
+
+  for (const keyword of ['anyOf', 'oneOf'] as const) {
+    const alternatives = node[keyword]
+
+    if (!Array.isArray(alternatives) || !alternatives.some(isNull)) {
+      continue
+    }
+
+    const remaining = alternatives.filter((member) => !isNull(member))
+    const { [keyword]: _, ...rest } = node
+
+    if (remaining.length === 0) {
+      return rest
+    }
+
+    if (remaining.length === 1 && isObject(remaining[0])) {
+      return { ...remaining[0], ...rest }
+    }
+
+    return { ...rest, [keyword]: remaining }
+  }
+
+  return node
+}
+
+/**
+ * Whatever `stripNull` left of a schema that only ever allowed `null`.
+ */
+const unnull: Visit = (node) => {
+  if (node.type === 'null') {
+    delete node.type
+  }
+
+  if (node.const === null) {
+    delete node.const
+  }
+
+  return node
+}
+
 const mergeMembers = (target: Node, source: Node): Node => {
   const targetRequired = Array.isArray(target.required) ? target.required : []
   const sourceRequired = Array.isArray(source.required) ? source.required : []
@@ -439,8 +507,8 @@ const nameInlineObjects = (document: Node): Node => {
 
 /**
  * Reshapes a schema so the typings `json-schema-to-typescript` writes for it
- * stay within what jsii accepts: no intersections, no named maps and no inline
- * objects.
+ * stay within what jsii accepts: no `null`, no intersections, no named maps
+ * and no inline objects.
  */
 export const jsiiSchema = (schema: JSONSchema): JSONSchema => {
   if (!isObject(schema)) {
@@ -449,6 +517,8 @@ export const jsiiSchema = (schema: JSONSchema): JSONSchema => {
 
   let document = structuredClone(schema) as Node
 
+  document = mapSchema(document, stripNull) as Node
+  document = mapSchema(document, unnull) as Node
   document = mapSchema(document, flatten(document)) as Node
   document = mapSchema(document, untuple) as Node
   document = mapSchema(document, mapify) as Node

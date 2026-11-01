@@ -54,7 +54,7 @@ const typings = await compile('ruff', true, {
 
 The mode changes the shape of types only as far as jsii requires:
 
-- members are `readonly`
+- members are `readonly` and `null` is left out of unions
 - objects written inline become named interfaces, and named maps are written
   inline as `{ [k: string]: T }`
 - intersections become a single interface, and tuples become arrays
