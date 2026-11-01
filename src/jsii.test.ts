@@ -71,6 +71,77 @@ test('marks interface members readonly', async () => {
   `)
 })
 
+test('drops null from a type list', async () => {
+  const ts = await compileForJsii({
+    type: 'object',
+    properties: {
+      name: { type: ['string', 'null'] },
+      level: { type: ['string', 'number', 'null'] },
+      gone: { type: 'null' },
+      cleared: { const: null },
+    },
+    additionalProperties: false,
+  })
+
+  expect(ts).toMatchInlineSnapshot(`
+    "export interface Some {
+      readonly name?: string;
+      readonly level?: string | number;
+      readonly gone?: unknown;
+      readonly cleared?: unknown;
+    }
+    "
+  `)
+})
+
+test('drops null from the alternatives of anyOf and oneOf', async () => {
+  const ts = await compileForJsii({
+    type: 'object',
+    properties: {
+      target: { anyOf: [{ $ref: '#/definitions/target' }, { type: 'null' }] },
+      mode: {
+        oneOf: [{ type: 'string' }, { type: 'number' }, { type: 'null' }],
+      },
+    },
+    additionalProperties: false,
+    definitions: {
+      target: {
+        type: 'object',
+        properties: { path: { type: 'string' } },
+        additionalProperties: false,
+      },
+    },
+  })
+
+  expect(ts).toMatchInlineSnapshot(`
+    "export interface Some {
+      readonly target?: Target;
+      readonly mode?: string | number;
+    }
+    export interface Target {
+      readonly path?: string;
+    }
+    "
+  `)
+})
+
+test('drops null from an enum', async () => {
+  const ts = await compileForJsii({
+    type: 'object',
+    properties: {
+      format: { enum: ['full', 'concise', null] },
+    },
+    additionalProperties: false,
+  })
+
+  expect(ts).toMatchInlineSnapshot(`
+    "export interface Some {
+      readonly format?: "full" | "concise";
+    }
+    "
+  `)
+})
+
 test('names objects written inline so they become interfaces', async () => {
   const ts = await compileForJsii({
     type: 'object',
