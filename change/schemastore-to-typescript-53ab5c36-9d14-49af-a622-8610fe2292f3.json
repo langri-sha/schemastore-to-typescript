@@ -1,0 +1,7 @@
+{
+  "type": "minor",
+  "comment": "Add a jsii mode that emits typings jsii can compile",
+  "packageName": "schemastore-to-typescript",
+  "email": "filip.dupanovic@gmail.com",
+  "dependentChangeType": "patch"
+}
