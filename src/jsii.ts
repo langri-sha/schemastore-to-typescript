@@ -293,10 +293,11 @@ const isMap = (node: unknown): node is Node =>
 /**
  * A named interface cannot be a map (JSII1999), but a map type can stand in
  * a member's type. Restate every member-less object as one, without the name
- * that would hoist it back into an interface.
+ * that would hoist it back into an interface, except a reference, whose
+ * definition already gives the values.
  */
 const mapify: Visit = (node) => {
-  if (!isMap(node)) {
+  if (!isMap(node) || typeof node.$ref === 'string') {
     return node
   }
 
