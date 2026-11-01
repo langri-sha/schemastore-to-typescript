@@ -457,12 +457,16 @@ export const jsiiSchema = (schema: JSONSchema): JSONSchema => {
   return nameInlineObjects(document) as JSONSchema
 }
 
+const prohibited = new Set(['build', 'equals', 'hashcode'])
+
 /**
- * jsii rejects any member whose name `Case.camel` would change (JSII8002). It
- * stays in the typings, as the wire format spells it, but outside the assembly.
+ * jsii rejects any member whose name `Case.camel` would change (JSII8002), and
+ * a few that clash with generated code (JSII5016). They stay in the typings, as
+ * the wire format spells them, but outside the assembly.
  */
 const isJsiiName = (name: string) =>
-  /^[a-z][a-z0-9]*(?:[A-Z][a-z0-9]*)*$/.test(name)
+  /^[a-z][a-z0-9]*(?:[A-Z][a-z0-9]*)*$/.test(name) &&
+  !prohibited.has(name.toLowerCase())
 
 const property = /^ {2}(?:readonly )?("[^"]+"|'[^']+'|[A-Za-z_$][\w$]*)(\?)?:/
 
