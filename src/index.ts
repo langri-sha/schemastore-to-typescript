@@ -10,7 +10,11 @@ import {
 import Keyv from 'keyv'
 import { KeyvFile } from 'keyv-file'
 
-import { jsiiSchema, jsiiTypings } from './jsii.js'
+import {
+  compilerOptions as jsiiCompilerOptions,
+  jsiiSchema,
+  jsiiTypings,
+} from './jsii.js'
 import { normalizeSchema } from './normalize.js'
 
 const debug = createDebug('schema-store-to-typescript')
@@ -288,5 +292,7 @@ export const compile = async (
     return compileSource(normalized, name)
   }
 
-  return jsiiTypings(await compileSource(jsiiSchema(normalized), name))
+  return jsiiTypings(
+    await compileSource(jsiiSchema(normalized), name, jsiiCompilerOptions),
+  )
 }
