@@ -1,22 +1,22 @@
 import type { JSONSchema } from 'json-schema-to-typescript'
 
-type Node = Record<string, unknown>
+export type Node = Record<string, unknown>
 
 // Maps the JSON pointer of a schema node to the `definitions` name each of its
 // `$defs` members moves to.
 type Renames = Map<string, Map<string, string>>
 
-const isObject = (value: unknown): value is Node =>
+export const isObject = (value: unknown): value is Node =>
   typeof value === 'object' && value !== null && !Array.isArray(value)
 
 // Hold literal instance data rather than nested schemas, so they must not be
 // walked as if they were part of the schema shape.
-const literalKeys = new Set(['const', 'default', 'enum', 'examples'])
+export const literalKeys = new Set(['const', 'default', 'enum', 'examples'])
 
 // Keyed by name rather than by keyword: a member of one of these called
 // `$defs` is a subschema that happens to be named `$defs`, not a definition
 // block.
-const namedSchemaKeys = new Set([
+export const namedSchemaKeys = new Set([
   '$defs',
   'definitions',
   'dependencies',
@@ -34,7 +34,7 @@ const unescapeToken = (token: string) =>
 const join = (path: string, token: string) =>
   path === '' ? token : `${path}/${token}`
 
-const resolvePointer = (document: Node, ref: string): unknown => {
+export const resolvePointer = (document: Node, ref: string): unknown => {
   if (ref === '#') {
     return document
   }
