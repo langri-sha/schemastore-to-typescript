@@ -1,0 +1,7 @@
+{
+  "type": "patch",
+  "comment": "Name closed objects without members and all-caps type names in jsii mode",
+  "packageName": "schemastore-to-typescript",
+  "email": "filip.dupanovic@gmail.com",
+  "dependentChangeType": "patch"
+}
