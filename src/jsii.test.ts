@@ -590,3 +590,41 @@ test('hides an index signature from jsii and keeps it in the typings', async () 
     "
   `)
 })
+
+test('gives a deprecation a reason', async () => {
+  const ts = await compileForJsii({
+    type: 'object',
+    properties: {
+      license: {
+        anyOf: [
+          { type: 'string' },
+          {
+            type: 'object',
+            deprecated: true,
+            properties: { file: { type: 'string' } },
+            additionalProperties: false,
+          },
+        ],
+      },
+      legacy: { type: 'string', deprecated: true },
+    },
+    additionalProperties: false,
+  })
+
+  expect(ts).toMatchInlineSnapshot(`
+    "export interface Some {
+      readonly license?: string | SomeLicenseOption2;
+      /**
+       * @deprecated Deprecated by the schema.
+       */
+      readonly legacy?: string;
+    }
+    /**
+     * @deprecated Deprecated by the schema.
+     */
+    export interface SomeLicenseOption2 {
+      readonly file?: string;
+    }
+    "
+  `)
+})

@@ -468,6 +468,8 @@ const isJsiiName = (name: string) =>
   /^[a-z][a-z0-9]*(?:[A-Z][a-z0-9]*)*$/.test(name) &&
   !prohibited.has(name.toLowerCase())
 
+const bareDeprecation = /^( *\* @deprecated)$/gm
+
 const property = /^ {2}(?:readonly )?("[^"]+"|'[^']+'|[A-Za-z_$][\w$]*)(\?)?:/
 const indexSignature = /^ {2}(?:readonly )?\[[^\]]+\]:/
 
@@ -490,7 +492,9 @@ export const jsiiTypings = (source: string): string => {
   const output: string[] = []
   let inInterface = false
 
-  for (const line of source.split('\n')) {
+  for (const line of source
+    .replaceAll(bareDeprecation, '$1 Deprecated by the schema.')
+    .split('\n')) {
     if (!inInterface) {
       inInterface = /^export interface .*\{$/.test(line)
       output.push(line)
