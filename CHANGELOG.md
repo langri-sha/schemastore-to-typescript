@@ -1,8 +1,17 @@
 # Change Log - schemastore-to-typescript
 
-<!-- This log was last generated on Sun, 01 Nov 2026 02:53:26 GMT and should not be manually modified. -->
+<!-- This log was last generated on Sun, 01 Nov 2026 09:09:47 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 1.2.2
+
+Sun, 01 Nov 2026 09:09:47 GMT
+
+### Patches
+
+- Keep a reference to a definition whole when jsii mode drops null beside it (filip.dupanovic@gmail.com)
+- Update dependency @langri-sha/projen-project to v0.48.1
 
 ## 1.2.1
 

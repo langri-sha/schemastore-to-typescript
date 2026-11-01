@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Keep a reference to a definition whole when jsii mode drops null beside it",
-  "packageName": "schemastore-to-typescript",
-  "email": "filip.dupanovic@gmail.com",
-  "dependentChangeType": "patch"
-}
