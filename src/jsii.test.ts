@@ -545,3 +545,27 @@ test('hides members that are not camelCase from jsii', async () => {
     "
   `)
 })
+
+test('hides members named like methods generated for other languages from jsii', async () => {
+  const ts = await compileForJsii({
+    type: 'object',
+    properties: {
+      build: { type: 'string' },
+      equals: { type: 'string' },
+      hashCode: { type: 'string' },
+    },
+    additionalProperties: false,
+  })
+
+  expect(ts).toMatchInlineSnapshot(`
+    "export interface Some {
+      /** @jsii ignore */
+      readonly build?: string;
+      /** @jsii ignore */
+      readonly equals?: string;
+      /** @jsii ignore */
+      readonly hashCode?: string;
+    }
+    "
+  `)
+})
