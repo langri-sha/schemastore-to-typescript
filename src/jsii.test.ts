@@ -125,6 +125,83 @@ test('drops null from the alternatives of anyOf and oneOf', async () => {
   `)
 })
 
+test('keeps a reference to a definition whole when null is dropped beside it', async () => {
+  const ts = await compileForJsii({
+    type: 'object',
+    properties: {
+      first: {
+        description: 'The first limit.',
+        anyOf: [{ $ref: '#/definitions/limit' }, { type: 'null' }],
+      },
+      second: { $ref: '#/definitions/limit' },
+    },
+    additionalProperties: false,
+    definitions: {
+      limit: {
+        description: 'A limit.',
+        type: 'object',
+        properties: { count: { type: 'number' } },
+        additionalProperties: false,
+      },
+    },
+  })
+
+  expect(ts).toMatchInlineSnapshot(`
+    "export interface Some {
+      /**
+       * The first limit.
+       */
+      readonly first?: Limit;
+      readonly second?: Limit;
+    }
+    /**
+     * A limit.
+     */
+    export interface Limit {
+      readonly count?: number;
+    }
+    "
+  `)
+})
+
+test('leaves a definition alone when a node with members refers to it beside null', async () => {
+  const ts = await compileForJsii({
+    type: 'object',
+    properties: {
+      extra: {
+        type: 'object',
+        properties: { a: { type: 'string' } },
+        anyOf: [{ $ref: '#/definitions/extra' }, { type: 'null' }],
+        additionalProperties: false,
+      },
+      other: { $ref: '#/definitions/extra' },
+    },
+    additionalProperties: false,
+    definitions: {
+      extra: {
+        type: 'object',
+        properties: { b: { type: 'string' } },
+        additionalProperties: false,
+      },
+    },
+  })
+
+  expect(ts).toMatchInlineSnapshot(`
+    "export interface Some {
+      readonly extra?: SomeExtra;
+      readonly other?: Extra;
+    }
+    export interface SomeExtra {
+      readonly a?: string;
+      readonly b?: string;
+    }
+    export interface Extra {
+      readonly b?: string;
+    }
+    "
+  `)
+})
+
 test('drops null from an enum', async () => {
   const ts = await compileForJsii({
     type: 'object',
