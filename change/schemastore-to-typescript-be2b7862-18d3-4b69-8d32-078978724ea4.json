@@ -1,0 +1,7 @@
+{
+  "type": "minor",
+  "comment": "Add an option to keep null in jsii mode",
+  "packageName": "schemastore-to-typescript",
+  "email": "filip.dupanovic@gmail.com",
+  "dependentChangeType": "patch"
+}
