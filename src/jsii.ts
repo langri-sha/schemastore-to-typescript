@@ -409,6 +409,24 @@ const inlineMaps = (document: Node): Node => {
 const isShouting = (name: string) =>
   /^[A-Z0-9]+$/.test(name) && /[A-Z].*[A-Z]/.test(name)
 
+/**
+ * An alternative that becomes an interface of its own: an object with members
+ * or none at all, or an array, map or union that holds one. When only one is,
+ * nothing but its position among the alternatives would tell it from the
+ * others, and a name that depends on the position changes whenever one is
+ * added. A reference is not one, since its definition is named already.
+ */
+const isStructural = (member: unknown): boolean =>
+  isObject(member) &&
+  (hasMembers(member) ||
+    isClosed(member) ||
+    isStructural(member.items) ||
+    isStructural(member.additionalProperties) ||
+    (['anyOf', 'oneOf'] as const).some(
+      (keyword) =>
+        Array.isArray(member[keyword]) && member[keyword].some(isStructural),
+    ))
+
 const isClosed = (node: Node) =>
   node.type === 'object' && node.additionalProperties === false
 
@@ -515,8 +533,11 @@ const nameInlineObjects = (document: Node): Node => {
 
     for (const keyword of ['anyOf', 'oneOf'] as const) {
       if (Array.isArray(node[keyword])) {
+        const only =
+          node[keyword].filter(isStructural).length === 1 && !taken.has(self)
+
         node[keyword].forEach((member: unknown, index: number) =>
-          child(member, `Option${index + 1}`),
+          child(member, only ? '' : `Option${index + 1}`),
         )
       }
     }

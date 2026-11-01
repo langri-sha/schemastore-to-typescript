@@ -261,7 +261,7 @@ test('names objects written inline so they become interfaces', async () => {
     "export interface Some {
       readonly permissions?: SomePermissions;
       readonly hooks?: SomeHooksItem[];
-      readonly source?: string | SomeSourceOption2;
+      readonly source?: string | SomeSource;
     }
     export interface SomePermissions {
       readonly allow?: string[];
@@ -273,7 +273,7 @@ test('names objects written inline so they become interfaces', async () => {
     export interface SomeHooksItem {
       readonly command?: string;
     }
-    export interface SomeSourceOption2 {
+    export interface SomeSource {
       readonly url?: string;
     }
     "
@@ -335,6 +335,172 @@ test('writes a type name spelled in capitals in pascal case', async () => {
     }
     export interface SDKEntry {
       readonly name?: string;
+    }
+    "
+  `)
+})
+
+test('names the only object among the alternatives without its position', async () => {
+  const ts = await compileForJsii({
+    type: 'object',
+    properties: {
+      lockfile: {
+        anyOf: [
+          { type: 'boolean' },
+          {
+            type: 'object',
+            properties: { target: { type: 'string' } },
+            additionalProperties: false,
+          },
+        ],
+      },
+    },
+    additionalProperties: false,
+  })
+
+  expect(ts).toMatchInlineSnapshot(`
+    "export interface Some {
+      readonly lockfile?: boolean | SomeLockfile;
+    }
+    export interface SomeLockfile {
+      readonly target?: string;
+    }
+    "
+  `)
+})
+
+test('numbers the objects among the alternatives when there are several', async () => {
+  const ts = await compileForJsii({
+    type: 'object',
+    properties: {
+      source: {
+        anyOf: [
+          { type: 'string' },
+          {
+            type: 'object',
+            properties: { url: { type: 'string' } },
+            additionalProperties: false,
+          },
+          {
+            type: 'object',
+            properties: { path: { type: 'string' } },
+            additionalProperties: false,
+          },
+        ],
+      },
+    },
+    additionalProperties: false,
+  })
+
+  expect(ts).toMatchInlineSnapshot(`
+    "export interface Some {
+      readonly source?: string | SomeSourceOption2 | SomeSourceOption3;
+    }
+    export interface SomeSourceOption2 {
+      readonly url?: string;
+    }
+    export interface SomeSourceOption3 {
+      readonly path?: string;
+    }
+    "
+  `)
+})
+
+test('does not count an array of primitives or a reference as an object among the alternatives', async () => {
+  const ts = await compileForJsii({
+    type: 'object',
+    properties: {
+      list: {
+        anyOf: [
+          { type: 'boolean' },
+          { type: 'array', items: { type: 'string' } },
+          { $ref: '#/definitions/tag' },
+          {
+            type: 'object',
+            properties: { level: { type: 'string' } },
+            additionalProperties: false,
+          },
+        ],
+      },
+    },
+    additionalProperties: false,
+    definitions: {
+      tag: { type: 'string' },
+    },
+  })
+
+  expect(ts).toMatchInlineSnapshot(`
+    "export type Tag = string;
+
+    export interface Some {
+      readonly list?: boolean | string[] | Tag | SomeList;
+    }
+    export interface SomeList {
+      readonly level?: string;
+    }
+    "
+  `)
+})
+
+test('counts a closed object without members among the alternatives', async () => {
+  const ts = await compileForJsii({
+    type: 'object',
+    properties: {
+      mode: {
+        anyOf: [
+          { type: 'object', additionalProperties: false },
+          {
+            type: 'object',
+            properties: { level: { type: 'string' } },
+            additionalProperties: false,
+          },
+        ],
+      },
+    },
+    additionalProperties: false,
+  })
+
+  expect(ts).toMatchInlineSnapshot(`
+    "export interface Some {
+      readonly mode?: SomeModeOption1 | SomeModeOption2;
+    }
+    export interface SomeModeOption1 {}
+    export interface SomeModeOption2 {
+      readonly level?: string;
+    }
+    "
+  `)
+})
+
+test('numbers the only object among the alternatives of a definition', async () => {
+  const ts = await compileForJsii({
+    type: 'object',
+    properties: {
+      target: { $ref: '#/definitions/target' },
+    },
+    additionalProperties: false,
+    definitions: {
+      target: {
+        anyOf: [
+          { type: 'string' },
+          {
+            type: 'object',
+            properties: { url: { type: 'string' } },
+            additionalProperties: false,
+          },
+        ],
+      },
+    },
+  })
+
+  expect(ts).toMatchInlineSnapshot(`
+    "export type Target = string | TargetOption2;
+
+    export interface Some {
+      readonly target?: Target;
+    }
+    export interface TargetOption2 {
+      readonly url?: string;
     }
     "
   `)
@@ -859,7 +1025,7 @@ test('gives a deprecation a reason', async () => {
 
   expect(ts).toMatchInlineSnapshot(`
     "export interface Some {
-      readonly license?: string | SomeLicenseOption2;
+      readonly license?: string | SomeLicense;
       /**
        * @deprecated Deprecated by the schema.
        */
@@ -868,7 +1034,7 @@ test('gives a deprecation a reason', async () => {
     /**
      * @deprecated Deprecated by the schema.
      */
-    export interface SomeLicenseOption2 {
+    export interface SomeLicense {
       readonly file?: string;
     }
     "
