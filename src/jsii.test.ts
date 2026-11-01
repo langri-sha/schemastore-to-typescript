@@ -1,3 +1,6 @@
+import * as fs from 'node:fs'
+import * as path from 'node:path'
+
 import {
   afterEach,
   expect,
@@ -5,6 +8,7 @@ import {
   temporaryDirectory,
   test,
 } from '@langri-sha/vitest'
+import * as typescript from 'typescript'
 import { vi } from 'vitest'
 
 import { type CompileOptions, compile } from './index.js'
@@ -1054,6 +1058,126 @@ test('names the root interface with the type name', async () => {
   expect(ts).toMatchInlineSnapshot(`
     "export interface SomeSchema {
       readonly select?: string[];
+    }
+    "
+  `)
+})
+
+const rulesSchema = {
+  type: 'object',
+  properties: {
+    packageRules: {
+      type: 'array',
+      items: {
+        type: 'object',
+        properties: {
+          minimumReleaseAge: { type: ['string', 'null'] },
+          matchPackageNames: { type: 'array', items: { type: 'string' } },
+        },
+        additionalProperties: false,
+      },
+    },
+  },
+  additionalProperties: false,
+}
+
+const typeErrors = (typings: string, usage: string): string[] => {
+  const directory = temporaryDirectory()
+
+  fs.writeFileSync(path.join(directory, 'typings.ts'), typings)
+  fs.writeFileSync(
+    path.join(directory, 'usage.ts'),
+    `import type { Some } from './typings'\n${usage}`,
+  )
+
+  const program = typescript.createProgram([path.join(directory, 'usage.ts')], {
+    noEmit: true,
+    strict: true,
+    skipLibCheck: true,
+  })
+
+  return typescript
+    .getPreEmitDiagnostics(program)
+    .map(({ messageText }) =>
+      typescript.flattenDiagnosticMessageText(messageText, '\n'),
+    )
+}
+
+test('keeps null in types and leaves the members visible to jsii with keepNull', async () => {
+  const ts = await compileForJsii(
+    {
+      type: 'object',
+      properties: {
+        name: { type: ['string', 'null'] },
+        target: { anyOf: [{ $ref: '#/definitions/target' }, { type: 'null' }] },
+        limit: { $ref: '#/definitions/limit' },
+        kind: { type: 'string' },
+        extra: { type: 'object' },
+      },
+      additionalProperties: false,
+      definitions: {
+        target: {
+          type: 'object',
+          properties: { path: { type: 'string' } },
+          additionalProperties: false,
+        },
+        limit: { type: ['number', 'null'] },
+      },
+    },
+    { keepNull: true },
+  )
+
+  expect(ts).toMatchInlineSnapshot(`
+    "export type Limit = number | null;
+
+    export interface Some {
+      readonly name?: string | null;
+      readonly target?: Target | null;
+      readonly limit?: Limit;
+      readonly kind?: string;
+      readonly extra?: {
+        [k: string]: any;
+      };
+    }
+    export interface Target {
+      readonly path?: string;
+    }
+    "
+  `)
+})
+
+test('accepts null for a member kept with keepNull', async () => {
+  const typings = await compileForJsii(rulesSchema, { keepNull: true })
+
+  expect(
+    typeErrors(
+      typings,
+      'export const some: Some = { packageRules: [{ minimumReleaseAge: null }] }',
+    ),
+  ).toEqual([])
+})
+
+test('rejects another value for a member kept with keepNull', async () => {
+  const typings = await compileForJsii(rulesSchema, { keepNull: true })
+
+  expect(
+    typeErrors(
+      typings,
+      'export const some: Some = { packageRules: [{ minimumReleaseAge: 5 }] }',
+    ),
+  ).toEqual([expect.stringContaining('is not assignable')])
+})
+
+test('implies jsii mode with keepNull', async () => {
+  const ts = await compileForJsii(rulesSchema, { jsii: false, keepNull: true })
+
+  expect(ts).toMatchInlineSnapshot(`
+    "export interface Some {
+      readonly packageRules?: SomePackageRulesItem[];
+    }
+    export interface SomePackageRulesItem {
+      readonly minimumReleaseAge?: string | null;
+      readonly matchPackageNames?: string[];
     }
     "
   `)

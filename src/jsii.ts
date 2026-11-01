@@ -551,17 +551,25 @@ const nameInlineObjects = (document: Node): Node => {
 /**
  * Reshapes a schema so the typings `json-schema-to-typescript` writes for it
  * stay within what jsii accepts: no `null`, no intersections, no named maps
- * and no inline objects.
+ * and no inline objects. `null` stays when `keepNull` is set.
  */
-export const jsiiSchema = (schema: JSONSchema): JSONSchema => {
+export const jsiiSchema = (
+  schema: JSONSchema,
+  { keepNull = false }: { keepNull?: boolean } = {},
+): JSONSchema => {
   if (!isObject(schema)) {
     return schema
   }
 
   let document = structuredClone(schema) as Node
 
-  document = mapSchema(document, stripNull) as Node
-  document = mapSchema(document, unnull) as Node
+  // shortcut: a member that only allows null, and type ['object', 'null'] with
+  // members, still fail jsii under keepNull; handle them when a schema needs it.
+  if (!keepNull) {
+    document = mapSchema(document, stripNull) as Node
+    document = mapSchema(document, unnull) as Node
+  }
+
   document = mapSchema(document, flatten(document)) as Node
   document = mapSchema(document, untuple) as Node
   document = mapSchema(document, mapify) as Node

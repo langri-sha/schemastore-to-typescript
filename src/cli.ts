@@ -2,7 +2,7 @@
 import * as fs from 'node:fs/promises'
 import * as path from 'node:path'
 
-import { Command } from 'commander'
+import { Command, Option } from 'commander'
 import createDebug from 'debug'
 import esMain from 'es-main'
 
@@ -17,12 +17,22 @@ export const program: Command = new Command()
   .argument('[output]', 'Path to output the TypeScript definition')
   .option('-n, --no-cache', 'Skip caching requests')
   .option('--jsii', 'Emit typings that jsii can compile')
+  .addOption(
+    new Option(
+      '--keep-null',
+      'Keep null in jsii mode, for a jsii build with strictNullChecks off, and write any for unknown',
+    ).implies({ jsii: true }),
+  )
   .option('--type-name <name>', 'Name the root interface')
   .showHelpAfterError()
-  .action(async (schema, output, { cache, jsii, typeName }) => {
+  .action(async (schema, output, { cache, jsii, keepNull, typeName }) => {
     output ??= `${schema}.d.ts`
 
-    const compiled = await compile(schema, cache, { jsii, typeName })
+    const compiled = await compile(schema, cache, {
+      jsii,
+      keepNull,
+      typeName,
+    })
     await fs.writeFile(
       // Using `process.cwd()` as escape hatch for `process.chdir()` not being
       // available in workers. See: https://github.com/vitest-dev/vitest/issues/1436.

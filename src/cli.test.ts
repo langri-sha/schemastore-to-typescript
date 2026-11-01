@@ -24,6 +24,7 @@ test('compiles schema to TypeScript', async () => {
 
   expect(compile).toHaveBeenCalledWith('swcrc', true, {
     jsii: undefined,
+    keepNull: undefined,
     typeName: undefined,
   })
 })
@@ -56,6 +57,7 @@ test('disables cache with `--no-cache`', async () => {
 
   expect(compile).toHaveBeenCalledWith('swcrc', false, {
     jsii: undefined,
+    keepNull: undefined,
     typeName: undefined,
   })
 })
@@ -65,6 +67,7 @@ test('compiles for jsii with `--jsii`', async () => {
 
   expect(compile).toHaveBeenCalledWith('swcrc', true, {
     jsii: true,
+    keepNull: undefined,
     typeName: undefined,
   })
 })
@@ -80,6 +83,17 @@ test('names the root interface with `--type-name`', async () => {
 
   expect(compile).toHaveBeenCalledWith('swcrc', true, {
     jsii: undefined,
+    keepNull: undefined,
     typeName: 'SwcrcSchema',
+  })
+})
+
+test('keeps null in jsii mode with `--keep-null`', async () => {
+  await program.parseAsync(['node', 'cli.ts', 'swcrc', '--keep-null'])
+
+  expect(compile).toHaveBeenCalledWith('swcrc', true, {
+    jsii: true,
+    keepNull: true,
+    typeName: undefined,
   })
 })

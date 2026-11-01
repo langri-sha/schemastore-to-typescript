@@ -171,6 +171,16 @@ export interface CompileOptions {
   jsii?: boolean
 
   /**
+   * Leave `null` in the types, as the default output has it, and write `any`
+   * where it has `unknown`. jsii only accepts such a type when the consumer's
+   * build sets `strictNullChecks: false` in its own tsconfig (`jsii.tsconfig`)
+   * with `jsii.validateTsconfig` set to `minimal`, since jsii's generated
+   * tsconfig and its stricter checks require `true`. jsii then reads `T | null`
+   * as `T`, and would read `unknown` as a JSON object. Implies `jsii`.
+   */
+  keepNull?: boolean
+
+  /**
    * Name the root interface, instead of the catalog's name for the schema.
    */
   typeName?: string
@@ -179,7 +189,7 @@ export interface CompileOptions {
 export const compile = async (
   name: string,
   cache: boolean = true,
-  { jsii = false, typeName }: CompileOptions = {},
+  { jsii = false, keepNull = false, typeName }: CompileOptions = {},
 ): Promise<string> => {
   const catalogUrl = 'https://www.schemastore.org/api/json/catalog.json'
 
@@ -293,11 +303,17 @@ export const compile = async (
 
   const normalized = sanitizeSchema(normalizeSchema(schema))
 
-  if (!jsii) {
+  if (!jsii && !keepNull) {
     return compileSource(normalized, name)
   }
 
   return jsiiTypings(
-    await compileSource(jsiiSchema(normalized), name, jsiiCompilerOptions),
+    await compileSource(
+      jsiiSchema(normalized, { keepNull }),
+      name,
+      keepNull
+        ? { ...jsiiCompilerOptions, unknownAny: false }
+        : jsiiCompilerOptions,
+    ),
   )
 }
