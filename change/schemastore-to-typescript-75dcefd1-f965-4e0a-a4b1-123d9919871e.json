@@ -1,0 +1,7 @@
+{
+  "type": "patch",
+  "comment": "Keep the value type of a map that refers to a definition in jsii mode",
+  "packageName": "schemastore-to-typescript",
+  "email": "filip.dupanovic@gmail.com",
+  "dependentChangeType": "patch"
+}
