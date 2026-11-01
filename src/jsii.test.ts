@@ -203,6 +203,24 @@ test('names objects written inline so they become interfaces', async () => {
   `)
 })
 
+test('names a closed object that has no members', async () => {
+  const ts = await compileForJsii({
+    type: 'object',
+    properties: {
+      ruby: { type: 'object', additionalProperties: false },
+    },
+    additionalProperties: false,
+  })
+
+  expect(ts).toMatchInlineSnapshot(`
+    "export interface Some {
+      readonly ruby?: SomeRuby;
+    }
+    export interface SomeRuby {}
+    "
+  `)
+})
+
 test('keeps a name already taken by a definition free', async () => {
   const ts = await compileForJsii({
     type: 'object',
