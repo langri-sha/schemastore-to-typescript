@@ -397,6 +397,9 @@ const inlineMaps = (document: Node): Node => {
   return walk(document, [], true) as Node
 }
 
+const isClosed = (node: Node) =>
+  node.type === 'object' && node.additionalProperties === false
+
 const pascal = (text: string) =>
   text
     .split(/[^A-Za-z0-9]+/)
@@ -453,7 +456,7 @@ const nameInlineObjects = (document: Node): Node => {
   const visit = (node: Node, fallback: string, hoisted: boolean): void => {
     if (
       !hoisted &&
-      hasMembers(node) &&
+      (hasMembers(node) || isClosed(node)) &&
       typeof node.title !== 'string' &&
       typeof node.$ref !== 'string'
     ) {
