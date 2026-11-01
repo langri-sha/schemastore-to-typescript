@@ -10,6 +10,7 @@ import {
 import Keyv from 'keyv'
 import { KeyvFile } from 'keyv-file'
 
+import { jsiiTypings } from './jsii.js'
 import { normalizeSchema } from './normalize.js'
 
 const debug = createDebug('schema-store-to-typescript')
@@ -159,9 +160,17 @@ const sanitizeSchema = <T>(node: T, isRoot: boolean = true): T => {
   return sanitized as T
 }
 
+export interface CompileOptions {
+  /**
+   * Emit typings that jsii compiles when they are part of a package's API.
+   */
+  jsii?: boolean
+}
+
 export const compile = async (
   name: string,
   cache: boolean = true,
+  { jsii = false }: CompileOptions = {},
 ): Promise<string> => {
   const catalogUrl = 'https://www.schemastore.org/api/json/catalog.json'
 
@@ -273,5 +282,11 @@ export const compile = async (
     await flushCache()
   }
 
-  return compileSource(sanitizeSchema(normalizeSchema(schema)), name)
+  const normalized = sanitizeSchema(normalizeSchema(schema))
+
+  if (!jsii) {
+    return compileSource(normalized, name)
+  }
+
+  return jsiiTypings(await compileSource(normalized, name))
 }
