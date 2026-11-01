@@ -515,3 +515,33 @@ test('lets the elements after a tuple be what the schema allows', async () => {
     "
   `)
 })
+
+test('hides members that are not camelCase from jsii', async () => {
+  const ts = await compileForJsii({
+    type: 'object',
+    properties: {
+      $schema: { type: 'string' },
+      line_length: { type: 'number', description: 'Maximum line length.' },
+      'target-version': { type: 'string' },
+      lineWidth: { type: 'number' },
+    },
+    required: ['target-version'],
+    additionalProperties: false,
+  })
+
+  expect(ts).toMatchInlineSnapshot(`
+    "export interface Some {
+      /** @jsii ignore */
+      readonly $schema?: string;
+      /**
+       * Maximum line length.
+       * @jsii ignore
+       */
+      readonly line_length?: number;
+      /** @jsii ignore */
+      readonly "target-version": string;
+      readonly lineWidth?: number;
+    }
+    "
+  `)
+})

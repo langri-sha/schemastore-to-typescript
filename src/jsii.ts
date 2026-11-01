@@ -457,7 +457,24 @@ export const jsiiSchema = (schema: JSONSchema): JSONSchema => {
   return nameInlineObjects(document) as JSONSchema
 }
 
+/**
+ * jsii rejects any member whose name `Case.camel` would change (JSII8002). It
+ * stays in the typings, as the wire format spells it, but outside the assembly.
+ */
+const isJsiiName = (name: string) =>
+  /^[a-z][a-z0-9]*(?:[A-Z][a-z0-9]*)*$/.test(name)
+
 const property = /^ {2}(?:readonly )?("[^"]+"|'[^']+'|[A-Za-z_$][\w$]*)(\?)?:/
+
+const ignore = (lines: string[]) => {
+  const last = lines.length - 1
+
+  if (lines[last]?.trim() === '*/') {
+    lines.splice(last, 0, '   * @jsii ignore')
+  } else {
+    lines.push('  /** @jsii ignore */')
+  }
+}
 
 /**
  * jsii requires a struct's members to be `readonly` (JSII3008). Only the
@@ -486,6 +503,10 @@ export const jsiiTypings = (source: string): string => {
     if (!match) {
       output.push(line)
       continue
+    }
+
+    if (!isJsiiName(match[1].replace(/^["']|["']$/g, ''))) {
+      ignore(output)
     }
 
     output.push(line.replace(/^ {2}(?:readonly )?/, '  readonly '))
