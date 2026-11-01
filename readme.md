@@ -58,6 +58,8 @@ The mode changes the shape of types only as far as jsii requires:
 - objects written inline become named interfaces, and named maps are written
   inline as `{ [k: string]: T }`
 - intersections become a single interface, and tuples become arrays
+- type names spelled in capitals alone, such as `SDK`, become `Sdk`, and so does
+  a `--type-name` spelled that way
 - names that aren't camelCase, names jsii reserves and index signatures stay in
   the typings as they are, tagged `@jsii ignore`, so the assembly leaves them
   out
