@@ -397,6 +397,13 @@ const inlineMaps = (document: Node): Node => {
   return walk(document, [], true) as Node
 }
 
+/**
+ * jsii rejects a type name `Case.pascal` would change (JSII8000), which is one
+ * spelled in capitals alone, such as `SDK`.
+ */
+const isShouting = (name: string) =>
+  /^[A-Z0-9]+$/.test(name) && /[A-Z].*[A-Z]/.test(name)
+
 const isClosed = (node: Node) =>
   node.type === 'object' && node.additionalProperties === false
 
@@ -454,6 +461,15 @@ const nameInlineObjects = (document: Node): Node => {
     typeof node.title === 'string' ? pascal(node.title) : fallback
 
   const visit = (node: Node, fallback: string, hoisted: boolean): void => {
+    const own =
+      hoisted || typeof node.title === 'string'
+        ? name(node, fallback)
+        : undefined
+
+    if (own !== undefined && isShouting(own)) {
+      node.title = unique(own[0] + own.slice(1).toLowerCase())
+    }
+
     if (
       !hoisted &&
       (hasMembers(node) || isClosed(node)) &&

@@ -221,6 +221,48 @@ test('names a closed object that has no members', async () => {
   `)
 })
 
+test('writes a type name spelled in capitals in pascal case', async () => {
+  const ts = await compileForJsii({
+    type: 'object',
+    properties: {
+      runtime: { $ref: '#/definitions/SDK' },
+      home: { $ref: '#/definitions/URL' },
+      entry: { $ref: '#/definitions/SDKEntry' },
+    },
+    additionalProperties: false,
+    definitions: {
+      SDK: {
+        type: 'object',
+        properties: { source: { type: 'string' } },
+        additionalProperties: false,
+      },
+      URL: { type: 'string', format: 'uri' },
+      SDKEntry: {
+        type: 'object',
+        properties: { name: { type: 'string' } },
+        additionalProperties: false,
+      },
+    },
+  })
+
+  expect(ts).toMatchInlineSnapshot(`
+    "export type Url = string;
+
+    export interface Some {
+      readonly runtime?: Sdk;
+      readonly home?: Url;
+      readonly entry?: SDKEntry;
+    }
+    export interface Sdk {
+      readonly source?: string;
+    }
+    export interface SDKEntry {
+      readonly name?: string;
+    }
+    "
+  `)
+})
+
 test('keeps a name already taken by a definition free', async () => {
   const ts = await compileForJsii({
     type: 'object',
