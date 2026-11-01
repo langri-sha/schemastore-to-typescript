@@ -164,3 +164,120 @@ test('keeps a name already taken by a definition free', async () => {
     "
   `)
 })
+
+test('writes a map-only definition inline where it is referenced', async () => {
+  const ts = await compileForJsii({
+    type: 'object',
+    properties: {
+      urls: { $ref: '#/definitions/urls' },
+      scripts: { $ref: '#/definitions/urls', description: 'Entry points.' },
+    },
+    additionalProperties: false,
+    definitions: {
+      urls: {
+        title: 'Project URLs',
+        type: 'object',
+        additionalProperties: { type: 'string' },
+      },
+    },
+  })
+
+  expect(ts).toMatchInlineSnapshot(`
+    "export interface Some {
+      readonly urls?: {
+        [k: string]: string;
+      };
+      /**
+       * Entry points.
+       */
+      readonly scripts?: {
+        [k: string]: string;
+      };
+    }
+    "
+  `)
+})
+
+test('writes nested map-only definitions inline', async () => {
+  const ts = await compileForJsii({
+    type: 'object',
+    properties: {
+      groups: { $ref: '#/definitions/groups' },
+    },
+    additionalProperties: false,
+    definitions: {
+      groups: {
+        type: 'object',
+        additionalProperties: { $ref: '#/definitions/entries' },
+      },
+      entries: {
+        type: 'object',
+        additionalProperties: { type: 'string' },
+      },
+    },
+  })
+
+  expect(ts).toMatchInlineSnapshot(`
+    "export interface Some {
+      readonly groups?: {
+        [k: string]: {
+          [k: string]: string;
+        };
+      };
+    }
+    "
+  `)
+})
+
+test('writes pattern properties without members as a map', async () => {
+  const ts = await compileForJsii({
+    type: 'object',
+    properties: {
+      env: {
+        type: 'object',
+        patternProperties: { '^[A-Z_]+$': { type: 'string' } },
+        additionalProperties: false,
+      },
+    },
+    additionalProperties: false,
+  })
+
+  expect(ts).toMatchInlineSnapshot(`
+    "export interface Some {
+      readonly env?: {
+        [k: string]: string;
+      };
+    }
+    "
+  `)
+})
+
+test('keeps a map that reaches itself as a named interface', async () => {
+  const ts = await compileForJsii({
+    type: 'object',
+    properties: {
+      tree: { $ref: '#/definitions/tree' },
+    },
+    additionalProperties: false,
+    definitions: {
+      tree: {
+        type: 'object',
+        additionalProperties: {
+          anyOf: [{ type: 'string' }, { $ref: '#/definitions/tree' }],
+        },
+      },
+    },
+  })
+
+  expect(ts).toMatchInlineSnapshot(`
+    "export interface Some {
+      readonly tree?: {
+        [k: string]: string | Tree;
+      };
+    }
+    export interface Tree {
+      [k: string]: string | Tree;
+    }
+    "
+  `)
+})
