@@ -1,4 +1,4 @@
-import type { JSONSchema } from 'json-schema-to-typescript'
+import type { JSONSchema, Options } from 'json-schema-to-typescript'
 
 import {
   type Node,
@@ -7,6 +7,10 @@ import {
   namedSchemaKeys,
   resolvePointer,
 } from './normalize.js'
+
+export const compilerOptions: Partial<Options> = {
+  ignoreMinAndMaxItems: true,
+}
 
 type Visit = (node: Node) => Node
 
@@ -179,6 +183,30 @@ const flatten =
 
     return flattened
   }
+
+/**
+ * Tuples cannot cross a jsii API (JSII1999); `ignoreMinAndMaxItems` covers
+ * the ones spelled with `minItems` and `maxItems`. What follows the listed
+ * items is one more alternative, or anything when it is `true`.
+ */
+const untuple: Visit = (node) => {
+  if (!Array.isArray(node.items)) {
+    return node
+  }
+
+  const { items, additionalItems, ...rest } = node
+  const alternatives = isObject(additionalItems)
+    ? [...items, additionalItems]
+    : items
+
+  return {
+    ...rest,
+    items:
+      additionalItems === true || alternatives.length === 0
+        ? {}
+        : { anyOf: alternatives },
+  }
+}
 
 const isMap = (node: unknown): node is Node =>
   isObject(node) &&
@@ -422,6 +450,7 @@ export const jsiiSchema = (schema: JSONSchema): JSONSchema => {
   let document = structuredClone(schema) as Node
 
   document = mapSchema(document, flatten(document)) as Node
+  document = mapSchema(document, untuple) as Node
   document = mapSchema(document, mapify) as Node
   document = inlineMaps(document)
 

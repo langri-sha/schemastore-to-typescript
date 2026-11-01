@@ -455,3 +455,63 @@ test('unions what several alternatives say about a member', async () => {
     "
   `)
 })
+
+test('turns tuples into arrays', async () => {
+  const ts = await compileForJsii({
+    type: 'object',
+    properties: {
+      pair: {
+        type: 'array',
+        items: { type: 'string' },
+        minItems: 2,
+        maxItems: 2,
+      },
+      models: { type: 'array', items: { type: 'string' }, maxItems: 3 },
+      mixed: { type: 'array', items: [{ type: 'string' }, { type: 'number' }] },
+    },
+    additionalProperties: false,
+  })
+
+  expect(ts).toMatchInlineSnapshot(`
+    "export interface Some {
+      /**
+       * @minItems 2
+       * @maxItems 2
+       */
+      readonly pair?: string[];
+      /**
+       * @maxItems 3
+       */
+      readonly models?: string[];
+      readonly mixed?: (string | number)[];
+    }
+    "
+  `)
+})
+
+test('lets the elements after a tuple be what the schema allows', async () => {
+  const ts = await compileForJsii({
+    type: 'object',
+    properties: {
+      typed: {
+        type: 'array',
+        items: [{ type: 'string' }],
+        additionalItems: { type: 'boolean' },
+      },
+      open: {
+        type: 'array',
+        items: [{ type: 'string' }],
+        additionalItems: true,
+      },
+    },
+    additionalProperties: false,
+  })
+
+  expect(ts).toMatchInlineSnapshot(`
+    "export interface Some {
+      readonly typed?: (string | boolean)[];
+      readonly open?: unknown[];
+    }
+    "
+  `)
+})
