@@ -3,7 +3,8 @@
   "$schema": "https://json.schemastore.org/tsconfig",
   "extends": "@langri-sha/tsconfig/build",
   "compilerOptions": {
-    "declarationMap": false
+    "declarationMap": false,
+    "types": ["debug", "node"]
   },
   "include": ["src"],
   "exclude": ["**/*.test.*"]
