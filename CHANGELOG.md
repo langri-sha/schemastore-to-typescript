@@ -1,8 +1,29 @@
 # Change Log - schemastore-to-typescript
 
-<!-- This log was last generated on Sun, 01 Nov 2026 16:59:00 GMT and should not be manually modified. -->
+<!-- This log was last generated on Mon, 09 Nov 2026 14:18:24 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 1.4.0
+
+Mon, 09 Nov 2026 14:18:24 GMT
+
+### Minor changes
+
+- Compile a schema from its https URL, as well as from its catalog name (filip.dupanovic@gmail.com)
+
+### Patches
+
+- Update dependency @langri-sha/projen-project to v0.49.0
+- Update dependency @langri-sha/tsconfig to v3
+- Update dependency @langri-sha/projen-project to v0.49.2
+- Update dependency @langri-sha/tsconfig to v2
+- Update dependency @langri-sha/projen-project to v0.48.2
+- Update dependency pnpm to v12.18.0
+- Update dependency got to v16.2.0
+- Update dependency @langri-sha/projen-project to v0.48.3
+- Update dependency pnpm to v12.17.0
+- Update dependency @langri-sha/projen-project to v0.52.0
 
 ## 1.3.0
 

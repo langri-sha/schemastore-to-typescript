@@ -1,7 +1,0 @@
-{
-  "type": "none",
-  "comment": "Upgrade to TypeScript 6",
-  "packageName": "schemastore-to-typescript",
-  "email": "filip.dupanovic@gmail.com",
-  "dependentChangeType": "none"
-}

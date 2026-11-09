@@ -1,7 +1,0 @@
-{
-  "type": "minor",
-  "comment": "Compile a schema from its https URL, as well as from its catalog name",
-  "packageName": "schemastore-to-typescript",
-  "email": "filip.dupanovic@gmail.com",
-  "dependentChangeType": "none"
-}
