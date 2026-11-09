@@ -97,3 +97,29 @@ test('keeps null in jsii mode with `--keep-null`', async () => {
     typeName: undefined,
   })
 })
+
+test('passes an https URL through as the schema', async () => {
+  await program.parseAsync([
+    'node',
+    'cli.ts',
+    'https://example.com/pinned/some-schema.json',
+  ])
+
+  expect(compile).toHaveBeenCalledWith(
+    'https://example.com/pinned/some-schema.json',
+    true,
+    { jsii: undefined, keepNull: undefined, typeName: undefined },
+  )
+})
+
+test('names the default output module after the file of a URL', async () => {
+  await program.parseAsync([
+    'node',
+    'cli.ts',
+    'https://example.com/pinned/some-schema.json',
+  ])
+
+  await expect(
+    fs.stat(path.join(process.cwd(), 'some-schema.d.ts')),
+  ).resolves.toBeTruthy()
+})
