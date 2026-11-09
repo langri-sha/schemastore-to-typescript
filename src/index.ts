@@ -16,6 +16,7 @@ import {
   jsiiTypings,
 } from './jsii.js'
 import { normalizeSchema } from './normalize.js'
+import { isSchemaUrl, urlName } from './url.js'
 
 const debug = createDebug('schema-store-to-typescript')
 const paths = envPaths('schemastore-to-typescript')
@@ -181,7 +182,8 @@ export interface CompileOptions {
   keepNull?: boolean
 
   /**
-   * Name the root interface, instead of the catalog's name for the schema.
+   * Name the root interface, instead of the catalog's name for the schema, or
+   * the name of the file of a schema given by its URL.
    */
   typeName?: string
 }
@@ -232,43 +234,49 @@ export const compile = async (
     }
   }
 
-  try {
-    // First, fetch the catalog
-    catalog = await fetchWithRetry<Catalog>(catalogUrl)
-  } catch (e) {
-    debug(e)
+  let catalogSchema: CatalogSchema | undefined
 
-    if (e instanceof HTTPError) {
-      throw new Error(
-        `Couldn't retrieve catalog from ${catalogUrl}. [${e.code}]`,
-        { cause: e },
-      )
+  if (!isSchemaUrl(name)) {
+    try {
+      // First, fetch the catalog
+      catalog = await fetchWithRetry<Catalog>(catalogUrl)
+    } catch (e) {
+      debug(e)
+
+      if (e instanceof HTTPError) {
+        throw new Error(
+          `Couldn't retrieve catalog from ${catalogUrl}. [${e.code}]`,
+          { cause: e },
+        )
+      }
+
+      throw e
     }
 
-    throw e
+    const schemaMap = new Map<string, CatalogSchema>()
+    for (const schema of catalog.schemas) {
+      schemaMap.set(schema.name.toLowerCase(), schema)
+    }
+
+    catalogSchema = schemaMap.get(name.toLowerCase())
+
+    if (!catalogSchema) {
+      throw new Error(
+        `Couldn't find schema ${name} in the catalog. Are you sure it exists?`,
+      )
+    }
   }
 
-  const schemaMap = new Map<string, CatalogSchema>()
-  for (const schema of catalog.schemas) {
-    schemaMap.set(schema.name.toLowerCase(), schema)
-  }
-
-  const catalogSchema = schemaMap.get(name.toLowerCase())
-
-  if (!catalogSchema) {
-    throw new Error(
-      `Couldn't find schema ${name} in the catalog. Are you sure it exists?`,
-    )
-  }
+  const schemaUrl = catalogSchema?.url ?? name
 
   try {
     // Fetch the actual schema from the found URL
-    debug(`Fetching schema from: ${catalogSchema.url}`)
+    debug(`Fetching schema from: ${schemaUrl}`)
 
-    schema = await fetchWithRetry<JSONSchema>(catalogSchema.url)
+    schema = await fetchWithRetry<JSONSchema>(schemaUrl)
 
     if (typeof schema === 'object' && schema !== null) {
-      schema.title = typeName ?? catalogSchema.name
+      schema.title = typeName ?? catalogSchema?.name ?? urlName(name)
     }
   } catch (e) {
     debug(e)
@@ -276,20 +284,20 @@ export const compile = async (
     if (e instanceof HTTPError) {
       if (e.response.statusCode === 404) {
         throw new Error(
-          `Couldn't find schema ${name} at ${catalogSchema.url}. Are you sure it exists?`,
+          `Couldn't find schema ${name}${catalogSchema ? ` at ${schemaUrl}` : ''}. Are you sure it exists?`,
           { cause: e },
         )
       }
 
       throw new Error(
-        `Couldn't retrieve schema from ${catalogSchema.url}. [${e.code}] Status: ${e.response.statusCode}`,
+        `Couldn't retrieve schema from ${schemaUrl}. [${e.code}] Status: ${e.response.statusCode}`,
         { cause: e },
       )
     }
 
     if (e instanceof Error && e.message.includes('is not valid JSON')) {
       throw new Error(
-        `Failed to parse JSON from ${catalogSchema.url}. The server might be returning invalid or compressed content. Error: ${e.message}`,
+        `Failed to parse JSON from ${schemaUrl}. The server might be returning invalid or compressed content. Error: ${e.message}`,
         { cause: e },
       )
     }
@@ -301,16 +309,17 @@ export const compile = async (
     await flushCache()
   }
 
+  const schemaName = catalogSchema ? name : urlName(name)
   const normalized = sanitizeSchema(normalizeSchema(schema))
 
   if (!jsii && !keepNull) {
-    return compileSource(normalized, name)
+    return compileSource(normalized, schemaName)
   }
 
   return jsiiTypings(
     await compileSource(
       jsiiSchema(normalized, { keepNull }),
-      name,
+      schemaName,
       keepNull
         ? { ...jsiiCompilerOptions, unknownAny: false }
         : jsiiCompilerOptions,

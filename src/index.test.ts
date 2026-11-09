@@ -817,3 +817,102 @@ test('handles case-insensitive schema name matching', async () => {
   expect(lowercase).toBe(mixedcase)
   expect(lowercase).toContain('export interface MySchema')
 })
+
+test('compiles a schema from its https URL without the catalog', async () => {
+  const catalog = nock('https://www.schemastore.org')
+    .get('/api/json/catalog.json')
+    .reply(200, { schemas: [] })
+
+  nock('https://example.com')
+    .get('/pinned/some-schema.json')
+    .reply(200, {
+      $schema: 'http://json-schema.org/draft-07/schema#',
+      title: 'Pinned Schema',
+      type: 'object',
+      properties: { id: { type: 'string' } },
+      required: ['id'],
+    })
+
+  const ts = await compile('https://example.com/pinned/some-schema.json')
+
+  expect(ts).toContain('export interface SomeSchema')
+  expect(catalog.isDone()).toBe(false)
+})
+
+test('names the root interface of a URL schema with `typeName`', async () => {
+  nock('https://example.com')
+    .get('/some-schema.json')
+    .reply(200, {
+      title: 'Pinned Schema',
+      type: 'object',
+      properties: { id: { type: 'string' } },
+    })
+
+  const ts = await compile('https://example.com/some-schema.json', true, {
+    typeName: 'PinnedConfig',
+  })
+
+  expect(ts).toContain('export interface PinnedConfig')
+})
+
+test('names the root interface of a URL schema after its file, whatever its title', async () => {
+  nock('https://example.com')
+    .get('/untitled-config.schema.json')
+    .reply(200, {
+      title: 'Versioned 1.2.3',
+      type: 'object',
+      properties: { id: { type: 'string' } },
+    })
+
+  const ts = await compile('https://example.com/untitled-config.schema.json')
+
+  expect(ts).toContain('export interface UntitledConfigSchema')
+})
+
+test('sanitizes the schema of a URL', async () => {
+  nock('https://example.com')
+    .get('/open.json')
+    .reply(200, {
+      title: 'Open',
+      type: 'object',
+      properties: {
+        extras: {
+          type: 'object',
+          properties: { note: { type: 'string' } },
+          additionalProperties: { type: 'string' },
+        },
+      },
+    })
+
+  const ts = await compile('https://example.com/open.json')
+
+  expect(ts).toContain('[k: string]: string')
+  expect(ts).not.toContain('note')
+})
+
+test('applies the jsii mode to a URL schema', async () => {
+  nock('https://example.com')
+    .get('/nullable.json')
+    .reply(200, {
+      title: 'Nullable',
+      type: 'object',
+      properties: { label: { type: ['string', 'null'] } },
+    })
+
+  const ts = await compile('https://example.com/nullable.json', true, {
+    jsii: true,
+  })
+
+  expect(ts).toContain('readonly label?: string;')
+  expect(ts).not.toContain('null')
+})
+
+test('reports a URL schema that is not found', async () => {
+  nock('https://example.com').get('/missing.json').reply(404)
+
+  await expect(
+    compile('https://example.com/missing.json'),
+  ).rejects.toThrowErrorMatchingInlineSnapshot(
+    `[Error: Couldn't find schema https://example.com/missing.json. Are you sure it exists?]`,
+  )
+})

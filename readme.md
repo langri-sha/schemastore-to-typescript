@@ -26,6 +26,18 @@ schemastore-to-typescript 'cargo manifest' src/cargo.ts
 
 Downloads are cached; pass `--no-cache` to skip the cache.
 
+An `https` URL takes the place of the name, to compile a schema at a fixed
+location, such as a file of a tagged release, without the catalog. The options
+apply as they do to a name, and the output defaults to `<file>.d.ts`. Without
+`--type-name`, the root interface takes the name of its file, so pass
+`--type-name` for a URL that pins a version. Only the schema itself goes through
+the cache. A `$ref` to another document is left to the compiler: an absolute URL
+is fetched live and a relative path is read from the working directory.
+
+```sh
+schemastore-to-typescript https://unpkg.com/renovate@44.168.4/renovate-schema.json src/renovate.ts
+```
+
 The same is available as a function, which resolves to the generated module and
 takes `false` as its second argument to skip the cache:
 
@@ -34,6 +46,8 @@ import { compile } from 'schemastore-to-typescript'
 
 const typings = await compile('swcrc')
 ```
+
+It takes a URL where the name goes, as the command does.
 
 ## Usage with jsii
 

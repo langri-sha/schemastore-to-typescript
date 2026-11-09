@@ -6,6 +6,8 @@ import { Command, Option } from 'commander'
 import createDebug from 'debug'
 import esMain from 'es-main'
 
+import { isSchemaUrl, urlName } from './url.js'
+
 import { compile } from './index.js'
 
 const debug = createDebug('schema-store-to-typescript')
@@ -13,7 +15,10 @@ const debug = createDebug('schema-store-to-typescript')
 export const program: Command = new Command()
   .name('schemastore-to-typescript')
   .description('Compile a JSON schema store schema to TypeScript definitions')
-  .argument('<schema>', 'JSON schema store schema')
+  .argument(
+    '<schema>',
+    'JSON schema store schema name, or the https URL of a JSON schema',
+  )
   .argument('[output]', 'Path to output the TypeScript definition')
   .option('-n, --no-cache', 'Skip caching requests')
   .option('--jsii', 'Emit typings that jsii can compile')
@@ -26,7 +31,7 @@ export const program: Command = new Command()
   .option('--type-name <name>', 'Name the root interface')
   .showHelpAfterError()
   .action(async (schema, output, { cache, jsii, keepNull, typeName }) => {
-    output ??= `${schema}.d.ts`
+    output ??= `${isSchemaUrl(schema) ? urlName(schema) : schema}.d.ts`
 
     const compiled = await compile(schema, cache, {
       jsii,
