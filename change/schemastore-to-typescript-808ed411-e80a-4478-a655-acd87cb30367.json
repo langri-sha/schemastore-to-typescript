@@ -1,0 +1,7 @@
+{
+  "type": "minor",
+  "comment": "Sanitize the documents that schema references point to, and fetch them through the cache",
+  "packageName": "schemastore-to-typescript",
+  "email": "filip.dupanovic@gmail.com",
+  "dependentChangeType": "none"
+}
