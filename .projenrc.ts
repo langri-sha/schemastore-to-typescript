@@ -24,7 +24,7 @@ const project = new Project({
       'schemastore-to-typescript': 'src/cli.ts',
     },
     deps: [
-      'commander@15.0.0',
+      'commander@15.1.0',
       'debug@4.4.3',
       'env-paths@4.0.0',
       'es-main@1.4.0',
