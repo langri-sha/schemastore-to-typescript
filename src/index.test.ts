@@ -11,7 +11,7 @@ import envPaths from 'env-paths'
 import got from 'got'
 import Keyv from 'keyv'
 import { KeyvFile } from 'keyv-file'
-import { vi } from 'vitest'
+import { describe, vi } from 'vitest'
 
 import { compile } from './index.js'
 
@@ -915,4 +915,108 @@ test('reports a URL schema that is not found', async () => {
   ).rejects.toThrowErrorMatchingInlineSnapshot(
     `[Error: Couldn't find schema https://example.com/missing.json. Are you sure it exists?]`,
   )
+})
+
+const injection = 'string\n}\nexport const injected = 1\ninterface Spill {'
+
+const modes = [
+  ['plain', {}],
+  ['jsii', { jsii: true }],
+] as const
+
+const keywords = [
+  ['string', injection],
+  ['array', [injection]],
+  ['object', { injected: injection }],
+  ['number', 1],
+] as const
+
+describe.each(modes)('in %s mode', (_, options) => {
+  test.each(keywords)('ignores a %s tsType', async (_, tsType) => {
+    nock('https://example.com')
+      .get('/typed.json')
+      .reply(200, {
+        title: 'Typed',
+        type: 'object',
+        properties: {
+          label: { type: 'string', tsType },
+          tags: { type: 'array', items: { tsType } },
+          shared: { $ref: '#/definitions/shared' },
+          sibling: { $ref: '#/definitions/shared', tsType },
+        },
+        definitions: { shared: { type: 'number', tsType } },
+      })
+
+    const ts = await compile('https://example.com/typed.json', false, options)
+
+    expect(ts).not.toContain('injected')
+    expect(ts).not.toContain('Spill')
+  })
+})
+
+const literalKeywords = ['default', 'enum', 'const', 'examples'] as const
+
+describe.each(modes)('in %s mode', (_, options) => {
+  test.each(literalKeywords)(
+    'ignores a tsType under a member named %s',
+    async (name) => {
+      nock('https://example.com')
+        .get('/literal.json')
+        .reply(200, {
+          title: 'Literal',
+          type: 'object',
+          properties: {
+            [name]: { type: 'string', tsType: injection },
+            shared: { $ref: `#/definitions/${name}` },
+          },
+          patternProperties: { [name]: { type: 'string', tsType: injection } },
+          definitions: { [name]: { type: 'number', tsType: injection } },
+        })
+
+      const ts = await compile(
+        'https://example.com/literal.json',
+        false,
+        options,
+      )
+
+      expect(ts).not.toContain('injected')
+      expect(ts).not.toContain('Spill')
+    },
+  )
+})
+
+test('leaves a tsType inside an enum or const value alone', async () => {
+  nock('https://example.com')
+    .get('/values.json')
+    .reply(200, {
+      title: 'Values',
+      type: 'object',
+      properties: {
+        choice: { enum: [{ tsType: 'kept' }] },
+        fixed: { const: { tsType: 'kept' } },
+      },
+    })
+
+  const ts = await compile('https://example.com/values.json', false)
+
+  expect(ts.match(/tsType/g)).toHaveLength(2)
+})
+
+test('keeps a property named tsType', async () => {
+  nock('https://example.com')
+    .get('/named.json')
+    .reply(200, {
+      title: 'Named',
+      type: 'object',
+      properties: {
+        tsType: { type: 'string' },
+        shared: { $ref: '#/definitions/tsType' },
+      },
+      definitions: { tsType: { type: 'number' } },
+    })
+
+  const ts = await compile('https://example.com/named.json', false)
+
+  expect(ts).toContain('tsType?: string;')
+  expect(ts).toContain('export type TsType = number;')
 })

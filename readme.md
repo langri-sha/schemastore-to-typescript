@@ -32,7 +32,9 @@ apply as they do to a name, and the output defaults to `<file>.d.ts`. Without
 `--type-name`, the root interface takes the name of its file, so pass
 `--type-name` for a URL that pins a version. Only the schema itself goes through
 the cache. A `$ref` to another document is left to the compiler: an absolute URL
-is fetched live and a relative path is read from the working directory.
+is fetched live and a relative path is read from the working directory. The
+`tsType` keyword, which the compiler would write into the typings as code, is
+ignored.
 
 ```sh
 schemastore-to-typescript https://unpkg.com/renovate@44.168.4/renovate-schema.json src/renovate.ts

@@ -15,7 +15,7 @@ import {
   jsiiSchema,
   jsiiTypings,
 } from './jsii.js'
-import { normalizeSchema } from './normalize.js'
+import { namedSchemaKeys, normalizeSchema } from './normalize.js'
 import { isSchemaUrl, urlName } from './url.js'
 
 const debug = createDebug('schema-store-to-typescript')
@@ -109,9 +109,15 @@ const nonSchemaKeys = new Set(['default', 'examples', 'const', 'enum'])
  * on an intersection with no parameters. The `allOf` already carries what the
  * self-reference would inherit, so the `$ref` goes.
  */
-const sanitizeSchema = <T>(node: T, isRoot: boolean = true): T => {
+const sanitizeSchema = <T>(
+  node: T,
+  isRoot: boolean = true,
+  inSchema: boolean = true,
+): T => {
   if (Array.isArray(node)) {
-    return node.map((item) => sanitizeSchema(item, false)) as unknown as T
+    return node.map((item) =>
+      sanitizeSchema(item, false, inSchema),
+    ) as unknown as T
   }
 
   if (node === null || typeof node !== 'object') {
@@ -121,9 +127,14 @@ const sanitizeSchema = <T>(node: T, isRoot: boolean = true): T => {
   const sanitized: Record<string, unknown> = {}
 
   for (const [key, value] of Object.entries(node as Record<string, unknown>)) {
-    sanitized[key] = nonSchemaKeys.has(key)
-      ? value
-      : sanitizeSchema(value, false)
+    sanitized[key] =
+      inSchema && nonSchemaKeys.has(key)
+        ? value
+        : sanitizeSchema(value, false, !inSchema || !namedSchemaKeys.has(key))
+  }
+
+  if (inSchema) {
+    delete sanitized.tsType
   }
 
   if (
