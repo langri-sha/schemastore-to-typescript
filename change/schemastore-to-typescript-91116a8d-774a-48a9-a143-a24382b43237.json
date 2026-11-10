@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Update dependency commander to v15.1.0",
-  "packageName": "schemastore-to-typescript",
-  "email": "email not defined",
-  "dependentChangeType": "patch"
-}

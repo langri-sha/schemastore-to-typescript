@@ -1,8 +1,23 @@
 # Change Log - schemastore-to-typescript
 
-<!-- This log was last generated on Mon, 09 Nov 2026 14:18:24 GMT and should not be manually modified. -->
+<!-- This log was last generated on Tue, 10 Nov 2026 03:36:01 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 1.5.0
+
+Tue, 10 Nov 2026 03:36:01 GMT
+
+### Minor changes
+
+- Refuse schema references to local files and over http, which the compiler read from the working directory and fetched (filip.dupanovic@gmail.com)
+- Sanitize the documents that schema references point to, and fetch them through the cache (filip.dupanovic@gmail.com)
+
+### Patches
+
+- Ignore tsType in schemas, which the compiler would write into the typings as code (filip.dupanovic@gmail.com)
+- Update dependency commander to v15.1.0
+- Escape every comment terminator in the patterns of pattern properties (filip.dupanovic@gmail.com)
 
 ## 1.4.0
 

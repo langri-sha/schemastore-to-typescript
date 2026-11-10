@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Ignore tsType in schemas, which the compiler would write into the typings as code",
-  "packageName": "schemastore-to-typescript",
-  "email": "filip.dupanovic@gmail.com",
-  "dependentChangeType": "none"
-}

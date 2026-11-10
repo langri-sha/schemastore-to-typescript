@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Escape every comment terminator in the patterns of pattern properties",
-  "packageName": "schemastore-to-typescript",
-  "email": "filip.dupanovic@gmail.com",
-  "dependentChangeType": "none"
-}

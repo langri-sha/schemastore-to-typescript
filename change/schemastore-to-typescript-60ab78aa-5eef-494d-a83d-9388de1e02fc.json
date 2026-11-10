@@ -1,7 +1,0 @@
-{
-  "type": "minor",
-  "comment": "Refuse schema references to local files and over http, which the compiler read from the working directory and fetched",
-  "packageName": "schemastore-to-typescript",
-  "email": "filip.dupanovic@gmail.com",
-  "dependentChangeType": "none"
-}

@@ -2,6 +2,47 @@
   "name": "schemastore-to-typescript",
   "entries": [
     {
+      "date": "Tue, 10 Nov 2026 03:36:01 GMT",
+      "version": "1.5.0",
+      "tag": "schemastore-to-typescript_v1.5.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "filip.dupanovic@gmail.com",
+            "package": "schemastore-to-typescript",
+            "commit": "640730f9cafde3b3fe1ef256091f1b70dcfe8d4e",
+            "comment": "Refuse schema references to local files and over http, which the compiler read from the working directory and fetched"
+          },
+          {
+            "author": "filip.dupanovic@gmail.com",
+            "package": "schemastore-to-typescript",
+            "commit": "640730f9cafde3b3fe1ef256091f1b70dcfe8d4e",
+            "comment": "Sanitize the documents that schema references point to, and fetch them through the cache"
+          }
+        ],
+        "patch": [
+          {
+            "author": "filip.dupanovic@gmail.com",
+            "package": "schemastore-to-typescript",
+            "commit": "640730f9cafde3b3fe1ef256091f1b70dcfe8d4e",
+            "comment": "Ignore tsType in schemas, which the compiler would write into the typings as code"
+          },
+          {
+            "author": "email not defined",
+            "package": "schemastore-to-typescript",
+            "commit": "640730f9cafde3b3fe1ef256091f1b70dcfe8d4e",
+            "comment": "Update dependency commander to v15.1.0"
+          },
+          {
+            "author": "filip.dupanovic@gmail.com",
+            "package": "schemastore-to-typescript",
+            "commit": "640730f9cafde3b3fe1ef256091f1b70dcfe8d4e",
+            "comment": "Escape every comment terminator in the patterns of pattern properties"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 09 Nov 2026 14:18:24 GMT",
       "version": "1.4.0",
       "tag": "schemastore-to-typescript_v1.4.0",
