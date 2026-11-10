@@ -30,10 +30,10 @@ An `https` URL takes the place of the name, to compile a schema at a fixed
 location, such as a file of a tagged release, without the catalog. The options
 apply as they do to a name, and the output defaults to `<file>.d.ts`. Without
 `--type-name`, the root interface takes the name of its file, so pass
-`--type-name` for a URL that pins a version. Only the schema itself goes through
-the cache. A `$ref` to another document is fetched live over `https`; a
-reference to a local file or over `http` is an error. The `tsType` keyword,
-which the compiler would write into the typings as code, is ignored.
+`--type-name` for a URL that pins a version. A `$ref` to another `https`
+document is fetched through the cache and compiled like the schema; a reference
+to a local file or over `http` is an error. The `tsType` keyword, which the
+compiler would write into the typings as code, is ignored.
 
 ```sh
 schemastore-to-typescript https://unpkg.com/renovate@44.168.4/renovate-schema.json src/renovate.ts

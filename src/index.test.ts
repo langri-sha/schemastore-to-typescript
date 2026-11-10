@@ -1070,3 +1070,79 @@ test('rejects a reference over http', async () => {
     compile('https://example.com/insecure.json', false),
   ).rejects.toThrow()
 })
+
+describe.each(modes)('in %s mode', (_, options) => {
+  test.each(keywords)(
+    'ignores a %s tsType in a referenced document',
+    async (_, tsType) => {
+      nock('https://example.com')
+        .get('/referencing.json')
+        .reply(200, {
+          title: 'Referencing',
+          type: 'object',
+          properties: {
+            remote: { $ref: 'https://example.com/referenced.json' },
+            pointer: {
+              $ref: 'https://example.com/referenced.json#/definitions/part',
+            },
+          },
+        })
+
+      nock('https://example.com')
+        .get('/referenced.json')
+        .times(2)
+        .reply(200, {
+          type: 'object',
+          description: 'Referenced document',
+          tsType,
+          properties: { id: { type: 'string' } },
+          definitions: { part: { type: 'number', tsType } },
+        })
+
+      const ts = await compile(
+        'https://example.com/referencing.json',
+        false,
+        options,
+      )
+
+      expect(ts).toContain('Referenced document')
+      expect(ts).not.toContain('injected')
+      expect(ts).not.toContain('Spill')
+    },
+  )
+})
+
+describe.each(modes)('in %s mode', (_, options) => {
+  test.each(literalKeywords)(
+    'ignores a tsType under a member named %s in a referenced document',
+    async (name) => {
+      nock('https://example.com')
+        .get('/referencing-literal.json')
+        .reply(200, {
+          title: 'ReferencingLiteral',
+          type: 'object',
+          properties: {
+            remote: { $ref: 'https://example.com/referenced-literal.json' },
+          },
+        })
+
+      nock('https://example.com')
+        .get('/referenced-literal.json')
+        .reply(200, {
+          type: 'object',
+          properties: { [name]: { type: 'string', tsType: injection } },
+          patternProperties: { [name]: { type: 'string', tsType: injection } },
+          definitions: { [name]: { type: 'number', tsType: injection } },
+        })
+
+      const ts = await compile(
+        'https://example.com/referencing-literal.json',
+        false,
+        options,
+      )
+
+      expect(ts).not.toContain('injected')
+      expect(ts).not.toContain('Spill')
+    },
+  )
+})

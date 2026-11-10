@@ -342,6 +342,8 @@ export const compile = async (
         file: false,
         http: {
           canRead: ({ url }: { url: string }) => isSchemaUrl(url),
+          read: async ({ url }: { url: string }) =>
+            sanitizeSchema(await fetchWithRetry<JSONSchema>(url)),
         },
       },
     },
