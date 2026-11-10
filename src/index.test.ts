@@ -1038,3 +1038,35 @@ test('keeps a pattern with several comment terminators inside its comment', asyn
 
   expect(ts.replace(/\/\*[\s\S]*?\*\//g, '')).not.toContain('injected')
 })
+
+test('rejects a reference to a local file', async () => {
+  nock('https://example.com')
+    .get('/local.json')
+    .reply(200, {
+      title: 'Local',
+      type: 'object',
+      properties: { secret: { $ref: 'package.json' } },
+    })
+
+  await expect(
+    compile('https://example.com/local.json', false),
+  ).rejects.toThrow()
+})
+
+test('rejects a reference over http', async () => {
+  nock('https://example.com')
+    .get('/insecure.json')
+    .reply(200, {
+      title: 'Insecure',
+      type: 'object',
+      properties: { remote: { $ref: 'http://example.com/plain.json' } },
+    })
+
+  nock('http://example.com')
+    .get('/plain.json')
+    .reply(200, { type: 'string', description: 'Fetched over http' })
+
+  await expect(
+    compile('https://example.com/insecure.json', false),
+  ).rejects.toThrow()
+})
