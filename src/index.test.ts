@@ -1020,3 +1020,21 @@ test('keeps a property named tsType', async () => {
   expect(ts).toContain('tsType?: string;')
   expect(ts).toContain('export type TsType = number;')
 })
+
+test('keeps a pattern with several comment terminators inside its comment', async () => {
+  nock('https://example.com')
+    .get('/patterns.json')
+    .reply(200, {
+      title: 'Patterns',
+      type: 'object',
+      patternProperties: {
+        '*/ */ } export const injected = 1; interface Spill { /*': {
+          type: 'string',
+        },
+      },
+    })
+
+  const ts = await compile('https://example.com/patterns.json', false)
+
+  expect(ts.replace(/\/\*[\s\S]*?\*\//g, '')).not.toContain('injected')
+})

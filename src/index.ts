@@ -69,6 +69,9 @@ interface Catalog {
   schemas: CatalogSchema[]
 }
 
+const isRecord = (value: unknown): value is Record<string, unknown> =>
+  typeof value === 'object' && value !== null && !Array.isArray(value)
+
 // Holds literal instance data rather than nested schemas, so it must not be
 // walked as if it were part of the schema shape.
 const nonSchemaKeys = new Set(['default', 'examples', 'const', 'enum'])
@@ -135,6 +138,15 @@ const sanitizeSchema = <T>(
 
   if (inSchema) {
     delete sanitized.tsType
+  }
+
+  if (inSchema && isRecord(sanitized.patternProperties)) {
+    sanitized.patternProperties = Object.fromEntries(
+      Object.entries(sanitized.patternProperties).map(([pattern, value]) => [
+        pattern.replaceAll('*/', '*\\/'),
+        value,
+      ]),
+    )
   }
 
   if (
