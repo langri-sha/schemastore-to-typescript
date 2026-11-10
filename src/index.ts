@@ -5,6 +5,7 @@ import envPaths from 'env-paths'
 import got, { HTTPError } from 'got'
 import {
   type JSONSchema,
+  type Options,
   compile as compileSource,
 } from 'json-schema-to-typescript'
 import Keyv from 'keyv'
@@ -335,8 +336,19 @@ export const compile = async (
   const schemaName = catalogSchema ? name : urlName(name)
   const normalized = sanitizeSchema(normalizeSchema(schema))
 
+  const compilerOptions: Partial<Options> = {
+    $refOptions: {
+      resolve: {
+        file: false,
+        http: {
+          canRead: ({ url }: { url: string }) => isSchemaUrl(url),
+        },
+      },
+    },
+  }
+
   if (!jsii && !keepNull) {
-    return compileSource(normalized, schemaName)
+    return compileSource(normalized, schemaName, compilerOptions)
   }
 
   return jsiiTypings(
@@ -344,8 +356,8 @@ export const compile = async (
       jsiiSchema(normalized, { keepNull }),
       schemaName,
       keepNull
-        ? { ...jsiiCompilerOptions, unknownAny: false }
-        : jsiiCompilerOptions,
+        ? { ...jsiiCompilerOptions, ...compilerOptions, unknownAny: false }
+        : { ...jsiiCompilerOptions, ...compilerOptions },
     ),
   )
 }
