@@ -204,8 +204,8 @@ importers:
         specifier: 16.0.0
         version: 16.0.0
       keyv:
-        specifier: 5.6.0
-        version: 5.6.0
+        specifier: 6.1.0
+        version: 6.1.0
       keyv-file:
         specifier: 5.3.5
         version: 5.3.5
@@ -1742,6 +1742,10 @@ packages:
   hookified@2.2.0:
     resolution: {integrity: sha512-p/LgFzRN5FeoD3DLS6bkUapeye6E4SI6yJs6KetENd18S+FBthqYq2amJUWpt5z0EQwwHemidjY5OqJGEKm5uA==}
 
+  hookified@3.1.0:
+    resolution: {integrity: sha512-G2jPVpzwIiV7pcYcg62ngNvY+y0iCkKmuJIaQpomFdvtY89UiSvWuPiNo1AalSr1t2op1cdz21ZThZc3DSbmvA==}
+    engines: {node: '>=22.18.0'}
+
   hosted-git-info@10.1.1:
     resolution: {integrity: sha512-DeOnSPAvOndYKfw075gt8yZzQ7S2hNztw34zBTfhIzLhmBTswIBg5/y+pqu/VD5cYWm5goAFTusDmUEmKZ0PEQ==}
     engines: {node: ^22.22.2 || ^24.15.0 || >=26.0.0}
@@ -1990,6 +1994,10 @@ packages:
 
   keyv@5.6.0:
     resolution: {integrity: sha512-CYDD3SOtsHtyXeEORYRx2qBtpDJFjRTGXUtmNEMGyzYOKj1TE3tycdlho7kA1Ufx9OYWZzg52QFBGALTirzDSw==}
+
+  keyv@6.1.0:
+    resolution: {integrity: sha512-0OO64DxKOITdyQljNCcO+vc+iyaPmm3OV5eKOWRxWCp3V0QnXenpqcKfjGjycNILUJNV+erm1ose6Hsgr1fNFA==}
+    engines: {node: '>= 22.19.0'}
 
   kleur@3.0.3:
     resolution: {integrity: sha512-eTIzlVOSUR+JxdDFepEYcBMtZ9Qqdef+rnzWdRZuMbOywu5tO2w2N7rqjoANZ5k9vywhL6Br1VRjUIgTQx4E8w==}
@@ -4624,6 +4632,8 @@ snapshots:
 
   hookified@2.2.0: {}
 
+  hookified@3.1.0: {}
+
   hosted-git-info@10.1.1:
     dependencies:
       lru-cache: 11.5.3
@@ -4860,6 +4870,10 @@ snapshots:
   keyv@5.6.0:
     dependencies:
       '@keyv/serialize': 1.1.1
+
+  keyv@6.1.0:
+    dependencies:
+      hookified: 3.1.0
 
   kleur@3.0.3: {}
 
