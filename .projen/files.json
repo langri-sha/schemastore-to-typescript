@@ -18,6 +18,7 @@
     ".projen/tasks.json",
     "beachball.config.cjs",
     "CODEOWNERS",
+    "dagger.toml",
     "eslint.config.js",
     "license",
     "lint-staged.config.js",
