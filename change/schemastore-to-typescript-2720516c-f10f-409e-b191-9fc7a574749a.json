@@ -1,0 +1,7 @@
+{
+  "type": "none",
+  "comment": "Derive dagger.toml from the projen preset",
+  "packageName": "schemastore-to-typescript",
+  "email": "filip.dupanovic@gmail.com",
+  "dependentChangeType": "none"
+}
